@@ -1,10 +1,10 @@
 //-----------------------------------------------------------------------------
-// Module: sigma1_func
-// Tác giả: Vẫn là tao
+// Module: sigma1_func_schedule
+// Tác giả: ZenZ
 // Chức năng: Tính hàm sigma1 (σ₁) của SHA-256.
 //            σ₁(x) = ROTR¹⁷(x) ⊕ ROTR¹⁹(x) ⊕ SHR¹⁰(x)
 //-----------------------------------------------------------------------------
-module sigma1_func_for_schedule (
+module sigma1_func_schedule (
     input wire [31:0] x,    // Đầu vào 32-bit
     output wire [31:0] out  // Kết quả sigma1(x) 32-bit
 );

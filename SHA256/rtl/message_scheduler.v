@@ -1,5 +1,6 @@
 //-----------------------------------------------------------------------------
 // Module: message_scheduler
+// Author: ThgLeTuan
 // Description: Implements the SHA-256 message scheduler based on Fig. 5 and Table 2.
 //              Generates W[t] for rounds t = 0 to 63.
 //-----------------------------------------------------------------------------
@@ -57,12 +58,12 @@ module message_scheduler (
     assign w_im16 = W_reg[idx_im16];
 
     // Instantiate sigma functions
-    sigma0_func_for_schedule s0_inst (
+    sigma0_func_schedule s0_inst (
         .data_in (w_im15),
         .data_out(s0_out)
     );
 
-    sigma1_func_for_schedule s1_inst (
+    sigma1_func_schedule s1_inst (
         .data_in (w_im2),
         .data_out(s1_out)
     );

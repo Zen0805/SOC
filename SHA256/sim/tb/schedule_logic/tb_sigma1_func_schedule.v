@@ -21,7 +21,7 @@ module tb_sigma1_func_for_schedule();
 
 
     // --- Instantiate DUT ---
-    sigma1_func uut (
+    sigma1_func_schedule uut (
         .x(test_x),
         .out(w_sigma1_out)
     );

@@ -1,10 +1,10 @@
 //-----------------------------------------------------------------------------
-// Module: sigma0_func
+// Module: sigma0_func_schedule
 // Tác giả: ZenZ
 // Chức năng: Tính hàm sigma0 (σ₀) của SHA-256.
 //            σ₀(x) = ROTR⁷(x) ⊕ ROTR¹⁸(x) ⊕ SHR³(x)
 //-----------------------------------------------------------------------------
-module sigma0_func_for_schedule (
+module sigma0_func_schedule (
     input wire [31:0] x,    // Đầu vào 32-bit
     output wire [31:0] out  // Kết quả sigma0(x) 32-bit
 );
