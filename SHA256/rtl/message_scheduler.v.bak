@@ -1,0 +1,200 @@
+//-----------------------------------------------------------------------------
+// Module: message_scheduler
+// Tác giả: Tao và mày hợp tác
+// Chức năng: Tạo ra các message word W[t] cho thuật toán SHA-256.
+//            Thực hiện theo kiến trúc tối ưu (Fig 5, Table 2 trong paper).
+//            Sử dụng 1 adder, 1 reg_w, 1 memory 16x32-bit.
+//            Tính W[t] (t>=16) trong 4 chu kỳ clock.
+//-----------------------------------------------------------------------------
+module message_scheduler (
+    // --- Interface ---
+    input wire          clk,
+    input wire          reset_n, // Reset tích cực thấp
+
+    // Điều khiển từ bên ngoài (Controller)
+    input wire          start_new_block, // Báo hiệu bắt đầu block mới, cần load M[0..15]
+    input wire [5:0]    round_t,         // Vòng lặp hiện tại (0-63)
+
+    // Interface để load message ban đầu (M[0..15])
+    input wire [31:0]   message_word_in, // Dữ liệu M[i] để load
+    input wire [3:0]    message_word_addr,// Địa chỉ (0-15) của M[i] đang load
+    input wire          write_enable_in, // Cho phép ghi message_word_in vào memory
+
+    // --- Đầu ra ---
+    output wire [31:0]  Wt_out           // W[t] tương ứng với round_t
+);
+
+    // --- Internal Signals ---
+    // Memory 16x32-bit để lưu các W[t] cần thiết
+    reg [31:0] W_memory [15:0];
+
+    // Thanh ghi tạm để thực hiện phép cộng 4 chu kỳ
+    reg [31:0] reg_w;
+
+    // Bộ đếm chu kỳ tính toán (0 -> 3) cho t >= 16
+    reg [1:0] calc_cycle; // 0: s1, 1: s2, 2: s3, 3: s4 (write back)
+
+    // Tín hiệu đọc từ memory
+    wire [31:0] mem_out_t_minus_16;
+    wire [31:0] mem_out_t_minus_15;
+    wire [31:0] mem_out_t_minus_7;
+    wire [31:0] mem_out_t_minus_2;
+
+    // Địa chỉ đọc/ghi memory (modulo 16)
+    wire [3:0] addr_t_minus_16;
+    wire [3:0] addr_t_minus_15;
+    wire [3:0] addr_t_minus_7;
+    wire [3:0] addr_t_minus_2;
+    wire [3:0] write_addr; // Địa chỉ ghi W[t] mới cũng là addr_t_minus_16
+
+    // Kết quả từ các hàm sigma
+    wire [31:0] sigma0_result;
+    wire [31:0] sigma1_result;
+
+    // Đầu vào và đầu ra của bộ cộng
+    wire [31:0] adder_in_a;
+    wire [31:0] adder_in_b;
+    wire [31:0] adder_sum_out;
+
+    // Tín hiệu điều khiển nội bộ
+    reg calculation_active; // Đang trong quá trình tính toán 4 chu kỳ
+    reg wt_calculated;      // W[t] đã được tính xong (sau cycle 2)
+
+    // --- Tính toán địa chỉ Memory (Modulo 16) ---
+    // Địa chỉ luôn dựa trên round_t hiện tại
+    // Dùng phép toán modulo hoặc lấy 4 bit thấp của (round_t - offset)
+    // Lưu ý: Phép trừ trong Verilog với số âm có thể không như mong đợi nếu không cẩn thận
+    // Cách an toàn hơn là dùng round_t[3:0] và logic dịch vòng
+    assign addr_t_minus_16 = round_t[3:0]; // Địa chỉ của W[t-16] là t mod 16
+    assign addr_t_minus_15 = (round_t - 6'd1)[3:0]; // (t-1) mod 16
+    assign addr_t_minus_7  = (round_t - 6'd7)[3:0]; // (t-7) mod 16
+    assign addr_t_minus_2  = (round_t - 6'd2)[3:0]; // (t-2) mod 16
+    assign write_addr      = addr_t_minus_16; // Ghi đè lên W[t-16]
+
+    // --- Đọc Memory ---
+    // Luôn đọc các giá trị cần thiết dựa trên địa chỉ đã tính
+    assign mem_out_t_minus_16 = W_memory[addr_t_minus_16];
+    assign mem_out_t_minus_15 = W_memory[addr_t_minus_15];
+    assign mem_out_t_minus_7  = W_memory[addr_t_minus_7];
+    assign mem_out_t_minus_2  = W_memory[addr_t_minus_2];
+
+    // --- Instantiate các hàm logic ---
+    sigma0_func_schedule u_sigma0 (
+        .x(mem_out_t_minus_15), // Input là W[t-15]
+        .out(sigma0_result)
+    );
+
+    sigma1_func_schedule u_sigma1 (
+        .x(mem_out_t_minus_2),  // Input là W[t-2]
+        .out(sigma1_result)
+    );
+
+    // --- Instantiate bộ cộng ---
+    adder_32bit u_adder (
+        .a(adder_in_a),
+        .b(adder_in_b),
+        .sum(adder_sum_out)
+    );
+
+    // --- Logic điều khiển và tính toán 4 chu kỳ ---
+    always @(posedge clk or negedge reset_n) begin
+        if (!reset_n) begin
+            calc_cycle <= 2'b00;
+            reg_w <= 32'b0;
+            calculation_active <= 1'b0;
+            wt_calculated <= 1'b0;
+            // Không cần reset memory ở đây, việc load M[0..15] sẽ ghi đè lúc start
+        end else begin
+            // --- Xử lý việc load message ban đầu ---
+            if (write_enable_in) begin // Ưu tiên việc load từ bên ngoài
+                 W_memory[message_word_addr] <= message_word_in;
+            end
+            // --- Xử lý bắt đầu block mới ---
+            // (Có thể gộp với write_enable_in nếu controller đảm bảo load đủ 16 word)
+            // if (start_new_block) begin
+            //    // Logic để load 16 words nếu không dùng write_enable_in
+            // end
+
+            // --- Logic tính toán 4 chu kỳ cho t >= 16 ---
+            if (round_t >= 6'd16) begin
+                // Bắt đầu tính toán cho round mới
+                if (!calculation_active) begin // Nếu chưa bắt đầu tính cho round t này
+                    calculation_active <= 1'b1;
+                    calc_cycle <= 2'b00; // Bắt đầu từ cycle 0 (s1)
+                    wt_calculated <= 1'b0;
+                    // Cycle 0 (s1): Adder tính W[t-16] + sigma0(W[t-15])
+                    reg_w <= mem_out_t_minus_16 + sigma0_result;
+                end else begin // Đang trong quá trình tính toán
+                    case (calc_cycle)
+                        2'b00: begin // Kết thúc cycle 0, bắt đầu cycle 1 (s2)
+                            calc_cycle <= 2'b01;
+                            // Cycle 1 (s2): Adder tính reg_w_old + W[t-7]
+                            reg_w <= reg_w + mem_out_t_minus_7;
+                        end
+                        2'b01: begin // Kết thúc cycle 1, bắt đầu cycle 2 (s3)
+                            calc_cycle <= 2'b10;
+                            // Cycle 2 (s3): Adder tính reg_w_old + sigma1(W[t-2])
+                            reg_w <= reg_w + sigma1_result;
+                            wt_calculated <= 1'b1; // W[t] đã có trong reg_w
+                        end
+                        2'b10: begin // Kết thúc cycle 2, bắt đầu cycle 3 (s4) - Write back
+                            calc_cycle <= 2'b11;
+                            // Ghi W[t] (giá trị trong reg_w) vào memory
+                            // Chỉ ghi nếu không có yêu cầu ghi từ bên ngoài (ưu tiên load)
+                            if (!write_enable_in) begin
+                                W_memory[write_addr] <= reg_w;
+                            end
+                            wt_calculated <= 1'b0; // Reset cờ báo hiệu
+                        end
+                        2'b11: begin // Kết thúc cycle 3, kết thúc tính toán cho round t
+                            calc_cycle <= 2'b00; // Sẵn sàng cho round tiếp theo (nếu có)
+                            calculation_active <= 1'b0; // Ngừng tính toán cho round này
+                        end
+                        default: begin
+                           calc_cycle <= 2'b00;
+                           calculation_active <= 1'b0;
+                           wt_calculated <= 1'b0;
+                        end
+                    endcase
+                end
+            end else begin // round_t < 16
+                // Reset trạng thái tính toán
+                calculation_active <= 1'b0;
+                calc_cycle <= 2'b00;
+                wt_calculated <= 1'b0;
+                // Không cần làm gì thêm vì W[t] đọc trực tiếp từ memory
+            end
+        end
+    end
+
+    // --- Logic chọn đầu vào cho bộ cộng (Combinational) ---
+    // Dựa vào calc_cycle khi đang tính toán (calculation_active = 1)
+    assign adder_in_a = (calculation_active && calc_cycle != 2'b00) ? reg_w : mem_out_t_minus_16;
+    assign adder_in_b = (calculation_active) ?
+                        ( (calc_cycle == 2'b00) ? sigma0_result :
+                          (calc_cycle == 2'b01) ? mem_out_t_minus_7 :
+                          (calc_cycle == 2'b10) ? sigma1_result :
+                          32'b0 ) // Cycle 3 không dùng adder
+                        : 32'b0; // Khi không tính toán
+
+    // --- Logic chọn đầu ra Wt_out (Combinational) ---
+    // Nếu t < 16, đọc trực tiếp từ memory
+    // Nếu t >= 16, lấy giá trị đã tính xong trong reg_w (khi wt_calculated = 1)
+    // Hoặc có thể lấy trực tiếp từ memory nếu round_t vừa mới bắt đầu và chưa kịp tính?
+    // Theo paper, Wt cần cho round t, nên phải là giá trị mới tính.
+    assign Wt_out = (round_t < 6'd16) ? mem_out_t_minus_16 : // W[t] = M[t] (đã được load vào vị trí t mod 16)
+                    (wt_calculated) ? reg_w : // Nếu vừa tính xong W[t]
+                    mem_out_t_minus_16; // Trường hợp khác (ví dụ đang tính, trả tạm W[t-16]?) - Cần xem lại yêu cầu timing!
+                    // --> Cách an toàn nhất là Controller bên ngoài chỉ đọc Wt_out khi module này báo sẵn sàng.
+                    // --> Hoặc đơn giản là Wt_out = reg_w khi t>=16 (sẽ trễ 1 cycle so với tính toán xong)
+                    // --> Chọn cách đơn giản: Wt_out = giá trị mới nhất trong memory hoặc reg_w nếu vừa tính xong.
+                    // assign Wt_out = (round_t < 16) ? W_memory[round_t[3:0]] : reg_w; // Lấy reg_w khi t>=16
+
+    // --> Chốt lại cách đơn giản và có vẻ đúng nhất với paper:
+    //     - Khi t < 16, Wt là M[t] đọc từ memory tại địa chỉ t mod 16.
+    //     - Khi t >= 16, Wt là kết quả tính toán xong ở cycle 2, lưu trong reg_w.
+    //       Ta sẽ giữ giá trị này trong reg_w cho đến khi bắt đầu tính round mới.
+    assign Wt_out = (round_t < 6'd16) ? W_memory[addr_t_minus_16] : reg_w;
+
+
+endmodule
