@@ -209,7 +209,7 @@ module message_scheduler (
                         2'b11: begin
                             if (!write_enable_in) begin
                                 W_memory[write_addr] <= reg_w;
-                                $display("[%0t] Writing W[%0d] = 0x%h to memory at addr %0d", $time,    , reg_w, write_addr);
+                                $display("[%0t] Writing W[%0d] = 0x%h to memory at addr %0d", $time, round_t, reg_w, write_addr);
                             end
                             calc_cycle <= 2'b00;
                             calculation_active <= 1'b0;
