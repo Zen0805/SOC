@@ -98,7 +98,6 @@ endmodule
 //            Tính W[t] (t >= 16) trong 4 chu kỳ clock.
 //-----------------------------------------------------------------------------
 module message_scheduler (
-    // --- Interface ---
     input wire          clk,
     input wire          reset_n,         // Reset tích cực thấp
     input wire          start_new_block, // Báo hiệu bắt đầu block mới
@@ -112,10 +111,10 @@ module message_scheduler (
     // --- Internal Signals ---
     reg [31:0] W_memory [15:0];     // Bộ nhớ lưu 16 từ W[t-16] đến W[t-1]
     reg [31:0] reg_w;               // Lưu kết quả cộng trung gian và W[t] cuối cùng
-    reg [1:0] calc_cycle;           // 0: s1, 1: s2, 2: s3, 3: s4 (write back)
+    reg [1:0] calc_cycle;           // 0: s1, 1: s2, 2: s3, 3: s4
     reg calculation_active;         // Đánh dấu đang tính toán 4 chu kỳ
+    reg [31:0] prev_wt;             // Lưu W[t] của vòng trước để ghi ở vòng sau
 
-    // Các tín hiệu dây kết nối
     wire [31:0] mem_out_t_minus_16;
     wire [31:0] mem_out_t_minus_15;
     wire [31:0] mem_out_t_minus_7;
@@ -137,8 +136,8 @@ module message_scheduler (
     // --- Tính toán địa chỉ Memory (Modulo 16) ---
     assign addr_t_minus_16 = round_t[3:0];           // W[t-16] = t mod 16
     assign addr_t_minus_15 = (round_t - 6'd15) & 4'hF;// (t-15) mod 16
-    assign addr_t_minus_7  = (round_t - 6'd7) & 4'hF;// (t-7) mod 16
-    assign addr_t_minus_2  = (round_t - 6'd2) & 4'hF;// (t-2) mod 16
+    assign addr_t_minus_7  = (round_t - 6'd7) & 4'hF; // (t-7) mod 16
+    assign addr_t_minus_2  = (round_t - 6'd2) & 4'hF; // (t-2) mod 16
     assign write_addr      = addr_t_minus_16;        // Ghi đè lên W[t-16]
 
     // --- Đọc dữ liệu từ Memory ---
@@ -155,14 +154,14 @@ module message_scheduler (
     adder_32bit u_adder (.a(adder_in_a), .b(adder_in_b), .sum(adder_sum_out));
 
     // --- Logic chọn đầu vào cho bộ cộng (Combinational) ---
-    assign adder_in_a = (calculation_active && calc_cycle == 2'b00) ? mem_out_t_minus_16 : // Cycle 0: W[t-16]
-                        (calculation_active && (calc_cycle == 2'b01 || calc_cycle == 2'b10)) ? reg_w : // Cycle 1, 2: reg_w cũ
-                        32'b0; // Không dùng ở cycle 3 hoặc khi không active
+    assign adder_in_a = (calculation_active && calc_cycle == 2'b00) ? mem_out_t_minus_16 :
+                        (calculation_active && (calc_cycle == 2'b01 || calc_cycle == 2'b10)) ? reg_w :
+                        32'b0;
 
-    assign adder_in_b = (calculation_active && calc_cycle == 2'b00) ? sigma0_result :      // Cycle 0: sigma0(W[t-15])
-                        (calculation_active && calc_cycle == 2'b01) ? mem_out_t_minus_7 :  // Cycle 1: W[t-7]
-                        (calculation_active && calc_cycle == 2'b10) ? sigma1_result :      // Cycle 2: sigma1(W[t-2])
-                        32'b0; // Không dùng ở cycle 3 hoặc khi không active
+    assign adder_in_b = (calculation_active && calc_cycle == 2'b00) ? sigma0_result :
+                        (calculation_active && calc_cycle == 2'b01) ? mem_out_t_minus_7 :
+                        (calculation_active && calc_cycle == 2'b10) ? sigma1_result :
+                        32'b0;
 
     // --- Logic điều khiển và cập nhật trạng thái (Sequential) ---
     always @(posedge clk or negedge reset_n) begin
@@ -170,7 +169,7 @@ module message_scheduler (
             calc_cycle <= 2'b00;
             reg_w <= 32'b0;
             calculation_active <= 1'b0;
-            // Không reset W_memory để tránh lãng phí tài nguyên, sẽ được ghi đè khi cần
+            prev_wt <= 32'b0;
         end else begin
             // --- Ghi dữ liệu đầu vào (M[i]) vào memory ---
             if (write_enable_in) begin
@@ -178,21 +177,19 @@ module message_scheduler (
             end
 
             // --- Tính toán W[t] cho t >= 16 ---
-            if (round_t >= 6'd16) 
-            begin
+            if (round_t >= 6'd16) begin
                 if (!calculation_active) begin // Bắt đầu tính toán cho round mới
                     calculation_active <= 1'b1;
-                    calc_cycle <= 2'b00; // Khởi đầu từ cycle 0
-                end 
-
-                else 
-                    begin // Đang trong quá trình tính toán
-                    // Cập nhật reg_w với kết quả từ bộ cộng của chu kỳ trước
+                    calc_cycle <= 2'b00;
+                    // Ghi W[t-1] từ vòng trước vào bộ nhớ ở cycle 0 của vòng mới
+                    if (round_t > 6'd16) begin
+                        W_memory[write_addr] <= prev_wt;
+                        $display("[%0t] Writing W[%0d] = 0x%h to memory at addr %0d", $time, round_t - 1, prev_wt, write_addr);
+                    end
+                end else begin // Đang trong quá trình tính toán
                     if (calc_cycle == 2'b00 || calc_cycle == 2'b01 || calc_cycle == 2'b10) begin
                         reg_w <= adder_sum_out;
                     end
-
-                    // Chuyển sang chu kỳ tiếp theo
                     case (calc_cycle)
                         2'b00: begin
                             calc_cycle <= 2'b01;
@@ -205,15 +202,13 @@ module message_scheduler (
                             $display("  σ1(W[t-2])  = 0x%h", sigma1_result);
                         end
                         2'b01: calc_cycle <= 2'b10;
-                        2'b10: calc_cycle <= 2'b11;
+                        2'b10: begin
+                            calc_cycle <= 2'b11;
+                            prev_wt <= adder_sum_out; // Lưu W[t] cho lần ghi tiếp theo
+                        end
                         2'b11: begin
-                            if (!write_enable_in) begin
-                                W_memory[write_addr] <= reg_w;
-                                $display("[%0t] Writing W[%0d] = 0x%h to memory at addr %0d", $time, round_t, reg_w, write_addr);
-                            end
                             calc_cycle <= 2'b00;
                             calculation_active <= 1'b0;
-                            
                         end
                         default: begin
                             calc_cycle <= 2'b00;
@@ -221,10 +216,7 @@ module message_scheduler (
                         end
                     endcase
                 end
-            end 
-
-            else 
-            begin // round_t < 16
+            end else begin // round_t < 16
                 calculation_active <= 1'b0;
                 calc_cycle <= 2'b00;
             end
