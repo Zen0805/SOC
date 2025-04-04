@@ -1,316 +1,190 @@
 //-----------------------------------------------------------------------------
-// Module: message_scheduler
-// Tác giả: Tao và mày hợp tác
-// Chức năng: Tạo ra các message word W[t] cho thuật toán SHA-256.
-//            Thực hiện theo kiến trúc tối ưu (Fig 5, Table 2 trong paper).
-//            Sử dụng 1 adder, 1 reg_w, 1 memory 16x32-bit.
-//            Tính W[t] (t>=16) trong 4 chu kỳ clock.
+// Module: sha256_compression
+// Tác giả: tao
+// Chức năng: Thực hiện 64 vòng tính toán nén của SHA-256.
+//            Sử dụng 8 thanh ghi a-h, cập nhật theo kiến trúc gấp (Fig 3).
+//            Tính toán dựa trên Wt và Kt cho mỗi vòng.
 //-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-// Module: adder_32bit
-// Tác giả: Thằng bạn của mày
-// Chức năng: Cộng hai cái số 32-bit lại với nhau.
-//            Đơn giản như đang giỡn, nhưng mà quan trọng à nha.
-//-----------------------------------------------------------------------------
-module adder_32bit (
-    // --- Đầu vào ---
-    input wire [31:0] a,     // Số thứ nhất mày muốn cộng (32 bit)
-    input wire [31:0] b,     // Số thứ hai mày muốn cộng (32 bit)
-
-    // --- Đầu ra ---
-    output wire [31:0] sum    // Kết quả tổng của a + b (32 bit)
-);
-
-    // --- Logic chính ---
-    // Dùng 'assign' để gán giá trị cho đầu ra 'sum' một cách liên tục.
-    // Nghĩa là bất cứ khi nào 'a' hoặc 'b' thay đổi, 'sum' nó tự cập nhật theo.
-    // Cái này là mạch tổ hợp (combinational logic), không cần clock gì hết.
-    // Toán tử '+' trong Verilog nó tự xử lý vụ cộng bit luôn, khỏe re.
-    assign sum = a + b;
-
-endmodule // Kết thúc module adder_32bit
-
-//-----------------------------------------------------------------------------
-// Module: sigma0_func_schedule
-// Tác giả: ZenZ
-// Chức năng: Tính hàm sigma0 (σ₀) của SHA-256.
-//            σ₀(x) = ROTR⁷(x) ⊕ ROTR¹⁸(x) ⊕ SHR³(x)
-//-----------------------------------------------------------------------------
-module sigma0_func_schedule (
-    input wire [31:0] x,    // Đầu vào 32-bit
-    output wire [31:0] out  // Kết quả sigma0(x) 32-bit
-);
-
-    // --- Tính toán trung gian ---
-    wire [31:0] rotr7_x;  // Rotate Right 7 bits
-    wire [31:0] rotr18_x; // Rotate Right 18 bits
-    wire [31:0] shr3_x;   // Shift Right 3 bits (Logical)
-
-    // --- Logic thực hiện các phép toán ---
-    assign rotr7_x  = {x[6:0], x[31:7]};
-    assign rotr18_x = {x[17:0], x[31:18]};
-    assign shr3_x   = x >> 3;
-
-    // Tính sigma0: ROTR7(x) ^ ROTR18(x) ^ SHR3(x)
-    assign out = rotr7_x ^ rotr18_x ^ shr3_x;
-
-endmodule
-
-
-//-----------------------------------------------------------------------------
-// Module: sigma1_func_schedule
-// Tác giả: ZenZ
-// Chức năng: Tính hàm sigma1 (σ₁) của SHA-256.
-//            σ₁(x) = ROTR¹⁷(x) ⊕ ROTR¹⁹(x) ⊕ SHR¹⁰(x)
-//-----------------------------------------------------------------------------
-module sigma1_func_schedule (
-    input wire [31:0] x,    // Đầu vào 32-bit
-    output wire [31:0] out  // Kết quả sigma1(x) 32-bit
-);
-
-    // --- Tính toán trung gian ---
-    wire [31:0] rotr17_x; // Rotate Right 17 bits
-    wire [31:0] rotr19_x; // Rotate Right 19 bits
-    wire [31:0] shr10_x;  // Shift Right 10 bits (Logical)
-
-    // --- Logic thực hiện các phép toán ---
-    assign rotr17_x = {x[16:0], x[31:17]};
-    assign rotr19_x = {x[18:0], x[31:19]};
-    assign shr10_x  = x >> 10;
-
-    // Tính sigma1: ROTR17(x) ^ ROTR19(x) ^ SHR10(x)
-    assign out = rotr17_x ^ rotr19_x ^ shr10_x;
-
-endmodule
-
-//-----------------------------------------------------------------------------
-// Module: message_scheduler
-// Tác giả: Được viết lại với sự hợp tác
-// Chức năng: Tạo ra các message word W[t] cho thuật toán SHA-256.
-//            Sử dụng kiến trúc tối ưu với 1 adder, 1 reg_w, và 1 memory 16x32-bit.
-//            Tính W[t] (t >= 16) trong 4 chu kỳ clock.
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-// Module: message_scheduler
-// Tác giả: Được viết lại với sự hợp tác
-// Chức năng: Tạo ra các message word W[t] cho thuật toán SHA-256.
-//            Sử dụng kiến trúc tối ưu với 1 adder, 1 reg_w, và 1 memory 16x32-bit.
-//            Tính W[t] (t >= 16) trong 4 chu kỳ clock.
-//-----------------------------------------------------------------------------
-module message_scheduler (
+module sha256_compression (
+    // --- Inputs ---
     input wire          clk,
     input wire          reset_n,         // Reset tích cực thấp
-    input wire          start_new_block, // Báo hiệu bắt đầu block mới
-    input wire [5:0]    round_t,         // Vòng lặp hiện tại (0-63)
-    input wire [31:0]   message_word_in, // Dữ liệu M[i] để load
-    input wire [3:0]    message_word_addr,// Địa chỉ (0-15) của M[i] đang load
-    input wire          write_enable_in, // Cho phép ghi message_word_in vào memory
-    output wire [31:0]  Wt_out           // W[t] tương ứng với round_t
+    input wire          start,           // Bắt đầu tính toán block mới
+    input wire [31:0]   H_in [0:7],      // Giá trị hash ban đầu (H0-H7) hoặc từ block trước
+    input wire [31:0]   Wt_in,           // Message word W[t] từ message scheduler
+    input wire [5:0]    round_t,         // Vòng lặp hiện tại (0-63), dùng để chọn Kt
+
+    // --- Outputs ---
+    output reg [31:0]   H_out [0:7],     // Kết quả hash cuối cùng của block
+    output reg          busy,            // Báo hiệu đang trong quá trình tính toán
+    output reg          done             // Báo hiệu đã hoàn thành 64 vòng
 );
 
-    // --- Internal Signals ---
-    reg [31:0] W_memory [15:0];     // Bộ nhớ lưu 16 từ W[t-16] đến W[t-1]
-    reg [31:0] reg_w;               // Lưu kết quả cộng trung gian và W[t] cuối cùng
-    reg [1:0] calc_cycle;           // 0: s1, 1: s2, 2: s3, 3: s4
-    reg calculation_active;         // Đánh dấu đang tính toán 4 chu kỳ
-    reg [31:0] prev_wt;             // Lưu W[t] của vòng trước để ghi ở vòng sau
+    // --- Hằng số K[0..63] của SHA-256 ---
+    localparam [31:0] K[0:63] = {
+        32'h428a2f98, 32'h71374491, 32'hb5c0fbcf, 32'he9b5dba5, 32'h3956c25b, 32'h59f111f1, 32'h923f82a4, 32'hab1c5ed5,
+        32'hd807aa98, 32'h12835b01, 32'h243185be, 32'h550c7dc3, 32'h72be5d74, 32'h80deb1fe, 32'h9bdc06a7, 32'hc19bf174,
+        32'he49b69c1, 32'hefbe4786, 32'h0fc19dc6, 32'h240ca1cc, 32'h2de92c6f, 32'h4a7484aa, 32'h5cb0a9dc, 32'h76f988da,
+        32'h983e5152, 32'ha831c66d, 32'hb00327c8, 32'hbf597fc7, 32'hc6e00bf3, 32'hd5a79147, 32'h06ca6351, 32'h14292967,
+        32'h27b70a85, 32'h2e1b2138, 32'h4d2c6dfc, 32'h53380d13, 32'h650a7354, 32'h766a0abb, 32'h81c2c92e, 32'h92722c85,
+        32'ha2bfe8a1, 32'ha81a664b, 32'hc24b8b70, 32'hc76c51a3, 32'hd192e819, 32'hd6990624, 32'hf40e3585, 32'h106aa070,
+        32'h19a4c116, 32'h1e376c08, 32'h2748774c, 32'h34b0bcb5, 32'h391c0cb3, 32'h4ed8aa4a, 32'h5b9cca4f, 32'h682e6ff3,
+        32'h748f82ee, 32'h78a5636f, 32'h84c87814, 32'h8cc70208, 32'h90befffa, 32'ha4506ceb, 32'hbef9a3f7, 32'hc67178f2
+    };
 
-    wire [31:0] mem_out_t_minus_16;
-    wire [31:0] mem_out_t_minus_15;
-    wire [31:0] mem_out_t_minus_7;
-    wire [31:0] mem_out_t_minus_2;
+    // --- Thanh ghi trạng thái a-h ---
+    reg [31:0] a_reg, b_reg, c_reg, d_reg, e_reg, f_reg, g_reg, h_reg;
 
-    wire [3:0] addr_t_minus_16;
-    wire [3:0] addr_t_minus_15;
-    wire [3:0] addr_t_minus_7;
-    wire [3:0] addr_t_minus_2;
-    wire [3:0] write_addr;
+    // --- Lưu trữ giá trị H ban đầu ---
+    reg [31:0] H_initial [0:7];
 
-    wire [31:0] sigma0_result;
-    wire [31:0] sigma1_result;
+    // --- Trạng thái điều khiển ---
+    typedef enum logic [1:0] {
+        IDLE,       // Chờ start
+        COMPUTE,    // Đang thực hiện 64 vòng
+        ADD_FINAL,  // Cộng kết quả cuối cùng
+        DONE_STATE  // Hoàn thành, chờ reset hoặc start mới
+    } state_t;
+    reg state, next_state;
 
-    wire [31:0] adder_in_a;         // Đầu vào A của bộ cộng
-    wire [31:0] adder_in_b;         // Đầu vào B của bộ cộng
-    wire [31:0] adder_sum_out;      // Kết quả từ bộ cộng
+    // --- Tín hiệu trung gian cho tính toán trong 1 vòng ---
+    wire [31:0] ch_result;
+    wire [31:0] maj_result;
+    wire [31:0] s0_result; // Sigma0(a)
+    wire [31:0] s1_result; // Sigma1(e)
+    wire [31:0] Kt;        // Hằng số K[t] cho vòng hiện tại
+    wire [31:0] temp1;
+    wire [31:0] temp2;
+    wire [31:0] a_next;
+    wire [31:0] e_next;
 
-    // --- Tính toán địa chỉ Memory (Modulo 16) ---
-    assign addr_t_minus_16 = round_t[3:0];           // W[t-16] = t mod 16
-    assign addr_t_minus_15 = (round_t - 6'd15) & 4'hF;// (t-15) mod 16
-    assign addr_t_minus_7  = (round_t - 6'd7) & 4'hF; // (t-7) mod 16
-    assign addr_t_minus_2  = (round_t - 6'd2) & 4'hF; // (t-2) mod 16
-    assign write_addr      = addr_t_minus_16;        // Ghi đè lên W[t-16]
+    // --- Instantiate các hàm logic SHA-256 ---
+    ch_func u_ch (.x(e_reg), .y(f_reg), .z(g_reg), .out(ch_result));
+    maj_func u_maj (.x(a_reg), .y(b_reg), .z(c_reg), .out(maj_result));
+    sigma0_func_compression u_s0 (.x(a_reg), .out(s0_result));
+    sigma1_func_compression u_s1 (.x(e_reg), .out(s1_result));
 
-    // --- Đọc dữ liệu từ Memory ---
-    assign mem_out_t_minus_16 = W_memory[addr_t_minus_16];
-    assign mem_out_t_minus_15 = W_memory[addr_t_minus_15];
-    assign mem_out_t_minus_7  = W_memory[addr_t_minus_7];
-    assign mem_out_t_minus_2  = W_memory[addr_t_minus_2];
+    // --- Lấy hằng số Kt ---
+    assign Kt = K[round_t]; // Lấy Kt dựa vào round_t từ message scheduler
 
-    // --- Khởi tạo các hàm Sigma ---
-    sigma0_func_schedule u_sigma0 (.x(mem_out_t_minus_15), .out(sigma0_result));
-    sigma1_func_schedule u_sigma1 (.x(mem_out_t_minus_2),  .out(sigma1_result));
+    // --- Tính toán tổ hợp các giá trị tạm thời (Theo Steps 1-6) ---
+    // temp1 = h + Ch(e,f,g) + Σ₁(e) + Wt + Kt (Kết hợp step 1-4)
+    assign temp1 = h_reg + ch_result + s1_result + Wt_in + Kt;
+    // temp2 = Σ₀(a) + Maj(a,b,c) (Theo step 6, phần đầu của step 7a)
+    assign temp2 = s0_result + maj_result;
 
-    // --- Khởi tạo bộ cộng 32-bit ---
-    adder_32bit u_adder (.a(adder_in_a), .b(adder_in_b), .sum(adder_sum_out));
+    // --- Tính toán giá trị tiếp theo cho a và e (Theo Step 7) ---
+    assign a_next = temp1 + temp2;
+    assign e_next = d_reg + temp1; // d + temp1 (temp1 đã bao gồm h + ...)
 
-    // --- Logic chọn đầu vào cho bộ cộng (Combinational) ---
-    assign adder_in_a = (calculation_active && calc_cycle == 2'b00) ? mem_out_t_minus_16 :
-                        (calculation_active && (calc_cycle == 2'b01 || calc_cycle == 2'b10)) ? reg_w :
-                        32'b0;
-
-    assign adder_in_b = (calculation_active && calc_cycle == 2'b00) ? sigma0_result :
-                        (calculation_active && calc_cycle == 2'b01) ? mem_out_t_minus_7 :
-                        (calculation_active && calc_cycle == 2'b10) ? sigma1_result :
-                        32'b0;
-
-    // --- Logic điều khiển và cập nhật trạng thái (Sequential) ---
-    always @(posedge clk or negedge reset_n) begin
+    // --- Logic trạng thái tuần tự (Cập nhật thanh ghi và state) ---
+    always_ff @(posedge clk or negedge reset_n) begin
         if (!reset_n) begin
-            calc_cycle <= 2'b00;
-            reg_w <= 32'b0;
-            calculation_active <= 1'b0;
-            prev_wt <= 32'b0;
+            state <= IDLE;
+            a_reg <= 32'b0; b_reg <= 32'b0; c_reg <= 32'b0; d_reg <= 32'b0;
+            e_reg <= 32'b0; f_reg <= 32'b0; g_reg <= 32'b0; h_reg <= 32'b0;
+            busy <= 1'b0;
+            done <= 1'b0;
+            for (int i = 0; i < 8; i++) begin
+                 H_initial[i] <= 32'b0;
+                 H_out[i] <= 32'b0;
+            end
         end else begin
-            // --- Ghi dữ liệu đầu vào (M[i]) vào memory ---
-            if (write_enable_in) begin
-                W_memory[message_word_addr] <= message_word_in;
-            end
+            state <= next_state; // Cập nhật trạng thái
+            busy <= (next_state == COMPUTE || next_state == ADD_FINAL); // Busy khi đang tính hoặc cộng
+            done <= (next_state == DONE_STATE); // Done khi ở trạng thái DONE_STATE
 
-            // --- Tính toán W[t] cho t >= 16 ---
-            if (round_t >= 6'd16) begin
-                if (!calculation_active) begin // Bắt đầu tính toán cho round mới
-                    calculation_active <= 1'b1;
-                    calc_cycle <= 2'b00;
-                    // Ghi W[t-1] từ vòng trước vào bộ nhớ ở cycle 0 của vòng mới
-                    if (round_t > 6'd16) begin
-                        W_memory[write_addr] <= prev_wt;
-                        $display("[%0t] Writing W[%0d] = 0x%h to memory at addr %0d", $time, round_t - 1, prev_wt, write_addr);
+            case (state)
+                IDLE: begin
+                    if (start) begin
+                        // Nạp giá trị H ban đầu vào thanh ghi a-h và H_initial
+                        a_reg <= H_in[0]; H_initial[0] <= H_in[0];
+                        b_reg <= H_in[1]; H_initial[1] <= H_in[1];
+                        c_reg <= H_in[2]; H_initial[2] <= H_in[2];
+                        d_reg <= H_in[3]; H_initial[3] <= H_in[3];
+                        e_reg <= H_in[4]; H_initial[4] <= H_in[4];
+                        f_reg <= H_in[5]; H_initial[5] <= H_in[5];
+                        g_reg <= H_in[6]; H_initial[6] <= H_in[6];
+                        h_reg <= H_in[7]; H_initial[7] <= H_in[7];
+                        //$display("[%0t] COMPRESSION: Started. Loaded H0-H7. Round %0d.", $time, round_t);
                     end
-                end else begin // Đang trong quá trình tính toán
-                    if (calc_cycle == 2'b00 || calc_cycle == 2'b01 || calc_cycle == 2'b10) begin
-                        reg_w <= adder_sum_out;
-                    end
-                    case (calc_cycle)
-                        2'b00: begin
-                            calc_cycle <= 2'b01;
-                            $display("[%0t] Calculating W[%0d]:", $time, round_t);
-                            $display("  W[t-16] = 0x%h", mem_out_t_minus_16);
-                            $display("  W[t-15] = 0x%h", mem_out_t_minus_15);
-                            $display("  W[t-7]  = 0x%h", mem_out_t_minus_7);
-                            $display("  W[t-2]  = 0x%h", mem_out_t_minus_2);
-                            $display("  σ0(W[t-15]) = 0x%h", sigma0_result);
-                            $display("  σ1(W[t-2])  = 0x%h", sigma1_result);
-                        end
-                        2'b01: calc_cycle <= 2'b10;
-                        2'b10: begin
-                            calc_cycle <= 2'b11;
-                            prev_wt <= adder_sum_out; // Lưu W[t] cho lần ghi tiếp theo
-                        end
-                        2'b11: begin
-                            calc_cycle <= 2'b00;
-                            calculation_active <= 1'b0;
-                        end
-                        default: begin
-                            calc_cycle <= 2'b00;
-                            calculation_active <= 1'b0;
-                        end
-                    endcase
                 end
-            end else begin // round_t < 16
-                calculation_active <= 1'b0;
-                calc_cycle <= 2'b00;
-            end
+
+                COMPUTE: begin
+                    // Thực hiện cập nhật đồng thời 8 thanh ghi theo Step 7
+                    a_reg <= a_next;      // a = temp1 + temp2
+                    b_reg <= a_reg;       // b = a
+                    c_reg <= b_reg;       // c = b
+                    d_reg <= c_reg;       // d = c
+                    e_reg <= e_next;      // e = d + temp1
+                    f_reg <= e_reg;       // f = e
+                    g_reg <= f_reg;       // g = f
+                    h_reg <= g_reg;       // h = g
+                    /*
+                    $display("[%0t] COMPRESSION: Round %0d", $time, round_t);
+                    $display("  Wt=%h, Kt=%h", Wt_in, Kt);
+                    $display("  a=%h, b=%h, c=%h, d=%h", a_reg, b_reg, c_reg, d_reg);
+                    $display("  e=%h, f=%h, g=%h, h=%h", e_reg, f_reg, g_reg, h_reg);
+                    $display("  Ch=%h, Maj=%h, S0=%h, S1=%h", ch_result, maj_result, s0_result, s1_result);
+                    $display("  T1=%h, T2=%h", temp1, temp2);
+                    $display("  a_next=%h, e_next=%h", a_next, e_next);
+                    */
+                end
+
+                ADD_FINAL: begin
+                     // Cộng giá trị H ban đầu vào kết quả cuối của a-h
+                     H_out[0] <= a_reg + H_initial[0];
+                     H_out[1] <= b_reg + H_initial[1];
+                     H_out[2] <= c_reg + H_initial[2];
+                     H_out[3] <= d_reg + H_initial[3];
+                     H_out[4] <= e_reg + H_initial[4];
+                     H_out[5] <= f_reg + H_initial[5];
+                     H_out[6] <= g_reg + H_initial[6];
+                     H_out[7] <= h_reg + H_initial[7];
+                     //$display("[%0t] COMPRESSION: Final Addition Complete.", $time);
+                end
+
+                DONE_STATE: begin
+                     // Giữ nguyên giá trị H_out, chờ start mới
+                     // Có thể reset thanh ghi a-h ở đây nếu muốn
+                end
+
+                default: state <= IDLE; // An toàn là trên hết
+
+            endcase
         end
     end
 
-    // --- Logic chọn đầu ra Wt_out (Combinational) ---
-    assign Wt_out = (round_t < 6'd16) ? W_memory[addr_t_minus_16] : reg_w;
-
-endmodule
-
-//-----------------------------------------------------------------------------
-// Testbench cho message_scheduler
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-// Testbench cho message_scheduler
-//-----------------------------------------------------------------------------
-`timescale 1ns / 1ps
-
-module tb_message_scheduler();
-
-    // --- Testbench Signals ---
-    reg         clk;
-    reg         reset_n;
-    reg         start_new_block_tb;
-    reg  [5:0]  round_t_tb;
-    reg  [31:0] message_word_in_tb;
-    reg  [3:0]  message_word_addr_tb;
-    reg         write_enable_in_tb;
-
-    wire [31:0] Wt_out_dut;
-
-    // --- Instantiate DUT ---
-    message_scheduler uut (
-        .clk(clk),
-        .reset_n(reset_n),
-        .start_new_block(start_new_block_tb),
-        .round_t(round_t_tb),
-        .message_word_in(message_word_in_tb),
-        .message_word_addr(message_word_addr_tb),
-        .write_enable_in(write_enable_in_tb),
-        .Wt_out(Wt_out_dut)
-    );
-
-    // --- Clock Generation ---
-    parameter CLK_PERIOD = 10; // Chu kỳ clock 10ns
-    initial begin
-        clk = 0;
-        forever #(CLK_PERIOD / 2) clk = ~clk;
-    end
-
-    // --- Test Sequence ---
-    initial begin
-        // 1. Reset
-        reset_n = 1'b0;
-        start_new_block_tb = 1'b0;
-        round_t_tb = 6'b0;
-        message_word_in_tb = 32'b0;
-        message_word_addr_tb = 4'b0;
-        write_enable_in_tb = 1'b0;
-        $display("[%0t] Applying Reset...", $time);
-        repeat (2) @(posedge clk);
-        reset_n = 1'b1;
-        $display("[%0t] Releasing Reset.", $time);
-        @(posedge clk);
-
-        // 2. Load Initial Message Block (M[0] to M[15])
-        $display("[%0t] Loading initial message M[0..15]...", $time);
-        start_new_block_tb = 1'b1;
-        write_enable_in_tb = 1'b1;
-        for (integer i = 0; i < 16; i = i + 1) begin
-            message_word_addr_tb = i[3:0];
-            message_word_in_tb = i + 32'h10; // Ví dụ: M[i] = i + 0x10
-            @(posedge clk);
-        end
-        write_enable_in_tb = 1'b0;
-        start_new_block_tb = 1'b0;
-        $display("[%0t] Finished loading message.", $time);
-        @(posedge clk);
-
-        // 3. Simulate Rounds (t=0 to t=63)
-        $display("[%0t] Simulating SHA-256 rounds...", $time);
-        for (integer t = 0; t < 64; t = t + 1) begin
-            round_t_tb = t;
-            if (t < 16) begin
-                @(posedge clk);
-                $display("[%0t] W[%0d] = 0x%h", $time, t, Wt_out_dut);
-            end else begin
-                repeat (5) @(posedge clk); // Chờ 5 chu kỳ để tính W[t]
-                $display("[%0t] W[%0d] = 0x%h", $time, t, Wt_out_dut);
+    // --- Logic chuyển trạng thái tổ hợp ---
+    always_comb begin
+        next_state = state; // Mặc định giữ nguyên trạng thái
+        case (state)
+            IDLE: begin
+                if (start) begin
+                    next_state = COMPUTE;
+                end
             end
-        end
-        $display("[%0t] Simulation finished.", $time);
-        $finish;
+            COMPUTE: begin
+                // Cần tín hiệu round_t từ bên ngoài (ví dụ: từ controller chính)
+                // để biết khi nào hoàn thành 64 vòng.
+                if (round_t == 6'd63) begin // Nếu đây là vòng cuối cùng
+                    next_state = ADD_FINAL; // Chuyển sang cộng kết quả ở clock tiếp theo
+                end else begin
+                    next_state = COMPUTE; // Tiếp tục tính vòng tiếp theo
+                end
+            end
+            ADD_FINAL: begin
+                next_state = DONE_STATE; // Sau khi cộng xong, chuyển sang DONE
+            end
+            DONE_STATE: begin
+                if (start) begin // Nếu có tín hiệu start mới (cho block tiếp theo)
+                    next_state = COMPUTE; // Bắt đầu lại quá trình tính toán
+                end else begin
+                    next_state = IDLE; // Quay về IDLE chờ nếu không có start
+                end
+            end
+            default: next_state = IDLE;
+        endcase
     end
 
 endmodule
