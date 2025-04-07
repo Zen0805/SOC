@@ -15,10 +15,9 @@ module adder_32bit (
     assign sum = a + b;
 
 endmodule
-//-----------------------------------------------------------------------------
-// Module: ch_func
-// Chức năng: Tính hàm Ch(x, y, z) = (x AND y) XOR (NOT x AND z)
-//-----------------------------------------------------------------------------
+
+
+
 module ch_func (
     input wire [31:0] x,
     input wire [31:0] y,
@@ -28,10 +27,8 @@ module ch_func (
     assign out = (x & y) ^ (~x & z);
 endmodule
 
-//-----------------------------------------------------------------------------
-// Module: maj_func
-// Chức năng: Tính hàm Maj(x, y, z) = (x AND y) XOR (x AND z) XOR (y AND z)
-//-----------------------------------------------------------------------------
+
+
 module maj_func (
     input wire [31:0] x,
     input wire [31:0] y,
@@ -41,11 +38,8 @@ module maj_func (
     assign out = (x & y) ^ (x & z) ^ (y & z);
 endmodule
 
-//-----------------------------------------------------------------------------
-// Module: sigma0_comp_func  // Khác với sigma0_func_schedule
-// Chức năng: Tính hàm Sigma0 (Σ₀) của SHA-256 (dùng trong compression)
-//            Σ₀(x) = ROTR²(x) ⊕ ROTR¹³(x) ⊕ ROTR²²(x)
-//-----------------------------------------------------------------------------
+
+
 module sigma0_comp_func (
     input wire [31:0] x,
     output wire [31:0] out
@@ -56,11 +50,8 @@ module sigma0_comp_func (
     assign out = rotr2_x ^ rotr13_x ^ rotr22_x;
 endmodule
 
-//-----------------------------------------------------------------------------
-// Module: sigma1_comp_func  // Khác với sigma1_func_schedule
-// Chức năng: Tính hàm Sigma1 (Σ₁) của SHA-256 (dùng trong compression)
-//            Σ₁(x) = ROTR⁶(x) ⊕ ROTR¹¹(x) ⊕ ROTR²⁵(x)
-//-----------------------------------------------------------------------------
+
+
 module sigma1_comp_func (
     input wire [31:0] x,
     output wire [31:0] out
@@ -71,55 +62,45 @@ module sigma1_comp_func (
     assign out = rotr6_x ^ rotr11_x ^ rotr25_x;
 endmodule
 
+
 //-----------------------------------------------------------------------------
 // Module: message_compression_folded
 // Tác giả: Hợp tác cùng bạn
 // Chức năng: Thực hiện Message Compression của SHA-256 theo kiến trúc gấp.
-//            Sử dụng 1 adder, 8 thanh ghi a-h, thực hiện 1 vòng trong 7 chu kỳ.
-//            Tuân thủ Hình 3 và Bảng 1 trong paper.
+//            Sử dụng 1 adder, 8 thanh ghi a-h.
+//            FIX: Added S_ROUND_UPDATE state (8 cycles/round).
+//            FIX: Use literal hex values for H_INIT assignments.
 //-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-// Module: message_compression_folded
-// Tác giả: Hợp tác cùng bạn
-// Chức năng: Thực hiện Message Compression của SHA-256 theo kiến trúc gấp.
-//            Sử dụng 1 adder, 8 thanh ghi a-h, thực hiện 1 vòng trong 7 chu kỳ.
-//            Tuân thủ Hình 3 và Bảng 1 trong paper.
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-// Module: message_compression_folded
-// Tác giả: Hợp tác cùng bạn
-// Chức năng: Thực hiện Message Compression của SHA-256 theo kiến trúc gấp.
-//            Sử dụng 1 adder, 8 thanh ghi a-h, thực hiện 1 vòng trong 7 chu kỳ.
-//            Tuân thủ Hình 3 và Bảng 1 trong paper.
-//-----------------------------------------------------------------------------
+
 module message_compression_folded (
     // --- Interface ---
     input wire          clk,
     input wire          rst_n,           // Reset tích cực thấp
     input wire          start,           // Bắt đầu xử lý 1 block 512-bit
-    input wire [31:0]   Wt_in,           // W[t] từ message scheduler (cần ổn định trong 7 cycles/round)
+    input wire [31:0]   Wt_in,           // W[t] (ổn định trong 8 cycles/round)
     output wire [7:0][31:0] H_final_out, // Kết quả hash cuối cùng H0'-H7' (WIRE)
     output reg          busy,            // Báo hiệu đang xử lý
     output reg          done             // Báo hiệu hoàn thành (1 xung)
 );
 
     // --- Parameters ---
-    // State definitions
+    // State definitions (Keep for reference, logic uses literals if needed elsewhere)
     localparam S_IDLE         = 4'd0;
-    localparam S_INIT_LOAD    = 4'd1; // Nạp H0-H7 vào a-h (Giả định 1 cycle)
-    localparam S_ROUND_START  = 4'd2; // Chuẩn bị cho vòng mới
-    localparam S_ROUND_STEP1  = 4'd3; // h = h + Ch(e,f,g)
-    localparam S_ROUND_STEP2  = 4'd4; // h = h + K[t]
-    localparam S_ROUND_STEP3  = 4'd5; // h = h + Sigma1(e)
-    localparam S_ROUND_STEP4  = 4'd6; // T1 = h + W[t]
+    localparam S_INIT_LOAD    = 4'd1;
+    localparam S_ROUND_START  = 4'd2;
+    localparam S_ROUND_STEP1  = 4'd3; // h = h + Ch
+    localparam S_ROUND_STEP2  = 4'd4; // h = h + K
+    localparam S_ROUND_STEP3  = 4'd5; // h = h + S1
+    localparam S_ROUND_STEP4  = 4'd6; // T1 = h + W
     localparam S_ROUND_STEP5  = 4'd7; // d_new = d + T1
-    localparam S_ROUND_STEP6  = 4'd8; // h_temp = Maj(a,b,c) + Sigma0(a)
-    localparam S_ROUND_STEP7  = 4'd9; // a_new = T1 + h_temp; Cập nhật a-h
-    localparam S_FINAL_ADD_ST = 4'd10;// Bắt đầu cộng kết quả cuối
-    localparam S_FINAL_ADD    = 4'd11;// Thực hiện cộng H[i] + reg[i] (8 cycles)
-    localparam S_DONE         = 4'd12;// Hoàn thành, tạo xung done
+    localparam S_ROUND_STEP6  = 4'd8; // h_temp = Maj + S0 (T2)
+    localparam S_ROUND_STEP7  = 4'd9; // Calculate a_new = T1 + T2
+    localparam S_ROUND_UPDATE = 4'd10; // *** NEW STATE: Update a-h ***
+    localparam S_FINAL_ADD_ST = 4'd11; // Renumbered
+    localparam S_FINAL_ADD    = 4'd12; // Renumbered
+    localparam S_DONE         = 4'd13; // Renumbered
 
-    // SHA-256 Initial Hash Values (H0-H7)
+    // SHA-256 Initial Hash Values (Keep definitions for reference)
     localparam H0_INIT = 32'h6a09e667;
     localparam H1_INIT = 32'hbb67ae85;
     localparam H2_INIT = 32'h3c6ef372;
@@ -131,20 +112,19 @@ module message_compression_folded (
 
     // --- Internal Registers ---
     reg [3:0]  state, next_state;
-    reg [31:0] reg_a, reg_b, reg_c, reg_d, reg_e, reg_f, reg_g, reg_h; // Working variables
-    reg [31:0] H_reg [7:0];           // Lưu trữ H0-H7 ban đầu hoặc kết quả trung gian
-    reg [5:0]  round_counter;         // Đếm vòng 0-63
-    reg [3:0]  step_counter;          // Đếm bước trong INIT, ROUND, FINAL_ADD
+    reg [31:0] reg_a, reg_b, reg_c, reg_d, reg_e, reg_f, reg_g, reg_h;
+    reg [31:0] H_reg [7:0];
+    reg [5:0]  round_counter;
+    reg [3:0]  step_counter;
 
-    // Temporary registers for intermediate calculations (theo Table 1)
-    reg [31:0] h_temp;                // Lưu kết quả cộng dồn cho T1 / T2 tạm
-    reg [31:0] T1_reg;                // Lưu T1 = h + Sigma1(e) + Ch(e,f,g) + K[t] + W[t]
-    reg [31:0] d_new_reg;             // Lưu d + T1 (sẽ thành e mới)
-    reg [31:0] a_new_reg;             // Lưu T1 + T2 (sẽ thành a mới)
-    // reg [31:0] final_sum_temp;     // Không cần nữa
+    // Temporary registers
+    reg [31:0] h_temp;    // Holds intermediate sum for T1 / holds T2
+    reg [31:0] T1_reg;    // Holds final T1
+    reg [31:0] d_new_reg; // Holds calculated new 'e' (d+T1)
+    reg [31:0] a_new_calc;// Holds calculated new 'a' (T1+T2)
 
     // --- Internal Wires ---
-    wire [31:0] Kt;                   // Hằng số vòng K[t]
+    wire [31:0] Kt;
     wire [31:0] ch_out;
     wire [31:0] maj_out;
     wire [31:0] sigma0_out;
@@ -153,17 +133,15 @@ module message_compression_folded (
     wire [31:0] adder_in_b;
     wire [31:0] adder_sum_out;
 
-    // --- Instantiate Logic Functions ---
+    // --- Instantiate Logic Functions & Adder ---
     ch_func u_ch (.x(reg_e), .y(reg_f), .z(reg_g), .out(ch_out));
     maj_func u_maj (.x(reg_a), .y(reg_b), .z(reg_c), .out(maj_out));
     sigma0_comp_func u_sigma0 (.x(reg_a), .out(sigma0_out));
     sigma1_comp_func u_sigma1 (.x(reg_e), .out(sigma1_out));
-
-    // --- Instantiate Single Adder ---
     adder_32bit u_adder (.a(adder_in_a), .b(adder_in_b), .sum(adder_sum_out));
 
-    // --- KH Block: K[t] Constants (Combinational) ---
-    assign Kt = (round_counter == 6'd0)  ? 32'h428a2f98 :
+    // --- KH Block: K[t] Constants ---
+     assign Kt = (round_counter == 6'd0)  ? 32'h428a2f98 :
                 (round_counter == 6'd1)  ? 32'h71374491 :
                 (round_counter == 6'd2)  ? 32'hb5c0fbcf :
                 (round_counter == 6'd3)  ? 32'he9b5dba5 :
@@ -227,9 +205,10 @@ module message_compression_folded (
                 (round_counter == 6'd61) ? 32'ha4506ceb :
                 (round_counter == 6'd62) ? 32'hbef9a3f7 :
                 (round_counter == 6'd63) ? 32'hc67178f2 :
-                32'h00000000; // Giá trị mặc định
+                32'h00000000;
 
-    // --- Adder Input Selection Logic (Combinational) ---
+    // --- Adder Input Selection Logic ---
+    // Use literal values for states if necessary, but parameters might work here
     assign adder_in_a = (state == S_ROUND_STEP1) ? reg_h :
                         (state == S_ROUND_STEP2) ? h_temp :
                         (state == S_ROUND_STEP3) ? h_temp :
@@ -237,7 +216,7 @@ module message_compression_folded (
                         (state == S_ROUND_STEP5) ? reg_d :
                         (state == S_ROUND_STEP6) ? maj_out :
                         (state == S_ROUND_STEP7) ? T1_reg :
-                        (state == S_FINAL_ADD)   ? H_reg[step_counter] :
+                        (state == S_FINAL_ADD)   ? H_reg[step_counter] : // State 12
                         32'b0;
 
     assign adder_in_b = (state == S_ROUND_STEP1) ? ch_out :
@@ -246,8 +225,8 @@ module message_compression_folded (
                         (state == S_ROUND_STEP4) ? Wt_in :
                         (state == S_ROUND_STEP5) ? T1_reg :
                         (state == S_ROUND_STEP6) ? sigma0_out :
-                        (state == S_ROUND_STEP7) ? h_temp :
-                        (state == S_FINAL_ADD)   ? (step_counter == 4'd0 ? reg_a :
+                        (state == S_ROUND_STEP7) ? h_temp : // h_temp holds T2 here
+                        (state == S_FINAL_ADD)   ? (step_counter == 4'd0 ? reg_a : // State 12
                                                     step_counter == 4'd1 ? reg_b :
                                                     step_counter == 4'd2 ? reg_c :
                                                     step_counter == 4'd3 ? reg_d :
@@ -260,7 +239,9 @@ module message_compression_folded (
     // --- State Machine Logic (Sequential) ---
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            state <= S_IDLE;
+            // Use literal for state reset
+            state <= 4'd0; // S_IDLE
+            // Reset ALL registers
             reg_a <= 32'b0; reg_b <= 32'b0; reg_c <= 32'b0; reg_d <= 32'b0;
             reg_e <= 32'b0; reg_f <= 32'b0; reg_g <= 32'b0; reg_h <= 32'b0;
             H_reg[0] <= 32'b0; H_reg[1] <= 32'b0; H_reg[2] <= 32'b0; H_reg[3] <= 32'b0;
@@ -270,71 +251,72 @@ module message_compression_folded (
             h_temp <= 32'b0;
             T1_reg <= 32'b0;
             d_new_reg <= 32'b0;
-            a_new_reg <= 32'b0;
+            a_new_calc <= 32'b0;
             busy <= 1'b0;
             done <= 1'b0;
         end else begin
             state <= next_state;
             done <= 1'b0;
 
+            // Use literal values for case labels
             case (state)
-                S_IDLE: begin
+                4'd0: begin // S_IDLE
                     if (start) begin
-                        H_reg[0] <= H0_INIT; H_reg[1] <= H1_INIT;
-                        H_reg[2] <= H2_INIT; H_reg[3] <= H3_INIT;
-                        H_reg[4] <= H4_INIT; H_reg[5] <= H5_INIT;
-                        H_reg[6] <= H6_INIT; H_reg[7] <= H7_INIT;
+                        // *** FIX: Use literal hex values for H_INIT ***
+                        H_reg[0] <= 32'h6a09e667;
+                        H_reg[1] <= 32'hbb67ae85;
+                        H_reg[2] <= 32'h3c6ef372;
+                        H_reg[3] <= 32'ha54ff53a;
+                        H_reg[4] <= 32'h510e527f;
+                        H_reg[5] <= 32'h9b05688c;
+                        H_reg[6] <= 32'h1f83d9ab;
+                        H_reg[7] <= 32'h5be0cd19;
                         step_counter <= 4'd0;
                         busy <= 1'b1;
                     end
                 end
 
-                S_INIT_LOAD: begin
-                    // *** Nạp trực tiếp trong 1 cycle ***
-                    reg_a <= H_reg[0]; reg_b <= H_reg[1];
-                    reg_c <= H_reg[2]; reg_d <= H_reg[3];
-                    reg_e <= H_reg[4]; reg_f <= H_reg[5];
-                    reg_g <= H_reg[6]; reg_h <= H_reg[7];
+                4'd1: begin // S_INIT_LOAD
+                    reg_a <= H_reg[0]; reg_b <= H_reg[1]; reg_c <= H_reg[2]; reg_d <= H_reg[3];
+                    reg_e <= H_reg[4]; reg_f <= H_reg[5]; reg_g <= H_reg[6]; reg_h <= H_reg[7];
                     round_counter <= 6'd0;
                 end
 
-                S_ROUND_START: begin
-                    // No register updates needed here
+                4'd2: begin // S_ROUND_START
+                    // No updates
                 end
 
-                S_ROUND_STEP1: h_temp <= adder_sum_out;
-                S_ROUND_STEP2: h_temp <= adder_sum_out;
-                S_ROUND_STEP3: h_temp <= adder_sum_out;
-                S_ROUND_STEP4: T1_reg <= adder_sum_out;
-                S_ROUND_STEP5: d_new_reg <= adder_sum_out;
-                S_ROUND_STEP6: h_temp <= adder_sum_out;
-                S_ROUND_STEP7: begin
-                    a_new_reg <= adder_sum_out;
-                    reg_h <= reg_g;
-                    reg_g <= reg_f;
-                    reg_f <= reg_e;
-                    reg_e <= d_new_reg;
-                    reg_d <= reg_c;
-                    reg_c <= reg_b;
-                    reg_b <= reg_a;
-                    reg_a <= a_new_reg;
+                4'd3: h_temp <= adder_sum_out; // S_ROUND_STEP1
+                4'd4: h_temp <= adder_sum_out; // S_ROUND_STEP2
+                4'd5: h_temp <= adder_sum_out; // S_ROUND_STEP3
+                4'd6: T1_reg <= adder_sum_out; // S_ROUND_STEP4
+                4'd7: d_new_reg <= adder_sum_out; // S_ROUND_STEP5
+                4'd8: h_temp <= adder_sum_out; // S_ROUND_STEP6
+
+                4'd9: begin // S_ROUND_STEP7: Calculate final 'a'
+                    a_new_calc <= adder_sum_out;
+                end
+
+                4'd10: begin // S_ROUND_UPDATE: Perform ALL register updates
+                    reg_a <= a_new_calc; reg_b <= reg_a; reg_c <= reg_b; reg_d <= reg_c;
+                    reg_e <= d_new_reg; reg_f <= reg_e; reg_g <= reg_f; reg_h <= reg_g;
                     if (round_counter < 6'd63) begin
                         round_counter <= round_counter + 1;
                     end
                 end
 
-                S_FINAL_ADD_ST: begin
+                4'd11: begin // S_FINAL_ADD_ST
                     step_counter <= 4'd0;
                 end
 
-                S_FINAL_ADD: begin
+                4'd12: begin // S_FINAL_ADD
                     H_reg[step_counter] <= adder_sum_out;
                     if (step_counter < 4'd7) begin
                         step_counter <= step_counter + 1;
                     end
                 end
 
-                S_DONE: begin
+                4'd13: begin // S_DONE
                     busy <= 1'b0;
                     done <= 1'b1;
                 end
@@ -345,28 +327,28 @@ module message_compression_folded (
     // --- Next State Logic (Combinational) ---
     always @(*) begin
         next_state = state;
+        // Use literal values for case labels and assignments
         case (state)
-            S_IDLE:         if (start) next_state = S_INIT_LOAD;
-            S_INIT_LOAD:    next_state = S_ROUND_START;
-            S_ROUND_START:  next_state = S_ROUND_STEP1;
-            S_ROUND_STEP1:  next_state = S_ROUND_STEP2;
-            S_ROUND_STEP2:  next_state = S_ROUND_STEP3;
-            S_ROUND_STEP3:  next_state = S_ROUND_STEP4;
-            S_ROUND_STEP4:  next_state = S_ROUND_STEP5;
-            S_ROUND_STEP5:  next_state = S_ROUND_STEP6;
-            S_ROUND_STEP6:  next_state = S_ROUND_STEP7;
-            S_ROUND_STEP7:  if (round_counter == 6'd63) next_state = S_FINAL_ADD_ST;
-                            else next_state = S_ROUND_START;
-            S_FINAL_ADD_ST: next_state = S_FINAL_ADD;
-            S_FINAL_ADD:    if (step_counter == 4'd7) next_state = S_DONE;
-                            // else next_state = S_FINAL_ADD; // Giữ nguyên state
-            S_DONE:         next_state = S_IDLE;
-            default:        next_state = S_IDLE;
+            4'd0: if (start) next_state = 4'd1;   // S_IDLE -> S_INIT_LOAD
+            4'd1: next_state = 4'd2;              // S_INIT_LOAD -> S_ROUND_START
+            4'd2: next_state = 4'd3;              // S_ROUND_START -> S_ROUND_STEP1
+            4'd3: next_state = 4'd4;              // S_ROUND_STEP1 -> S_ROUND_STEP2
+            4'd4: next_state = 4'd5;              // S_ROUND_STEP2 -> S_ROUND_STEP3
+            4'd5: next_state = 4'd6;              // S_ROUND_STEP3 -> S_ROUND_STEP4
+            4'd6: next_state = 4'd7;              // S_ROUND_STEP4 -> S_ROUND_STEP5
+            4'd7: next_state = 4'd8;              // S_ROUND_STEP5 -> S_ROUND_STEP6
+            4'd8: next_state = 4'd9;              // S_ROUND_STEP6 -> S_ROUND_STEP7
+            4'd9: next_state = 4'd10;             // S_ROUND_STEP7 -> S_ROUND_UPDATE
+            4'd10: if (round_counter == 6'd63) next_state = 4'd11; // S_ROUND_UPDATE -> S_FINAL_ADD_ST
+                   else next_state = 4'd2;                         // S_ROUND_UPDATE -> S_ROUND_START
+            4'd11: next_state = 4'd12;            // S_FINAL_ADD_ST -> S_FINAL_ADD
+            4'd12: if (step_counter == 4'd7) next_state = 4'd13; // S_FINAL_ADD -> S_DONE
+            4'd13: next_state = 4'd0;             // S_DONE -> S_IDLE
+            default: next_state = 4'd0;           // Default -> S_IDLE
         endcase
     end
 
     // --- Output Assignment ---
-    // Gán từng phần tử của mảng để đảm bảo tương thích
     assign H_final_out[0] = H_reg[0];
     assign H_final_out[1] = H_reg[1];
     assign H_final_out[2] = H_reg[2];
@@ -377,3 +359,164 @@ module message_compression_folded (
     assign H_final_out[7] = H_reg[7];
 
 endmodule
+
+`timescale 1ns / 1ps
+
+module tb_message_compression_folded();
+
+    // --- Testbench Signals ---
+    reg         clk;
+    reg         rst_n;
+    reg         start_tb;
+    reg  [31:0] Wt_in_tb;
+
+    wire [7:0][31:0] H_final_out_dut;
+    wire        busy_dut;
+    wire        done_dut;
+
+    // --- Instantiate DUT ---
+    message_compression_folded uut (
+        .clk(clk),
+        .rst_n(rst_n),
+        .start(start_tb),
+        .Wt_in(Wt_in_tb),
+        .H_final_out(H_final_out_dut),
+        .busy(busy_dut),
+        .done(done_dut)
+    );
+
+    // --- Clock Generation ---
+    parameter CLK_PERIOD = 10; // Clock period 10ns
+    initial begin
+        clk = 0;
+        forever #(CLK_PERIOD / 2) clk = ~clk;
+    end
+
+    // --- Test Sequence ---
+    initial begin
+        // 1. Initialize and Reset
+        rst_n = 1'b0;
+        start_tb = 1'b0;
+        Wt_in_tb = 32'b0;
+        $display("[%0t] Applying Reset...", $time);
+        repeat (2) @(posedge clk);
+        rst_n = 1'b1;
+        $display("[%0t] Releasing Reset. Waiting for DUT...", $time);
+        @(posedge clk);
+
+        // 2. Start the compression
+        $display("[%0t] Asserting Start signal.", $time);
+        start_tb = 1'b1;
+        @(posedge clk);
+        start_tb = 1'b0; // Start is a pulse
+
+        // Wait for initialization state(s) to pass
+        // Wait until DUT state is S_ROUND_START (value 2)
+        wait (uut.state == 4'd2);
+        $display("[%0t] DUT Initialization complete. State: %h", $time, uut.state);
+
+
+        // 3. Provide Wt_in and Monitor 64 rounds (8 cycles per round)
+        $display("[%0t] Starting round simulation with intermediate value printing...", $time);
+        for (integer t = 0; t < 64; t = t + 1) begin
+            // Provide Wt for the current round 't'
+            // *** Using Wt = t + 0x100 to match original Python example ***
+            // *** Ensure Python script uses the same Wt sequence ***
+            Wt_in_tb = t + 32'h100;
+            $display("----------------------------------------------------------------------");
+            $display("[%0t] V-Round %0d Start: Providing Wt_in = 0x%h", $time, t, Wt_in_tb);
+            $display("  Input State: a=%h b=%h c=%h d=%h e=%h f=%h g=%h h=%h",
+                     uut.reg_a, uut.reg_b, uut.reg_c, uut.reg_d, uut.reg_e, uut.reg_f, uut.reg_g, uut.reg_h);
+
+            // Monitor the 8 steps within the round
+            // Wait for Step 1 End (State 3 -> 4)
+            wait (uut.state == 4'd4); @(posedge clk);
+            $display("[%0t]   V-Step 1 End (h+Ch): h_temp = %h (State was 3)", $time, uut.h_temp);
+
+            // Wait for Step 2 End (State 4 -> 5)
+            wait (uut.state == 4'd5); @(posedge clk);
+            $display("[%0t]   V-Step 2 End (h+K):  h_temp = %h (State was 4)", $time, uut.h_temp);
+
+            // Wait for Step 3 End (State 5 -> 6)
+            wait (uut.state == 4'd6); @(posedge clk);
+            $display("[%0t]   V-Step 3 End (h+S1): h_temp = %h (State was 5)", $time, uut.h_temp);
+
+            // Wait for Step 4 End (State 6 -> 7)
+            wait (uut.state == 4'd7); @(posedge clk);
+            $display("[%0t]   V-Step 4 End (h+W):  T1_reg = %h (State was 6)", $time, uut.T1_reg);
+
+            // Wait for Step 5 End (State 7 -> 8)
+            wait (uut.state == 4'd8); @(posedge clk);
+            $display("[%0t]   V-Step 5 End (d+T1): d_new  = %h (State was 7)", $time, uut.d_new_reg);
+
+            // Wait for Step 6 End (State 8 -> 9)
+            wait (uut.state == 4'd9); @(posedge clk);
+            $display("[%0t]   V-Step 6 End (Maj+S0):h_temp = %h (State was 8)", $time, uut.h_temp); // T2
+
+            // Wait for Step 7 End (State 9 -> 10)
+            wait (uut.state == 4'd10); @(posedge clk); // Wait for S_ROUND_UPDATE
+            $display("[%0t]   V-Step 7 End (T1+T2):a_calc = %h (State was 9)", $time, uut.a_new_calc);
+
+            // Wait for Update Step End (State 10 -> 2 or 11)
+            wait (uut.state != 4'd10); @(posedge clk); // Wait until state changes FROM S_ROUND_UPDATE
+            $display("[%0t] V-Round %0d End (After Update): a=%h b=%h c=%h d=%h e=%h f=%h g=%h h=%h", $time, t,
+                     uut.reg_a, uut.reg_b, uut.reg_c, uut.reg_d, uut.reg_e, uut.reg_f, uut.reg_g, uut.reg_h);
+
+             // Check if DUT state is correct after round update
+             if (t < 63) begin
+                 if (uut.state != 4'd2) $error("DUT state not S_ROUND_START (2) after round %0d update, it is %h", t, uut.state);
+             end else begin // After round 63 update
+                 if (uut.state != 4'd11) $error("DUT state not S_FINAL_ADD_ST (11) after round 63 update, it is %h", uut.state);
+             end
+
+        end // End of for loop (rounds)
+        $display("----------------------------------------------------------------------");
+        $display("[%0t] Finished providing Wt for 64 rounds.", $time);
+
+        // 4. Wait for Final Addition and Done signal
+        $display("[%0t] Waiting for final addition and done signal...", $time);
+        // Monitor final addition steps (optional)
+        if (uut.state == 4'd11) begin // Check if in S_FINAL_ADD_ST (11)
+             $display("[%0t] Entering Final Add Stage.", $time);
+             wait (uut.state == 4'd12); @(posedge clk); // Wait for S_FINAL_ADD (12)
+             for (integer i = 0; i < 8; i = i + 1) begin
+                 // Display value *before* it's potentially updated in the same cycle by the DUT
+                 $display("[%0t]   Final Add Step %0d Start: H_reg[%0d]=%h, Reg=%h (State is %h)", $time, i, i, uut.H_reg[i],
+                          (i==0 ? uut.reg_a : i==1 ? uut.reg_b : i==2 ? uut.reg_c : i==3 ? uut.reg_d :
+                           i==4 ? uut.reg_e : i==5 ? uut.reg_f : i==6 ? uut.reg_g : uut.reg_h), uut.state);
+                 if (i < 7) begin
+                     wait (uut.step_counter == i+1); // Wait until DUT updates step counter
+                     @(posedge clk); // Wait for the clock edge after step counter update
+                 end else begin // Last step
+                     wait (uut.state == 4'd13); // Wait for S_DONE (13)
+                     @(posedge clk);
+                 end
+                 // Display value *after* DUT likely updated H_reg in the previous cycle
+                 $display("[%0t]   Final Add Step %0d End:   H_reg[%0d]=%h", $time, i, i, uut.H_reg[i]);
+             end
+        end
+
+        wait (done_dut == 1'b1);
+        $display("[%0t] Done signal received.", $time);
+        @(posedge clk); // Wait one more cycle for outputs to settle if needed
+
+        // 5. Display Final Hash Output
+        $display("[%0t] Compression Done. Final Hash Output (H0' to H7'):", $time);
+        for (integer i = 0; i < 8; i = i + 1) begin
+            $display("  H%0d' = 0x%h", i, H_final_out_dut[i]);
+        end
+
+        // 6. Finish Simulation
+        $display("[%0t] Simulation finished.", $time);
+        $finish;
+    end
+
+endmodule
+
+// Include necessary function modules (ch_func, maj_func, etc.) and adder_32bit
+// `include "adder_32bit.v"
+// `include "ch_func.v"
+// `include "maj_func.v"
+// `include "sigma0_comp_func.v"
+// `include "sigma1_comp_func.v"
+// `include "message_compression_folded.v" // Include the DUT itself if running separately
