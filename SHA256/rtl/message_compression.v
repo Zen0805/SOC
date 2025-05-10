@@ -5,7 +5,9 @@ module message_compression (
     input wire [31:0]   Wt_in,
     output wire [255:0] H_final_out,
     output reg          busy,
-    output reg          done
+    output reg          done,
+    output reg          STN // Start new, tín hiệu này gửi qua sche qua ctrl là trung gian, báo hiệu bắt đầu tính toán 1 word mới của scheduler
+                             // Bật lên ở STEP3, tắt ở STEP4,5,6,7  tuỳ duyên 
 );
 
     localparam S_IDLE         = 4'd0;
@@ -23,6 +25,7 @@ module message_compression (
     localparam S_FINAL_ADD    = 4'd12;
     localparam S_DONE         = 4'd13;
 
+    reg [31:0] Wt_saved; // Lưu Wt_in đđể dùng trong step4 mà không sợ bị ghi đè
     reg [3:0]  state, next_state;
     reg [31:0] reg_a, reg_b, reg_c, reg_d, reg_e, reg_f, reg_g, reg_h;
     reg [31:0] H_reg [7:0];
@@ -127,7 +130,7 @@ module message_compression (
     assign adder_in_b = (state == S_ROUND_STEP1) ? ch_out :
                         (state == S_ROUND_STEP2) ? Kt :
                         (state == S_ROUND_STEP3) ? sigma1_out :
-                        (state == S_ROUND_STEP4) ? Wt_in :
+                        (state == S_ROUND_STEP4) ? Wt_saved :
                         (state == S_ROUND_STEP5) ? T1_reg :
                         (state == S_ROUND_STEP6) ? sigma0_out :
                         (state == S_ROUND_STEP7) ? h_temp :
@@ -180,7 +183,7 @@ module message_compression (
                     reg_a <= H_reg[0]; reg_b <= H_reg[1]; reg_c <= H_reg[2]; reg_d <= H_reg[3];
                     reg_e <= H_reg[4]; reg_f <= H_reg[5]; reg_g <= H_reg[6]; reg_h <= H_reg[7];
                     round_counter <= 6'd0;
-                end
+                end 
 
                 S_ROUND_START: begin
                     // No updates
@@ -188,12 +191,18 @@ module message_compression (
 
                 S_ROUND_STEP1: h_temp <= adder_sum_out;
                 S_ROUND_STEP2: h_temp <= adder_sum_out;
-                S_ROUND_STEP3: h_temp <= adder_sum_out;
+                S_ROUND_STEP3: begin
+                    Wt_saved <= Wt_in;
+                    h_temp <= adder_sum_out;
+                    STN <= 1'b1; // Bật STN lên để báo scheduler bắt đầu tính toán
+                end
                 S_ROUND_STEP4: T1_reg <= adder_sum_out;
                 S_ROUND_STEP5: d_new_reg <= adder_sum_out;
                 S_ROUND_STEP6: h_temp <= adder_sum_out;
-                S_ROUND_STEP7: a_new_calc <= adder_sum_out;
-
+                S_ROUND_STEP7: begin
+                    a_new_calc <= adder_sum_out;
+                    STN <= 1'b0; // Tắt STN trước khi bật lại ở step3
+                end
                 S_ROUND_UPDATE: begin
                     reg_a <= a_new_calc; reg_b <= reg_a; reg_c <= reg_b; reg_d <= reg_c;
                     reg_e <= d_new_reg; reg_f <= reg_e; reg_g <= reg_f; reg_h <= reg_g;

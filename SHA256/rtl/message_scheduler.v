@@ -2,13 +2,18 @@
 module message_scheduler (
     input wire          clk,
     input wire          reset_n,         // Reset tích cực thấp
-    input wire          start_new_block, // Báo hiệu bắt đầu block mới
+    input wire          start_new_block, // Bắt đầu block mới
+    input wire          CtrlStart,      //Round 0 khi bắt đầu tính toán của IP, truyền vào để tính W0 để compression kịp xài
+    input wire          STN,             // Báo hiệu bắt đầu tính
     input wire [5:0]    round_t,         // Vòng lặp hiện tại (0-63)
     input wire [31:0]   message_word_in, // Dữ liệu M[i] để load
     input wire [3:0]    message_word_addr,// Địa chỉ (0-15) của M[i] đang load
     input wire          write_enable_in, // Cho phép ghi message_word_in vào memory
     output wire [31:0]  Wt_out           // W[t] tương ứng với round_t
 );
+
+
+    reg STNSaved;                   // Biến bool để kích hoạt tính toán 1 WORD, giữ cho đến khi tính xong 
 
     // --- Internal Signals ---
     reg [31:0] W_memory [15:0];     // Bộ nhớ lưu 16 từ W[t-16] đến W[t-1]
@@ -65,6 +70,16 @@ module message_scheduler (
                         (calculation_active && calc_cycle == 2'b10) ? sigma1_result :
                         32'b0;
 
+    // --- STN bật always @(posedge STN or posedge CtrlStart) begin
+    //     STNSaved <= 1'b1;
+    // end
+    // Nho tat STNSaved khi tinh xong 1 Word
+    // STNSaved <= 1'b0;
+    always @(posedge STN or posedge CtrlStart) begin
+        STNSaved <= 1'b1;
+    end
+
+
     // --- Logic điều khiển và cập nhật trạng thái (Sequential) ---
     always @(posedge clk or negedge reset_n) begin
         if (!reset_n) begin
@@ -73,54 +88,58 @@ module message_scheduler (
             calculation_active <= 1'b0;
             prev_wt <= 32'b0;
         end else begin
-            // --- Ghi dữ liệu đầu vào (M[i]) vào memory ---
-            if (write_enable_in) begin
-                W_memory[message_word_addr] <= message_word_in;
-            end
-
-            // --- Tính toán W[t] cho t >= 16 ---
-            if (round_t >= 6'd16) begin
-                if (!calculation_active) begin // Bắt đầu tính toán cho round mới
-                    calculation_active <= 1'b1;
-                    calc_cycle <= 2'b00;
-                    // Ghi W[t-1] từ vòng trước vào bộ nhớ ở cycle 0 của vòng mới
-                    if (round_t > 6'd16) begin
-                        W_memory[write_addr] <= prev_wt;
-                        $display("[%0t] Writing W[%0d] = 0x%h to memory at addr %0d", $time, round_t - 1, prev_wt, write_addr);
-                    end
-                end else begin // Đang trong quá trình tính toán
-                    if (calc_cycle == 2'b00 || calc_cycle == 2'b01 || calc_cycle == 2'b10) begin
-                        reg_w <= adder_sum_out;
-                    end
-                    case (calc_cycle)
-                        2'b00: begin
-                            calc_cycle <= 2'b01;
-                            $display("[%0t] Calculating W[%0d]:", $time, round_t);
-                            $display("  W[t-16] = 0x%h", mem_out_t_minus_16);
-                            $display("  W[t-15] = 0x%h", mem_out_t_minus_15);
-                            $display("  W[t-7]  = 0x%h", mem_out_t_minus_7);
-                            $display("  W[t-2]  = 0x%h", mem_out_t_minus_2);
-                            $display("  σ0(W[t-15]) = 0x%h", sigma0_result);
-                            $display("  σ1(W[t-2])  = 0x%h", sigma1_result);
-                        end
-                        2'b01: calc_cycle <= 2'b10;
-                        2'b10: begin
-                            calc_cycle <= 2'b11;
-                            prev_wt <= adder_sum_out; // Lưu W[t] cho lần ghi tiếp theo
-                        end
-                        2'b11: begin
-                            calc_cycle <= 2'b00;
-                            calculation_active <= 1'b0;
-                        end
-                        default: begin
-                            calc_cycle <= 2'b00;
-                            calculation_active <= 1'b0;
-                        end
-                    endcase
+            if(STNSaved) begin
+                // --- Ghi dữ liệu đầu vào (M[i]) vào memory ---
+                if (write_enable_in) begin
+                    W_memory[message_word_addr] <= message_word_in;
                 end
-            end else begin // round_t < 16
-                calculation_active <= 1'b0;
-                calc_cycle <= 2'b00;
+
+                // --- Tính toán W[t] cho t >= 16 ---
+                if (round_t >= 6'd16) begin
+                    if (!calculation_active) begin // Bắt đầu tính toán cho round mới
+                        calculation_active <= 1'b1;
+                        calc_cycle <= 2'b00;
+                        // Ghi W[t-1] từ vòng trước vào bộ nhớ ở cycle 0 của vòng mới
+                        if (round_t > 6'd16) begin
+                            W_memory[write_addr] <= prev_wt;
+                            $display("[%0t] Writing W[%0d] = 0x%h to memory at addr %0d", $time, round_t - 1, prev_wt, write_addr);
+                        end
+                    end else begin // Đang trong quá trình tính toán
+                        if (calc_cycle == 2'b00 || calc_cycle == 2'b01 || calc_cycle == 2'b10) begin
+                            reg_w <= adder_sum_out;
+                        end
+                        case (calc_cycle)
+                            2'b00: begin
+                                calc_cycle <= 2'b01;
+                                $display("[%0t] Calculating W[%0d]:", $time, round_t);
+                                $display("  W[t-16] = 0x%h", mem_out_t_minus_16);
+                                $display("  W[t-15] = 0x%h", mem_out_t_minus_15);
+                                $display("  W[t-7]  = 0x%h", mem_out_t_minus_7);
+                                $display("  W[t-2]  = 0x%h", mem_out_t_minus_2);
+                                $display("  σ0(W[t-15]) = 0x%h", sigma0_result);
+                                $display("  σ1(W[t-2])  = 0x%h", sigma1_result);
+                            end
+                            2'b01: calc_cycle <= 2'b10;
+                            2'b10: begin
+                                calc_cycle <= 2'b11;
+                                prev_wt <= adder_sum_out; // Lưu W[t] cho lần ghi tiếp theo
+                            end
+                            2'b11: begin
+                                calc_cycle <= 2'b00;
+                                calculation_active <= 1'b0;
+                                STNSaved <= 1'b0; // Tắt STNSaved sau khi tính xong, Có thể bị sai logic
+                            end
+                            default: begin
+                                calc_cycle <= 2'b00;
+                                calculation_active <= 1'b0;
+                            end
+                        endcase
+                    end
+                end else begin // round_t < 16
+                    calculation_active <= 1'b0;
+                    calc_cycle <= 2'b00;
+                    STNSaved <= 1'b0; // Tắt STNSaved sau khi tính xong
+                end
             end
         end
     end

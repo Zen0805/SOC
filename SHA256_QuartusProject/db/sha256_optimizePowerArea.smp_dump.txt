@@ -1,17 +1,7 @@
 
-State Machine - |message_compression|state
-Name state.S_DONE state.S_FINAL_ADD state.S_FINAL_ADD_ST state.S_ROUND_UPDATE state.S_ROUND_STEP7 state.S_ROUND_STEP6 state.S_ROUND_STEP5 state.S_ROUND_STEP4 state.S_ROUND_STEP3 state.S_ROUND_STEP2 state.S_ROUND_STEP1 state.S_ROUND_START state.S_INIT_LOAD state.S_IDLE 
-state.S_IDLE 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-state.S_INIT_LOAD 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
-state.S_ROUND_START 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
-state.S_ROUND_STEP1 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
-state.S_ROUND_STEP2 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
-state.S_ROUND_STEP3 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
-state.S_ROUND_STEP4 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
-state.S_ROUND_STEP5 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
-state.S_ROUND_STEP6 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
-state.S_ROUND_STEP7 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
-state.S_ROUND_UPDATE 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
-state.S_FINAL_ADD_ST 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
-state.S_FINAL_ADD 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
-state.S_DONE 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+State Machine - |message_scheduler|calc_cycle
+Name calc_cycle.11 calc_cycle.10 calc_cycle.01 calc_cycle.00 
+calc_cycle.00 0 0 0 0 
+calc_cycle.01 0 0 1 1 
+calc_cycle.10 0 1 0 1 
+calc_cycle.11 1 0 0 1 
