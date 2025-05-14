@@ -16,6 +16,7 @@ module tb_message_scheduler();
     reg  [31:0] message_word_in_tb;
     reg  [3:0]  message_word_addr_tb;
     reg         write_enable_in_tb;
+    reg         STN_tb;
 
     wire [31:0] Wt_out_dut;
 
@@ -24,6 +25,7 @@ module tb_message_scheduler();
         .clk(clk),
         .reset_n(reset_n),
         .start_new_block(start_new_block_tb),
+        .STN(STN_tb),
         .round_t(round_t_tb),
         .message_word_in(message_word_in_tb),
         .message_word_addr(message_word_addr_tb),
@@ -43,6 +45,7 @@ module tb_message_scheduler();
         // 1. Reset
         reset_n = 1'b0;
         start_new_block_tb = 1'b0;
+        STN_tb = 1'b1;
         round_t_tb = 6'b0;
         message_word_in_tb = 32'b0;
         message_word_addr_tb = 4'b0;
@@ -56,6 +59,7 @@ module tb_message_scheduler();
         // 2. Load Initial Message Block (M[0] to M[15])
         $display("[%0t] Loading initial message M[0..15]...", $time);
         start_new_block_tb = 1'b1;
+        STN_tb = 1'b1; // Bật STN để bắt đầu ghi dữ liệu vào bộ nhớ
         write_enable_in_tb = 1'b1;
         for (integer i = 0; i < 16; i = i + 1) begin
             message_word_addr_tb = i[3:0];

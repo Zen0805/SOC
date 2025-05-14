@@ -12,7 +12,7 @@ module message_compression (
 
     localparam S_IDLE         = 4'd0;
     localparam S_INIT_LOAD    = 4'd1;
-    localparam S_ROUND_START  = 4'd2;
+    //localparam S_ROUND_START  = 4'd2;
     localparam S_ROUND_STEP1  = 4'd3;
     localparam S_ROUND_STEP2  = 4'd4;
     localparam S_ROUND_STEP3  = 4'd5;
@@ -25,7 +25,7 @@ module message_compression (
     localparam S_FINAL_ADD    = 4'd12;
     localparam S_DONE         = 4'd13;
 
-    reg [31:0] Wt_saved; // Lưu Wt_in đđể dùng trong step4 mà không sợ bị ghi đè
+    //reg [31:0] Wt_saved; // Lưu Wt_in đđể dùng trong step4 mà không sợ bị ghi đè
     reg [3:0]  state, next_state;
     reg [31:0] reg_a, reg_b, reg_c, reg_d, reg_e, reg_f, reg_g, reg_h;
     reg [31:0] H_reg [7:0];
@@ -130,7 +130,7 @@ module message_compression (
     assign adder_in_b = (state == S_ROUND_STEP1) ? ch_out :
                         (state == S_ROUND_STEP2) ? Kt :
                         (state == S_ROUND_STEP3) ? sigma1_out :
-                        (state == S_ROUND_STEP4) ? Wt_saved :
+                        (state == S_ROUND_STEP4) ? Wt_in :
                         (state == S_ROUND_STEP5) ? T1_reg :
                         (state == S_ROUND_STEP6) ? sigma0_out :
                         (state == S_ROUND_STEP7) ? h_temp :
@@ -185,14 +185,13 @@ module message_compression (
                     round_counter <= 6'd0;
                 end 
 
-                S_ROUND_START: begin
-                    // No updates
-                end
+                // S_ROUND_START: begin
+                //     // No updates
+                // end
 
                 S_ROUND_STEP1: h_temp <= adder_sum_out;
                 S_ROUND_STEP2: h_temp <= adder_sum_out;
                 S_ROUND_STEP3: begin
-                    Wt_saved <= Wt_in;
                     h_temp <= adder_sum_out;
                     STN <= 1'b1; // Bật STN lên để báo scheduler bắt đầu tính toán
                 end
@@ -232,8 +231,8 @@ module message_compression (
         next_state = state;
         case (state)
             S_IDLE: if (start) next_state = S_INIT_LOAD;
-            S_INIT_LOAD: next_state = S_ROUND_START;
-            S_ROUND_START: next_state = S_ROUND_STEP1;
+            S_INIT_LOAD: next_state = S_ROUND_STEP1;
+            //S_ROUND_START: next_state = S_ROUND_STEP1;
             S_ROUND_STEP1: next_state = S_ROUND_STEP2;
             S_ROUND_STEP2: next_state = S_ROUND_STEP3;
             S_ROUND_STEP3: next_state = S_ROUND_STEP4;
@@ -242,7 +241,7 @@ module message_compression (
             S_ROUND_STEP6: next_state = S_ROUND_STEP7;
             S_ROUND_STEP7: next_state = S_ROUND_UPDATE;
             S_ROUND_UPDATE: if (round_counter == 6'd63) next_state = S_FINAL_ADD_ST;
-                            else next_state = S_ROUND_START;
+                            else next_state = S_ROUND_STEP1;
             S_FINAL_ADD_ST: next_state = S_FINAL_ADD;
             S_FINAL_ADD: if (step_counter == 4'd7) next_state = S_DONE;
             S_DONE: next_state = S_IDLE;

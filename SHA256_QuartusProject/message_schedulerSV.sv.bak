@@ -1,4 +1,4 @@
-module message_scheduler (
+module message_schedulerSV (
     input wire          clk,
     input wire          reset_n,         // Reset tích cực thấp
     input wire          start_new_block, // Bắt đầu block mới
@@ -74,18 +74,9 @@ module message_scheduler (
     // end
     // Nho tat STNSaved khi tinh xong 1 Word
     // STNSaved <= 1'b0;
-    always @(posedge STN or posedge CtrlStart or posedge clk) begin
-        if(STN) begin
-            STNSaved <= 1'b1;
-        end else if (CtrlStart) begin
-            STNSaved <= 1'b1;
-        end else begin
-            if(calculation_active && calc_cycle == 2'b11) begin
-                STNSaved <= 1'b0; // Tắt STNSaved sau khi tính xong
-            end else begin
-                STNSaved <= STNSaved; // Giữ nguyên giá trị nếu không có điều kiện nào khác
-            end
-        end
+    always @(posedge STN or posedge CtrlStart) begin
+        STNSaved <= 1'b1;
+        $display("STNSaved = 1");
     end
 
 
@@ -137,7 +128,7 @@ module message_scheduler (
                                 2'b11: begin
                                     calc_cycle <= 2'b00;
                                     calculation_active <= 1'b0;
-                                    //STNSaved <= 1'b0; // Tắt STNSaved sau khi tính xong, Có thể bị sai logic
+                                    STNSaved <= 1'b0; // Tắt STNSaved sau khi tính xong, Có thể bị sai logic
                                 end
                                 default: begin
                                     calc_cycle <= 2'b00;

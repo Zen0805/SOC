@@ -1,5 +1,5 @@
 Analysis & Synthesis report for sha256_optimizePowerArea
-Sat May 10 20:47:48 2025
+Wed May 14 15:43:18 2025
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -13,12 +13,11 @@ Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edit
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. State Machine - |message_scheduler|calc_cycle
-  9. Registers Removed During Synthesis
- 10. General Register Statistics
- 11. Multiplexer Restructuring Statistics (Restructuring Performed)
- 12. Elapsed Time Per Partition
- 13. Analysis & Synthesis Messages
+  8. Registers Removed During Synthesis
+  9. General Register Statistics
+ 10. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 11. Elapsed Time Per Partition
+ 12. Analysis & Synthesis Messages
 
 
 
@@ -44,16 +43,16 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sat May 10 20:47:48 2025           ;
+; Analysis & Synthesis Status        ; Successful - Wed May 14 15:43:18 2025           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; sha256_optimizePowerArea                        ;
-; Top-level Entity Name              ; message_scheduler                               ;
+; Top-level Entity Name              ; controller                                      ;
 ; Family                             ; Cyclone II                                      ;
-; Total logic elements               ; 1,835                                           ;
-;     Total combinational functions  ; 1,803                                           ;
-;     Dedicated logic registers      ; 581                                             ;
-; Total registers                    ; 581                                             ;
-; Total pins                         ; 79                                              ;
+; Total logic elements               ; 88                                              ;
+;     Total combinational functions  ; 54                                              ;
+;     Dedicated logic registers      ; 47                                              ;
+; Total registers                    ; 47                                              ;
+; Total pins                         ; 149                                             ;
 ; Total virtual pins                 ; 0                                               ;
 ; Total memory bits                  ; 0                                               ;
 ; Embedded Multiplier 9-bit elements ; 0                                               ;
@@ -67,7 +66,7 @@ applicable agreement for further details.
 ; Option                                                                     ; Setting            ; Default Value            ;
 +----------------------------------------------------------------------------+--------------------+--------------------------+
 ; Device                                                                     ; EP2C35F672C6       ;                          ;
-; Top-level entity name                                                      ; message_scheduler  ; sha256_optimizePowerArea ;
+; Top-level entity name                                                      ; controller         ; sha256_optimizePowerArea ;
 ; Family name                                                                ; Cyclone II         ; Cyclone IV GX            ;
 ; Use smart compilation                                                      ; Off                ; Off                      ;
 ; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                       ;
@@ -163,83 +162,63 @@ applicable agreement for further details.
 +----------------------------+-------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                    ;
-+-----------------------------------------------------+-----------------+------------------------+----------------------------------------------------------------+---------+
-; File Name with User-Entered Path                    ; Used in Netlist ; File Type              ; File Name with Absolute Path                                   ; Library ;
-+-----------------------------------------------------+-----------------+------------------------+----------------------------------------------------------------+---------+
-; ../SHA256/rtl/common_components/adder_32bit.v       ; yes             ; User Verilog HDL File  ; D:/CodeVS/SOC/SHA256/rtl/common_components/adder_32bit.v       ;         ;
-; ../SHA256/rtl/message_scheduler.v                   ; yes             ; User Verilog HDL File  ; D:/CodeVS/SOC/SHA256/rtl/message_scheduler.v                   ;         ;
-; ../SHA256/rtl/schedule_logic/sigma1_func_schedule.v ; yes             ; User Verilog HDL File  ; D:/CodeVS/SOC/SHA256/rtl/schedule_logic/sigma1_func_schedule.v ;         ;
-; ../SHA256/rtl/schedule_logic/sigma0_func_schedule.v ; yes             ; User Verilog HDL File  ; D:/CodeVS/SOC/SHA256/rtl/schedule_logic/sigma0_func_schedule.v ;         ;
-+-----------------------------------------------------+-----------------+------------------------+----------------------------------------------------------------+---------+
++------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                   ;
++----------------------------------+-----------------+------------------------+--------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                     ; Library ;
++----------------------------------+-----------------+------------------------+--------------------------------------------------+---------+
+; controller.v                     ; yes             ; User Verilog HDL File  ; D:/CodeVS/SOC/SHA256_QuartusProject/controller.v ;         ;
++----------------------------------+-----------------+------------------------+--------------------------------------------------+---------+
 
 
-+-----------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary         ;
-+---------------------------------------------+-------+
-; Resource                                    ; Usage ;
-+---------------------------------------------+-------+
-; Estimated Total logic elements              ; 1,835 ;
-;                                             ;       ;
-; Total combinational functions               ; 1803  ;
-; Logic element usage by number of LUT inputs ;       ;
-;     -- 4 input functions                    ; 594   ;
-;     -- 3 input functions                    ; 1204  ;
-;     -- <=2 input functions                  ; 5     ;
-;                                             ;       ;
-; Logic elements by mode                      ;       ;
-;     -- normal mode                          ; 1772  ;
-;     -- arithmetic mode                      ; 31    ;
-;                                             ;       ;
-; Total registers                             ; 581   ;
-;     -- Dedicated logic registers            ; 581   ;
-;     -- I/O registers                        ; 0     ;
-;                                             ;       ;
-; I/O pins                                    ; 79    ;
-; Embedded Multiplier 9-bit elements          ; 0     ;
-; Maximum fan-out node                        ; clk   ;
-; Maximum fan-out                             ; 581   ;
-; Total fan-out                               ; 7837  ;
-; Average fan-out                             ; 3.18  ;
-+---------------------------------------------+-------+
++-------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary           ;
++---------------------------------------------+---------+
+; Resource                                    ; Usage   ;
++---------------------------------------------+---------+
+; Estimated Total logic elements              ; 88      ;
+;                                             ;         ;
+; Total combinational functions               ; 54      ;
+; Logic element usage by number of LUT inputs ;         ;
+;     -- 4 input functions                    ; 4       ;
+;     -- 3 input functions                    ; 37      ;
+;     -- <=2 input functions                  ; 13      ;
+;                                             ;         ;
+; Logic elements by mode                      ;         ;
+;     -- normal mode                          ; 50      ;
+;     -- arithmetic mode                      ; 4       ;
+;                                             ;         ;
+; Total registers                             ; 47      ;
+;     -- Dedicated logic registers            ; 47      ;
+;     -- I/O registers                        ; 0       ;
+;                                             ;         ;
+; I/O pins                                    ; 149     ;
+; Embedded Multiplier 9-bit elements          ; 0       ;
+; Maximum fan-out node                        ; reset_n ;
+; Maximum fan-out                             ; 47      ;
+; Total fan-out                               ; 410     ;
+; Average fan-out                             ; 1.64    ;
++---------------------------------------------+---------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                              ;
-+------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------+--------------+
-; Compilation Hierarchy Node         ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                              ; Library Name ;
-+------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------+--------------+
-; |message_scheduler                 ; 1803 (1713)       ; 581 (581)    ; 0           ; 0            ; 0       ; 0         ; 79   ; 0            ; |message_scheduler                               ; work         ;
-;    |adder_32bit:u_adder|           ; 32 (32)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |message_scheduler|adder_32bit:u_adder           ; work         ;
-;    |sigma0_func_schedule:u_sigma0| ; 29 (29)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |message_scheduler|sigma0_func_schedule:u_sigma0 ; work         ;
-;    |sigma1_func_schedule:u_sigma1| ; 29 (29)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |message_scheduler|sigma1_func_schedule:u_sigma1 ; work         ;
-+------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------+--------------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                         ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+; Compilation Hierarchy Node ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name ; Library Name ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+; |controller                ; 54 (54)           ; 47 (47)      ; 0           ; 0            ; 0       ; 0         ; 149  ; 0            ; |controller         ; work         ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-Encoding Type:  One-Hot
-+-------------------------------------------------------------------------------+
-; State Machine - |message_scheduler|calc_cycle                                 ;
-+---------------+---------------+---------------+---------------+---------------+
-; Name          ; calc_cycle.11 ; calc_cycle.10 ; calc_cycle.01 ; calc_cycle.00 ;
-+---------------+---------------+---------------+---------------+---------------+
-; calc_cycle.00 ; 0             ; 0             ; 0             ; 0             ;
-; calc_cycle.01 ; 0             ; 0             ; 1             ; 1             ;
-; calc_cycle.10 ; 0             ; 1             ; 0             ; 1             ;
-; calc_cycle.11 ; 1             ; 0             ; 0             ; 1             ;
-+---------------+---------------+---------------+---------------+---------------+
-
-
-+------------------------------------------------------------+
-; Registers Removed During Synthesis                         ;
-+---------------------------------------+--------------------+
-; Register name                         ; Reason for Removal ;
-+---------------------------------------+--------------------+
-; calc_cycle~4                          ; Lost fanout        ;
-; calc_cycle~5                          ; Lost fanout        ;
-; Total Number of Removed Registers = 2 ;                    ;
-+---------------------------------------+--------------------+
++--------------------------------------------------------------------+
+; Registers Removed During Synthesis                                 ;
++---------------------------------------+----------------------------+
+; Register name                         ; Reason for Removal         ;
++---------------------------------------+----------------------------+
+; wrapper_data_request~reg0             ; Merged with loading_active ;
+; Total Number of Removed Registers = 1 ;                            ;
++---------------------------------------+----------------------------+
 
 
 +------------------------------------------------------+
@@ -247,44 +226,23 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 581   ;
-; Number of registers using Synchronous Clear  ; 0     ;
+; Total registers                              ; 47    ;
+; Number of registers using Synchronous Clear  ; 3     ;
 ; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 69    ;
+; Number of registers using Asynchronous Clear ; 47    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 576   ;
+; Number of registers using Clock Enable       ; 38    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                    ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output          ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------+
-; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |message_scheduler|W_memory[15][20] ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |message_scheduler|W_memory[14][18] ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |message_scheduler|W_memory[13][15] ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |message_scheduler|W_memory[12][8]  ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |message_scheduler|W_memory[11][3]  ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |message_scheduler|W_memory[10][1]  ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |message_scheduler|W_memory[9][29]  ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |message_scheduler|W_memory[8][22]  ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |message_scheduler|W_memory[7][27]  ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |message_scheduler|W_memory[6][20]  ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |message_scheduler|W_memory[5][7]   ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |message_scheduler|W_memory[4][8]   ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |message_scheduler|W_memory[3][30]  ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |message_scheduler|W_memory[2][19]  ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |message_scheduler|W_memory[1][14]  ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |message_scheduler|W_memory[0][28]  ;
-; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |message_scheduler|adder_in_a[1]    ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; No         ; |message_scheduler|calc_cycle       ;
-; 8:1                ; 32 bits   ; 160 LEs       ; 160 LEs              ; 0 LEs                  ; No         ; |message_scheduler|Mux139           ;
-; 8:1                ; 32 bits   ; 160 LEs       ; 160 LEs              ; 0 LEs                  ; No         ; |message_scheduler|Mux116           ;
-; 8:1                ; 32 bits   ; 160 LEs       ; 160 LEs              ; 0 LEs                  ; No         ; |message_scheduler|Mux42            ;
-; 11:1               ; 32 bits   ; 224 LEs       ; 192 LEs              ; 32 LEs                 ; No         ; |message_scheduler|adder_in_b[31]   ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                            ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output  ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------+
+; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |controller|load_counter[0] ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------+
 
 
 +-------------------------------+
@@ -292,7 +250,7 @@ Encoding Type:  One-Hot
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:02     ;
+; Top            ; 00:00:00     ;
 +----------------+--------------+
 
 
@@ -302,7 +260,7 @@ Encoding Type:  One-Hot
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Sat May 10 20:47:44 2025
+    Info: Processing started: Wed May 14 15:43:18 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off sha256_optimizePowerArea -c sha256_optimizePowerArea
 Info (11104): Parallel Compilation has detected 16 hyper-threaded processors. However, the extra hyper-threaded processors will not be used by default. Parallel Compilation will use 12 of the 12 physical processors detected instead.
 Info (12021): Found 1 design units, including 1 entities, in source file /codevs/soc/sha256/rtl/message_compression.v
@@ -323,28 +281,23 @@ Info (12021): Found 1 design units, including 1 entities, in source file /codevs
     Info (12023): Found entity 1: sigma1_func_schedule
 Info (12021): Found 1 design units, including 1 entities, in source file /codevs/soc/sha256/rtl/schedule_logic/sigma0_func_schedule.v
     Info (12023): Found entity 1: sigma0_func_schedule
-Info (12127): Elaborating entity "message_scheduler" for the top level hierarchy
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(44): truncated value with size 6 to match size of target (4)
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(45): truncated value with size 6 to match size of target (4)
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(46): truncated value with size 6 to match size of target (4)
-Critical Warning (10237): Verilog HDL warning at message_scheduler.v(78): can't infer register for assignment in edge-triggered always construct because the clock isn't obvious. Generated combinational logic instead
-Info (12128): Elaborating entity "sigma0_func_schedule" for hierarchy "sigma0_func_schedule:u_sigma0"
-Info (12128): Elaborating entity "sigma1_func_schedule" for hierarchy "sigma1_func_schedule:u_sigma1"
-Info (12128): Elaborating entity "adder_32bit" for hierarchy "adder_32bit:u_adder"
-Info (17049): 2 registers lost all their fanouts during netlist optimizations.
+Info (12021): Found 1 design units, including 1 entities, in source file controller.v
+    Info (12023): Found entity 1: controller
+Info (12127): Elaborating entity "controller" for the top level hierarchy
+Warning (10230): Verilog HDL assignment warning at controller.v(55): truncated value with size 32 to match size of target (6)
+Warning (10230): Verilog HDL assignment warning at controller.v(87): truncated value with size 32 to match size of target (4)
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 2 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "CtrlStart"
-    Warning (15610): No output dependent on input pin "STN"
-Info (21057): Implemented 1948 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 47 input pins
-    Info (21059): Implemented 32 output pins
-    Info (21061): Implemented 1869 logic cells
-Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 7 warnings
+Warning (21074): Design contains 1 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "done_from_comp"
+Info (21057): Implemented 237 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 70 input pins
+    Info (21059): Implemented 79 output pins
+    Info (21061): Implemented 88 logic cells
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 4 warnings
     Info: Peak virtual memory: 4611 megabytes
-    Info: Processing ended: Sat May 10 20:47:48 2025
-    Info: Elapsed time: 00:00:04
-    Info: Total CPU time (on all processors): 00:00:04
+    Info: Processing ended: Wed May 14 15:43:18 2025
+    Info: Elapsed time: 00:00:00
+    Info: Total CPU time (on all processors): 00:00:01
 
 

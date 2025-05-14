@@ -1,5 +1,5 @@
 Flow report for sha256_optimizePowerArea
-Sat May 10 20:48:03 2025
+Wed May 14 15:43:26 2025
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -40,18 +40,18 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Flow Summary                                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Flow Status                        ; Successful - Sat May 10 20:48:01 2025           ;
+; Flow Status                        ; Successful - Wed May 14 15:43:25 2025           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; sha256_optimizePowerArea                        ;
-; Top-level Entity Name              ; message_scheduler                               ;
+; Top-level Entity Name              ; controller                                      ;
 ; Family                             ; Cyclone II                                      ;
 ; Device                             ; EP2C35F672C6                                    ;
 ; Timing Models                      ; Final                                           ;
-; Total logic elements               ; 1,837 / 33,216 ( 6 % )                          ;
-;     Total combinational functions  ; 1,803 / 33,216 ( 5 % )                          ;
-;     Dedicated logic registers      ; 581 / 33,216 ( 2 % )                            ;
-; Total registers                    ; 581                                             ;
-; Total pins                         ; 79 / 475 ( 17 % )                               ;
+; Total logic elements               ; 88 / 33,216 ( < 1 % )                           ;
+;     Total combinational functions  ; 56 / 33,216 ( < 1 % )                           ;
+;     Dedicated logic registers      ; 47 / 33,216 ( < 1 % )                           ;
+; Total registers                    ; 47                                              ;
+; Total pins                         ; 149 / 475 ( 31 % )                              ;
 ; Total virtual pins                 ; 0                                               ;
 ; Total memory bits                  ; 0 / 483,840 ( 0 % )                             ;
 ; Embedded Multiplier 9-bit elements ; 0 / 70 ( 0 % )                                  ;
@@ -64,26 +64,26 @@ applicable agreement for further details.
 +-------------------+--------------------------+
 ; Option            ; Setting                  ;
 +-------------------+--------------------------+
-; Start date & time ; 05/10/2025 20:47:44      ;
+; Start date & time ; 05/14/2025 15:43:18      ;
 ; Main task         ; Compilation              ;
 ; Revision Name     ; sha256_optimizePowerArea ;
 +-------------------+--------------------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                                ;
-+-------------------------------------+-------------------------------+--------------------------+-------------------+------------+
-; Assignment Name                     ; Value                         ; Default Value            ; Entity Name       ; Section Id ;
-+-------------------------------------+-------------------------------+--------------------------+-------------------+------------+
-; COMPILER_SIGNATURE_ID               ; 9619532411942.174688486402396 ; --                       ; --                ; --         ;
-; MAX_CORE_JUNCTION_TEMP              ; 85                            ; --                       ; --                ; --         ;
-; MIN_CORE_JUNCTION_TEMP              ; 0                             ; --                       ; --                ; --         ;
-; PARTITION_COLOR                     ; 16764057                      ; --                       ; message_scheduler ; Top        ;
-; PARTITION_FITTER_PRESERVATION_LEVEL ; PLACEMENT_AND_ROUTING         ; --                       ; message_scheduler ; Top        ;
-; PARTITION_NETLIST_TYPE              ; SOURCE                        ; --                       ; message_scheduler ; Top        ;
-; PROJECT_OUTPUT_DIRECTORY            ; output_files                  ; --                       ; --                ; --         ;
-; TOP_LEVEL_ENTITY                    ; message_scheduler             ; sha256_optimizePowerArea ; --                ; --         ;
-+-------------------------------------+-------------------------------+--------------------------+-------------------+------------+
++---------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                          ;
++-------------------------------------+-------------------------------+--------------------------+-------------+------------+
+; Assignment Name                     ; Value                         ; Default Value            ; Entity Name ; Section Id ;
++-------------------------------------+-------------------------------+--------------------------+-------------+------------+
+; COMPILER_SIGNATURE_ID               ; 9619532411942.174721219821248 ; --                       ; --          ; --         ;
+; MAX_CORE_JUNCTION_TEMP              ; 85                            ; --                       ; --          ; --         ;
+; MIN_CORE_JUNCTION_TEMP              ; 0                             ; --                       ; --          ; --         ;
+; PARTITION_COLOR                     ; 16764057                      ; --                       ; controller  ; Top        ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; PLACEMENT_AND_ROUTING         ; --                       ; controller  ; Top        ;
+; PARTITION_NETLIST_TYPE              ; SOURCE                        ; --                       ; controller  ; Top        ;
+; PROJECT_OUTPUT_DIRECTORY            ; output_files                  ; --                       ; --          ; --         ;
+; TOP_LEVEL_ENTITY                    ; controller                    ; sha256_optimizePowerArea ; --          ; --         ;
++-------------------------------------+-------------------------------+--------------------------+-------------+------------+
 
 
 +-------------------------------------------------------------------------------------------------------------------------------+
@@ -91,11 +91,11 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:03     ; 1.0                     ; 4601 MB             ; 00:00:03                           ;
-; Fitter                    ; 00:00:10     ; 2.1                     ; 5692 MB             ; 00:00:20                           ;
-; Assembler                 ; 00:00:02     ; 1.0                     ; 4588 MB             ; 00:00:02                           ;
-; TimeQuest Timing Analyzer ; 00:00:01     ; 1.0                     ; 4645 MB             ; 00:00:01                           ;
-; Total                     ; 00:00:16     ; --                      ; --                  ; 00:00:26                           ;
+; Analysis & Synthesis      ; 00:00:00     ; 1.0                     ; 4601 MB             ; 00:00:00                           ;
+; Fitter                    ; 00:00:04     ; 2.0                     ; 5684 MB             ; 00:00:08                           ;
+; Assembler                 ; 00:00:02     ; 1.0                     ; 4581 MB             ; 00:00:01                           ;
+; TimeQuest Timing Analyzer ; 00:00:01     ; 1.0                     ; 4625 MB             ; 00:00:01                           ;
+; Total                     ; 00:00:07     ; --                      ; --                  ; 00:00:10                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

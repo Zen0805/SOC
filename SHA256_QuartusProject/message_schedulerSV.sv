@@ -1,4 +1,4 @@
-module message_scheduler (
+module message_schedulerSV (
     input wire          clk,
     input wire          reset_n,         // Reset tích cực thấp
     input wire          start_new_block, // Bắt đầu block mới
@@ -7,9 +7,13 @@ module message_scheduler (
     input wire [5:0]    round_t,         // Vòng lặp hiện tại (0-63)
     input wire [31:0]   message_word_in, // Dữ liệu M[i] để load
     input wire [3:0]    message_word_addr,// Địa chỉ (0-15) của M[i] đang load
+	 
     input wire          write_enable_in, // Cho phép ghi message_word_in vào memory
     output wire [31:0]  Wt_out           // W[t] tương ứng với round_t
 );
+
+
+
 
 
     reg STNSaved;                   // Biến bool để kích hoạt tính toán 1 WORD, giữ cho đến khi tính xong 
@@ -74,18 +78,9 @@ module message_scheduler (
     // end
     // Nho tat STNSaved khi tinh xong 1 Word
     // STNSaved <= 1'b0;
-    always @(posedge STN or posedge CtrlStart or posedge clk) begin
-        if(STN) begin
-            STNSaved <= 1'b1;
-        end else if (CtrlStart) begin
-            STNSaved <= 1'b1;
-        end else begin
-            if(calculation_active && calc_cycle == 2'b11) begin
-                STNSaved <= 1'b0; // Tắt STNSaved sau khi tính xong
-            end else begin
-                STNSaved <= STNSaved; // Giữ nguyên giá trị nếu không có điều kiện nào khác
-            end
-        end
+    always @(posedge STN or posedge CtrlStart) begin
+        STNSaved <= 1'b1;
+        $display("STNSaved = 1");
     end
 
 
@@ -137,7 +132,7 @@ module message_scheduler (
                                 2'b11: begin
                                     calc_cycle <= 2'b00;
                                     calculation_active <= 1'b0;
-                                    //STNSaved <= 1'b0; // Tắt STNSaved sau khi tính xong, Có thể bị sai logic
+                                    STNSaved <= 1'b0; // Tắt STNSaved sau khi tính xong, Có thể bị sai logic
                                 end
                                 default: begin
                                     calc_cycle <= 2'b00;
