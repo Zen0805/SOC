@@ -8,7 +8,31 @@ module message_scheduler (
     input wire [31:0]   message_word_in, // Dữ liệu M[i] để load
     input wire [3:0]    message_word_addr,// Địa chỉ (0-15) của M[i] đang load
     input wire          write_enable_in, // Cho phép ghi message_word_in vào memory
-    output wire [31:0]  Wt_out           // W[t] tương ứng với round_t
+    output wire [31:0]  Wt_out,           // W[t] tương ứng với round_t
+	 
+	 
+	 output wire StnSaved_out,
+	 output wire [1:0] CALC_CYCLE_OUT,           // 0: s1, 1: s2, 2: s3, 3: s4
+    output wire CALC_ACTIVE_OUT,         // Đánh dấu đang tính toán 4 chu kỳ
+    output wire [31:0] PREV_WT_OUT, 
+	 output wire [3:0] WA_OUT,
+	 output wire [31:0] ADD_IN_A_OUT,         // Đầu vào A của bộ cộng
+    output wire [31:0] ADD_IN_B_OUT,         // Đầu vào B của bộ cộng
+    output wire [31:0] ADD_SUM_OUT,
+	 
+	 
+	 
+	 output wire [3:0] addr_t_minus_16_out,
+    output wire [3:0] addr_t_minus_15_out,
+    output wire [3:0] addr_t_minus_7_out,
+    output wire [3:0] addr_t_minus_2_out,
+	 
+	 output wire [31:0] mem_out_t_minus_16_out ,
+    output wire [31:0] mem_out_t_minus_15_out ,
+    output wire [31:0] mem_out_t_minus_7_out  ,
+    output wire [31:0] mem_out_t_minus_2_out  
+	 
+	 
 );
 
 
@@ -74,16 +98,12 @@ module message_scheduler (
     // end
     // Nho tat STNSaved khi tinh xong 1 Word
     // STNSaved <= 1'b0;
-    always @(posedge STN or posedge CtrlStart or posedge clk) begin
+    always @(posedge STN or posedge clk) begin
         if(STN) begin
             STNSaved <= 1'b1;
-        end else if (CtrlStart) begin
-            STNSaved <= 1'b1;
         end else begin
-            if(calculation_active && calc_cycle == 2'b11) begin
+            if(calc_cycle == 2'b11) begin
                 STNSaved <= 1'b0; // Tắt STNSaved sau khi tính xong
-            end else begin
-                STNSaved <= STNSaved; // Giữ nguyên giá trị nếu không có điều kiện nào khác
             end
         end
     end
@@ -110,10 +130,7 @@ module message_scheduler (
                             calculation_active <= 1'b1;
                             calc_cycle <= 2'b00;
                             // Ghi W[t-1] từ vòng trước vào bộ nhớ ở cycle 0 của vòng mới
-                            if (round_t > 6'd16) begin
-                                W_memory[write_addr] <= prev_wt;
-                                $display("[%0t] Writing W[%0d] = 0x%h to memory at addr %0d", $time, round_t - 1, prev_wt, write_addr);
-                            end
+                            
                         end else begin // Đang trong quá trình tính toán
                             if (calc_cycle == 2'b00 || calc_cycle == 2'b01 || calc_cycle == 2'b10) begin
                                 reg_w <= adder_sum_out;
@@ -129,7 +146,17 @@ module message_scheduler (
                                     $display("  σ0(W[t-15]) = 0x%h", sigma0_result);
                                     $display("  σ1(W[t-2])  = 0x%h", sigma1_result);
                                 end
-                                2'b01: calc_cycle <= 2'b10;
+                                2'b01: begin
+												if (round_t > 6'd16) begin
+													if(write_addr == 0) begin
+														W_memory[15] <= prev_wt;
+													end else begin
+														W_memory[write_addr - 1] <= prev_wt;
+													end
+													$display("[%0t] Writing W[%0d] = 0x%h to memory at addr %0d", $time, round_t - 1, prev_wt, write_addr);
+												end
+												calc_cycle <= 2'b10;
+										  end
                                 2'b10: begin
                                     calc_cycle <= 2'b11;
                                     prev_wt <= adder_sum_out; // Lưu W[t] cho lần ghi tiếp theo
@@ -156,6 +183,27 @@ module message_scheduler (
 
     // --- Logic chọn đầu ra Wt_out (Combinational) ---
     assign Wt_out = (round_t < 6'd16) ? W_memory[round_t] : reg_w;
+	 
+	 assign StnSaved_out = STNSaved;
+	 assign CALC_CYCLE_OUT = calc_cycle;           // 0: s1, 1: s2, 2: s3, 3: s4
+    assign CALC_ACTIVE_OUT = calculation_active;         // Đánh dấu đang tính toán 4 chu kỳ
+    assign PREV_WT_OUT = prev_wt; 
+	 assign WA_OUT = write_addr;
+	 assign ADD_IN_A_OUT = adder_in_a;         // Đầu vào A của bộ cộng
+    assign ADD_IN_B_OUT = adder_in_b;         // Đầu vào B của bộ cộng
+    assign ADD_SUM_OUT = adder_sum_out;
+	 
+	 
+	 assign addr_t_minus_16_out = addr_t_minus_16;
+    assign addr_t_minus_15_out = addr_t_minus_15;
+    assign addr_t_minus_7_out = addr_t_minus_7;
+    assign addr_t_minus_2_out = addr_t_minus_2;
+	 
+	 
+	 assign    mem_out_t_minus_16_out             =         mem_out_t_minus_16 ;
+	 assign    mem_out_t_minus_15_out              =        mem_out_t_minus_15 ;
+	 assign    mem_out_t_minus_7_out                =       mem_out_t_minus_7  ;
+	 assign    mem_out_t_minus_2_out                 =      mem_out_t_minus_2  ;
 
 endmodule
 

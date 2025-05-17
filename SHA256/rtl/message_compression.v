@@ -249,6 +249,6 @@ module message_compression (
         endcase
     end
 
-    assign H_final_out = {H_reg[7], H_reg[6], H_reg[5], H_reg[4], H_reg[3], H_reg[2], H_reg[1], H_reg[0]};
+    assign H_final_out = {H_reg[0], H_reg[1], H_reg[2], H_reg[3], H_reg[4], H_reg[5], H_reg[6], H_reg[7]};
 
 endmodule
