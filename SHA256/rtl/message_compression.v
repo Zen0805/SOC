@@ -2,7 +2,7 @@ module message_compression (
     input wire          clk,
     input wire          rst_n,
     input wire          start,
-    input wire [31:0]   Wt_in,
+    input wire  [31:0]  Wt_in,
     output wire [255:0] H_final_out,
     output reg          busy,
     output reg          done,
@@ -13,6 +13,7 @@ module message_compression (
     localparam S_IDLE         = 4'd0;
     localparam S_INIT_LOAD    = 4'd1;
     //localparam S_ROUND_START  = 4'd2;
+	 localparam S_IDLE_new  = 4'd2;
     localparam S_ROUND_STEP1  = 4'd3;
     localparam S_ROUND_STEP2  = 4'd4;
     localparam S_ROUND_STEP3  = 4'd5;
@@ -159,6 +160,7 @@ module message_compression (
             a_new_calc <= 32'b0;
             busy <= 1'b0;
             done <= 1'b0;
+				STN <= 1'b0; //alo alo
         end else begin
             state <= next_state;
             done <= 1'b0;
@@ -174,6 +176,13 @@ module message_compression (
                         H_reg[5] <= 32'h9b05688c;
                         H_reg[6] <= 32'h1f83d9ab;
                         H_reg[7] <= 32'h5be0cd19;
+                        step_counter <= 4'd0;
+                        busy <= 1'b1;
+                    end
+                end
+					 
+					 S_IDLE_new: begin
+                    if (start) begin
                         step_counter <= 4'd0;
                         busy <= 1'b1;
                     end
@@ -231,6 +240,7 @@ module message_compression (
         next_state = state;
         case (state)
             S_IDLE: if (start) next_state = S_INIT_LOAD;
+				S_IDLE_new: if (start) next_state = S_INIT_LOAD;
             S_INIT_LOAD: next_state = S_ROUND_STEP1;
             //S_ROUND_START: next_state = S_ROUND_STEP1;
             S_ROUND_STEP1: next_state = S_ROUND_STEP2;
@@ -244,7 +254,7 @@ module message_compression (
                             else next_state = S_ROUND_STEP1;
             S_FINAL_ADD_ST: next_state = S_FINAL_ADD;
             S_FINAL_ADD: if (step_counter == 4'd7) next_state = S_DONE;
-            S_DONE: next_state = S_IDLE;
+            S_DONE: next_state = S_IDLE_new;
             default: next_state = S_IDLE;
         endcase
     end

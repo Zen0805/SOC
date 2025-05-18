@@ -1,0 +1,14 @@
+# do sha256_optimizePowerArea.do 
+# ** Warning: (vlib-34) Library already exists at "work".
+# 
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module sha256_optimizePowerArea
+# 
+# Top level modules:
+# 	sha256_optimizePowerArea
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module sha256_optimizePowerArea_vlg_sample_tst
+# -- Compiling module sha256_optimizePowerArea_vlg_check_tst
+# ** Error: sha256_optimizePowerArea.vt(67): near "output": syntax error, unexpected output, expecting ')'
+# ** Error: c:/altera/13.0sp1/modelsim_ase/win32aloem/vlog failed.
+# Executing ONERROR command at macro ./sha256_optimizePowerArea.do line 4

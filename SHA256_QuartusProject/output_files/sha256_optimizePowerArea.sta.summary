@@ -2,28 +2,68 @@
 TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
-Type  : Slow Model Setup 'clk'
-Slack : -9.694
-TNS   : -3701.615
+Type  : Slow Model Setup 'CLK'
+Slack : -10.196
+TNS   : -7849.262
 
-Type  : Slow Model Hold 'clk'
-Slack : 0.391
+Type  : Slow Model Setup 'message_compression:inst1|STN'
+Slack : -0.699
+TNS   : -3.658
+
+Type  : Slow Model Hold 'CLK'
+Slack : -2.551
+TNS   : -2.551
+
+Type  : Slow Model Hold 'message_compression:inst1|STN'
+Slack : 0.809
 TNS   : 0.000
 
-Type  : Slow Model Minimum Pulse Width 'clk'
-Slack : -1.380
-TNS   : -666.380
-
-Type  : Fast Model Setup 'clk'
-Slack : -3.915
-TNS   : -1340.254
-
-Type  : Fast Model Hold 'clk'
-Slack : 0.215
+Type  : Slow Model Recovery 'CLK'
+Slack : 0.623
 TNS   : 0.000
 
-Type  : Fast Model Minimum Pulse Width 'clk'
+Type  : Slow Model Removal 'CLK'
+Slack : -0.353
+TNS   : -0.353
+
+Type  : Slow Model Minimum Pulse Width 'CLK'
 Slack : -1.380
-TNS   : -666.380
+TNS   : -1286.380
+
+Type  : Slow Model Minimum Pulse Width 'message_compression:inst1|STN'
+Slack : -0.500
+TNS   : -6.000
+
+Type  : Fast Model Setup 'CLK'
+Slack : -4.179
+TNS   : -2948.202
+
+Type  : Fast Model Setup 'message_compression:inst1|STN'
+Slack : 0.181
+TNS   : 0.000
+
+Type  : Fast Model Hold 'CLK'
+Slack : -1.591
+TNS   : -1.591
+
+Type  : Fast Model Hold 'message_compression:inst1|STN'
+Slack : 0.363
+TNS   : 0.000
+
+Type  : Fast Model Recovery 'CLK'
+Slack : 0.619
+TNS   : 0.000
+
+Type  : Fast Model Removal 'CLK'
+Slack : -0.239
+TNS   : -0.239
+
+Type  : Fast Model Minimum Pulse Width 'CLK'
+Slack : -1.380
+TNS   : -1286.380
+
+Type  : Fast Model Minimum Pulse Width 'message_compression:inst1|STN'
+Slack : -0.500
+TNS   : -6.000
 
 ------------------------------------------------------------

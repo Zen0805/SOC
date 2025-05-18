@@ -1,36 +1,35 @@
 module message_scheduler (
     input wire          clk,
-    input wire          reset_n,         // Reset tích cực thấp
-    input wire          start_new_block, // Bắt đầu block mới
-    input wire          CtrlStart,      //Round 0 khi bắt đầu tính toán của IP, truyền vào để tính W0 để compression kịp xài
-    input wire          STN,             // Báo hiệu bắt đầu tính
-    input wire [5:0]    round_t,         // Vòng lặp hiện tại (0-63)
-    input wire [31:0]   message_word_in, // Dữ liệu M[i] để load
-    input wire [3:0]    message_word_addr,// Địa chỉ (0-15) của M[i] đang load
-    input wire          write_enable_in, // Cho phép ghi message_word_in vào memory
-    output wire [31:0]  Wt_out,           // W[t] tương ứng với round_t
+    input wire          reset_n,           // Reset tích cực thấp
+    //input wire          CtrlStart,         // Round 0 khi bắt đầu tính toán của IP, truyền vào để tính W0 để compression kịp xài
+    input wire          STN,               // Báo hiệu bắt đầu tính mỗi round, tín hiệu start duy nhất cần thiết
+    input wire  [5:0]   round_t,           // Vòng lặp hiện tại (0-63)
+    input wire  [31:0]  message_word_in,   // Dữ liệu M[i] để load
+    input wire  [3:0]   message_word_addr, // Địa chỉ (0-15) của M[i] đang load
+    input wire          write_enable_in,   // Cho phép ghi message_word_in vào memory
+    output wire [31:0]  Wt_out            // W[t] tương ứng với round_t
 	 
 	 
-	 output wire StnSaved_out,
-	 output wire [1:0] CALC_CYCLE_OUT,           // 0: s1, 1: s2, 2: s3, 3: s4
-    output wire CALC_ACTIVE_OUT,         // Đánh dấu đang tính toán 4 chu kỳ
-    output wire [31:0] PREV_WT_OUT, 
-	 output wire [3:0] WA_OUT,
-	 output wire [31:0] ADD_IN_A_OUT,         // Đầu vào A của bộ cộng
-    output wire [31:0] ADD_IN_B_OUT,         // Đầu vào B của bộ cộng
-    output wire [31:0] ADD_SUM_OUT,
+	 //output wire 			StnSaved_out,
+	 //output wire [1:0] 	CALC_CYCLE_OUT,     // 0: s1, 1: s2, 2: s3, 3: s4
+    //output wire 			CALC_ACTIVE_OUT, // Đánh dấu đang tính toán 4 chu kỳ
+    //output wire [31:0] 	PREV_WT_OUT, 
+	 //output wire [3:0] 	WA_OUT,
+	 //output wire [31:0]	ADD_IN_A_OUT,       // Đầu vào A của bộ cộng
+    //output wire [31:0] 	ADD_IN_B_OUT,       // Đầu vào B của bộ cộng
+    //output wire [31:0] 	ADD_SUM_OUT,
 	 
 	 
 	 
-	 output wire [3:0] addr_t_minus_16_out,
-    output wire [3:0] addr_t_minus_15_out,
-    output wire [3:0] addr_t_minus_7_out,
-    output wire [3:0] addr_t_minus_2_out,
+	 //output wire [3:0] 	addr_t_minus_16_out,
+    //output wire [3:0] 	addr_t_minus_15_out,
+    //output wire [3:0] 	addr_t_minus_7_out,
+    //output wire [3:0] 	addr_t_minus_2_out,
 	 
-	 output wire [31:0] mem_out_t_minus_16_out ,
-    output wire [31:0] mem_out_t_minus_15_out ,
-    output wire [31:0] mem_out_t_minus_7_out  ,
-    output wire [31:0] mem_out_t_minus_2_out  
+	 //output wire [31:0] 	mem_out_t_minus_16_out ,
+    //output wire [31:0]	mem_out_t_minus_15_out ,
+    //output wire [31:0]	mem_out_t_minus_7_out  ,
+    //output wire [31:0]	mem_out_t_minus_2_out  
 	 
 	 
 );
@@ -64,11 +63,11 @@ module message_scheduler (
     wire [31:0] adder_sum_out;      // Kết quả từ bộ cộng
 
     // --- Tính toán địa chỉ Memory (Modulo 16) ---
-    assign addr_t_minus_16 = round_t[3:0];           // W[t-16] = t mod 16
-    assign addr_t_minus_15 = (round_t - 6'd15) & 4'hF;// (t-15) mod 16
-    assign addr_t_minus_7  = (round_t - 6'd7) & 4'hF; // (t-7) mod 16
-    assign addr_t_minus_2  = (round_t - 6'd2) & 4'hF; // (t-2) mod 16
-    assign write_addr      = addr_t_minus_16;        // Ghi đè lên W[t-16]
+    assign addr_t_minus_16 = round_t[3:0];              // W[t-16] = t mod 16
+    assign addr_t_minus_15 = (round_t - 6'd15) & 4'hF;  // (t-15) mod 16
+    assign addr_t_minus_7  = (round_t - 6'd7) & 4'hF;   // (t-7) mod 16
+    assign addr_t_minus_2  = (round_t - 6'd2) & 4'hF;   // (t-2) mod 16
+    assign write_addr      = addr_t_minus_16;           // Ghi đè lên W[t-16]
 
     // --- Đọc dữ liệu từ Memory ---
     assign mem_out_t_minus_16 = W_memory[addr_t_minus_16];
@@ -98,6 +97,7 @@ module message_scheduler (
     // end
     // Nho tat STNSaved khi tinh xong 1 Word
     // STNSaved <= 1'b0;
+	 
     always @(posedge STN or posedge clk) begin
         if(STN) begin
             STNSaved <= 1'b1;
@@ -116,6 +116,25 @@ module message_scheduler (
             reg_w <= 32'b0;
             calculation_active <= 1'b0;
             prev_wt <= 32'b0;
+				
+				//Reset 16 thanh ghi
+            W_memory[0] <= 32'b0;
+            W_memory[1] <= 32'b0;          
+            W_memory[2] <= 32'b0;
+            W_memory[3] <= 32'b0;
+            W_memory[4] <= 32'b0;
+            W_memory[5] <= 32'b0;
+            W_memory[6] <= 32'b0;
+            W_memory[7] <= 32'b0;
+            W_memory[8] <= 32'b0;
+            W_memory[9] <= 32'b0;
+            W_memory[10] <= 32'b0;
+            W_memory[11] <= 32'b0;
+            W_memory[12] <= 32'b0;
+            W_memory[13] <= 32'b0;
+            W_memory[14] <= 32'b0;
+            W_memory[15] <= 32'b0;
+	
         end else begin
             
                 // --- Ghi dữ liệu đầu vào (M[i]) vào memory ---
@@ -184,26 +203,26 @@ module message_scheduler (
     // --- Logic chọn đầu ra Wt_out (Combinational) ---
     assign Wt_out = (round_t < 6'd16) ? W_memory[round_t] : reg_w;
 	 
-	 assign StnSaved_out = STNSaved;
-	 assign CALC_CYCLE_OUT = calc_cycle;           // 0: s1, 1: s2, 2: s3, 3: s4
-    assign CALC_ACTIVE_OUT = calculation_active;         // Đánh dấu đang tính toán 4 chu kỳ
-    assign PREV_WT_OUT = prev_wt; 
-	 assign WA_OUT = write_addr;
-	 assign ADD_IN_A_OUT = adder_in_a;         // Đầu vào A của bộ cộng
-    assign ADD_IN_B_OUT = adder_in_b;         // Đầu vào B của bộ cộng
-    assign ADD_SUM_OUT = adder_sum_out;
+	 //assign StnSaved_out = STNSaved;
+	 //assign CALC_CYCLE_OUT = calc_cycle;           // 0: s1, 1: s2, 2: s3, 3: s4
+    //assign CALC_ACTIVE_OUT = calculation_active;         // Đánh dấu đang tính toán 4 chu kỳ
+    //assign PREV_WT_OUT = prev_wt; 
+	 //assign WA_OUT = write_addr;
+	 //assign ADD_IN_A_OUT = adder_in_a;         // Đầu vào A của bộ cộng
+    //assign ADD_IN_B_OUT = adder_in_b;         // Đầu vào B của bộ cộng
+    //assign ADD_SUM_OUT = adder_sum_out;
 	 
 	 
-	 assign addr_t_minus_16_out = addr_t_minus_16;
-    assign addr_t_minus_15_out = addr_t_minus_15;
-    assign addr_t_minus_7_out = addr_t_minus_7;
-    assign addr_t_minus_2_out = addr_t_minus_2;
+	 //assign addr_t_minus_16_out = addr_t_minus_16;
+    //assign addr_t_minus_15_out = addr_t_minus_15;
+    //assign addr_t_minus_7_out = addr_t_minus_7;
+    //assign addr_t_minus_2_out = addr_t_minus_2;
 	 
 	 
-	 assign    mem_out_t_minus_16_out             =         mem_out_t_minus_16 ;
-	 assign    mem_out_t_minus_15_out              =        mem_out_t_minus_15 ;
-	 assign    mem_out_t_minus_7_out                =       mem_out_t_minus_7  ;
-	 assign    mem_out_t_minus_2_out                 =      mem_out_t_minus_2  ;
+	 //assign mem_out_t_minus_16_out = mem_out_t_minus_16;
+	 //assign mem_out_t_minus_15_out = mem_out_t_minus_15;
+	 //assign mem_out_t_minus_7_out  = mem_out_t_minus_7 ;
+	 //assign mem_out_t_minus_2_out  = mem_out_t_minus_2 ;
 
 endmodule
 

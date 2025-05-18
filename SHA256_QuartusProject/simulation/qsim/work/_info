@@ -1,0 +1,45 @@
+m255
+K3
+13
+cModel Technology
+Z0 dD:\CodeVS\SOC\SHA256_QuartusProject\simulation\qsim
+vsha256_optimizePowerArea
+Z1 IBNEZRVU@ViXkg>]9bOnQe3
+Z2 VABif4e:4Vbg:d[Y0fI8=G1
+Z3 dD:\CodeVS\SOC\SHA256_QuartusProject\simulation\qsim
+Z4 w1747564125
+Z5 8sha256_optimizePowerArea.vo
+Z6 Fsha256_optimizePowerArea.vo
+L0 31
+Z7 OV;L;10.1d;51
+r1
+31
+Z8 !s90 -work|work|sha256_optimizePowerArea.vo|
+Z9 o-work work -O0
+Z10 nsha256_optimize@power@area
+!i10b 1
+Z11 !s100 Mz=kkNIRRPEhSf61?NSlH2
+!s85 0
+Z12 !s108 1747564125.891000
+Z13 !s107 sha256_optimizePowerArea.vo|
+!s101 -O0
+vsha256_optimizePowerArea_vlg_sample_tst
+!i10b 1
+Z14 !s100 4;zLc=f5[cNLGQaYLKemG1
+Z15 I?_odTZcEE@0]C4>6QQ5Im2
+Z16 VQH7aY@ggn>@78HSehl92=3
+R3
+w1747564124
+Z17 8sha256_optimizePowerArea.vt
+Z18 Fsha256_optimizePowerArea.vt
+L0 29
+R7
+r1
+!s85 0
+31
+!s108 1747564126.194000
+!s107 sha256_optimizePowerArea.vt|
+Z19 !s90 -work|work|sha256_optimizePowerArea.vt|
+!s101 -O0
+R9
+Z20 nsha256_optimize@power@area_vlg_sample_tst

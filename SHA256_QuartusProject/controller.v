@@ -9,20 +9,21 @@ module controller (
     output wire [31:0] message_word_in,  // Dữ liệu đầu vào cho sche
     output wire [3:0] message_word_addr, // Địa chỉ từ 0-15
     output reg write_enable_in,          // Tín hiệu ghi cho sche
-    output reg start_to_sche,            // Tín hiệu start cho sche
+    //output reg start_to_sche,            // Tín hiệu start cho sche
     output wire [5:0] round_t,           // Round từ 0-63
     output wire STN_to_sche,             // STN từ comp qua sche
     input [31:0] Wt_from_sche,           // Nhận Wt từ sche
     // Tín hiệu đến module comp
     output reg [31:0] Wt_to_comp,        // Truyền Wt sang comp
-    output reg start_to_comp,
+    //output reg start_to_comp,
+	 output wire start_to_comp,
 	 output done,
 	 output [255:0] hash_output,
 	 
     input STN_from_comp,                 // Nhận STN từ comp
     input done_from_comp,  
-	 input [255:0]  hash_final_from_comp, // Tín hiệu hoàn thành từ comp
-	 output [3:0] load_count_out
+	 input [255:0]  hash_final_from_comp // Tín hiệu hoàn thành từ comp
+	 //output [3:0] load_count_out
 );
 
     // Định nghĩa các trạng thái
@@ -70,8 +71,8 @@ module controller (
             load_counter <= 4'b0;
             wrapper_data_request <= 1'b0;
             write_enable_in <= 1'b0;
-            start_to_sche <= 1'b0;
-            start_to_comp <= 1'b0;
+            //start_to_sche <= 1'b0;
+            //start_to_comp <= 1'b0;
             Wt_to_comp <= 32'b0;
             loading_active <= 1'b0;
         end else begin
@@ -82,8 +83,8 @@ module controller (
                     if (start) begin
                         wrapper_data_request <= 1'b1; // Yêu cầu dữ liệu từ IP wrapper
                         load_counter <= 4'b0;
-                        start_to_sche <= 1'b1;      // Bật tín hiệu start cho sche
-                        start_to_comp <= 1'b1;      // Bật tín hiệu start cho comp
+                        //start_to_sche <= 1'b1;      // Bật tín hiệu start cho sche
+                        //start_to_comp <= 1'b1;      // Bật tín hiệu start cho comp
                         loading_active <= 1'b1;     // Bắt đầu quá trình load data
 								write_enable_in <= 1'b1;            // Bật tín hiệu ghi
                     end
@@ -105,8 +106,8 @@ module controller (
                         Wt_to_comp <= Wt_from_sche; // Truyền Wt từ sche sang comp (bao gồm cả round_t < 16)
               
                     end else if (done_from_comp) begin
-                        start_to_sche <= 1'b0;      // Tắt start cho sche
-                        start_to_comp <= 1'b0;      // Tắt start cho comp
+                        //start_to_sche <= 1'b0;      // Tắt start cho sche
+                        //start_to_comp <= 1'b0;      // Tắt start cho comp
                     end
                 end
             endcase
@@ -114,7 +115,8 @@ module controller (
     end
 
     // Logic tổ hợp cho các tín hiệu wire
-	 assign load_count_out = load_counter;
+	 // assign load_count_out = load_counter;
+	 assign start_to_comp = start;
 	 assign hash_output = hash_final_from_comp;
 	 assign done = done_from_comp;
     assign STN_to_sche = STN_from_comp;              // Truyền STN từ comp đến sche trực tiếp
