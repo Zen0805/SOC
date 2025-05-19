@@ -1,12 +1,12 @@
 
-State Machine - |sha256_optimizePowerArea|message_scheduler:inst|calc_cycle
+State Machine - |IP_wrapper|sha256_optimizePowerArea:sha256_core|message_scheduler:inst|calc_cycle
 Name calc_cycle.11 calc_cycle.10 calc_cycle.01 calc_cycle.00 
 calc_cycle.00 0 0 0 0 
 calc_cycle.01 0 0 1 1 
 calc_cycle.10 0 1 0 1 
 calc_cycle.11 1 0 0 1 
 
-State Machine - |sha256_optimizePowerArea|message_compression:inst1|state
+State Machine - |IP_wrapper|sha256_optimizePowerArea:sha256_core|message_compression:inst1|state
 Name state.S_DONE state.S_FINAL_ADD state.S_FINAL_ADD_ST state.S_ROUND_UPDATE state.S_ROUND_STEP7 state.S_ROUND_STEP6 state.S_ROUND_STEP5 state.S_ROUND_STEP4 state.S_ROUND_STEP3 state.S_ROUND_STEP2 state.S_ROUND_STEP1 state.S_IDLE_new state.S_INIT_LOAD state.S_IDLE 
 state.S_IDLE 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 state.S_INIT_LOAD 0 0 0 0 0 0 0 0 0 0 0 0 1 1 

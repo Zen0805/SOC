@@ -70,25 +70,25 @@ Pin Name/Usage               : Location  : Dir.   : I/O Standard      : Voltage 
 -------------------------------------------------------------------------------------------------------------
 GND                          : A2        : gnd    :                   :         :           :                
 VCCIO3                       : A3        : power  :                   : 3.3V    : 3         :                
-output_sha256top[135]        : A4        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[233]        : A5        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[67]         : A6        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[139]        : A7        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[40]         : A8        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[169]        : A9        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[195]        : A10       : output : 3.3-V LVTTL       :         : 3         : N              
+GND*                         : A4        :        :                   :         : 3         :                
+GND*                         : A5        :        :                   :         : 3         :                
+GND*                         : A6        :        :                   :         : 3         :                
+GND*                         : A7        :        :                   :         : 3         :                
+GND*                         : A8        :        :                   :         : 3         :                
+GND*                         : A9        :        :                   :         : 3         :                
+GND*                         : A10       :        :                   :         : 3         :                
 VCCIO3                       : A11       : power  :                   : 3.3V    : 3         :                
 GND                          : A12       : gnd    :                   :         :           :                
 GND+                         : A13       :        :                   :         : 4         :                
-output_sha256top[1]          : A14       : output : 3.3-V LVTTL       :         : 4         : N              
+GND*                         : A14       :        :                   :         : 4         :                
 GND                          : A15       : gnd    :                   :         :           :                
 VCCIO4                       : A16       : power  :                   : 3.3V    : 4         :                
-output_sha256top[79]         : A17       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[47]         : A18       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[141]        : A19       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[227]        : A20       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[125]        : A21       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[166]        : A22       : output : 3.3-V LVTTL       :         : 4         : N              
+GND*                         : A17       :        :                   :         : 4         :                
+GND*                         : A18       :        :                   :         : 4         :                
+GND*                         : A19       :        :                   :         : 4         :                
+GND*                         : A20       :        :                   :         : 4         :                
+GND*                         : A21       :        :                   :         : 4         :                
+GND*                         : A22       :        :                   :         : 4         :                
 GND*                         : A23       :        :                   :         : 4         :                
 VCCIO4                       : A24       : power  :                   : 3.3V    : 4         :                
 GND                          : A25       : gnd    :                   :         :           :                
@@ -100,13 +100,13 @@ GND*                         : AA5       :        :                   :         
 GND*                         : AA6       :        :                   :         : 1         :                
 GND*                         : AA7       :        :                   :         : 1         :                
 VCCA_PLL1                    : AA8       : power  :                   : 1.2V    :           :                
-GND*                         : AA9       :        :                   :         : 8         :                
-GND*                         : AA10      :        :                   :         : 8         :                
-GND*                         : AA11      :        :                   :         : 8         :                
-output_sha256top[124]        : AA12      : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[186]        : AA13      : output : 3.3-V LVTTL       :         : 7         : N              
-output_sha256top[22]         : AA14      : output : 3.3-V LVTTL       :         : 7         : N              
-output_sha256top[221]        : AA15      : output : 3.3-V LVTTL       :         : 7         : N              
+oData[29]                    : AA9       : output : 3.3-V LVTTL       :         : 8         : N              
+oData[2]                     : AA10      : output : 3.3-V LVTTL       :         : 8         : N              
+oData[12]                    : AA11      : output : 3.3-V LVTTL       :         : 8         : N              
+iData[20]                    : AA12      : input  : 3.3-V LVTTL       :         : 8         : N              
+iData[16]                    : AA13      : input  : 3.3-V LVTTL       :         : 7         : N              
+iData[22]                    : AA14      : input  : 3.3-V LVTTL       :         : 7         : N              
+GND*                         : AA15      :        :                   :         : 7         :                
 GND*                         : AA16      :        :                   :         : 7         :                
 GND*                         : AA17      :        :                   :         : 7         :                
 GND*                         : AA18      :        :                   :         : 7         :                
@@ -127,15 +127,15 @@ VCCIO8                       : AB6       : power  :                   : 3.3V    
 GND                          : AB7       : gnd    :                   :         :           :                
 GND*                         : AB8       :        :                   :         : 8         :                
 VCCIO8                       : AB9       : power  :                   : 3.3V    : 8         :                
-GND*                         : AB10      :        :                   :         : 8         :                
+oData[10]                    : AB10      : output : 3.3-V LVTTL       :         : 8         : N              
 GND                          : AB11      : gnd    :                   :         :           :                
-output_sha256top[209]        : AB12      : output : 3.3-V LVTTL       :         : 8         : N              
+oData[16]                    : AB12      : output : 3.3-V LVTTL       :         : 8         : N              
 VCCIO8                       : AB13      : power  :                   : 3.3V    : 8         :                
 VCCIO7                       : AB14      : power  :                   : 3.3V    : 7         :                
-output_sha256top[29]         : AB15      : output : 3.3-V LVTTL       :         : 7         : N              
+GND*                         : AB15      :        :                   :         : 7         :                
 GND                          : AB16      : gnd    :                   :         :           :                
 VCCIO7                       : AB17      : power  :                   : 3.3V    : 7         :                
-DATA_IN[29]                  : AB18      : input  : 3.3-V LVTTL       :         : 7         : N              
+GND*                         : AB18      :        :                   :         : 7         :                
 GND                          : AB19      : gnd    :                   :         :           :                
 GND*                         : AB20      :        :                   :         : 7         :                
 GND*                         : AB21      :        :                   :         : 7         :                
@@ -152,16 +152,16 @@ GND*                         : AC5       :        :                   :         
 GND*                         : AC6       :        :                   :         : 8         :                
 GND*                         : AC7       :        :                   :         : 8         :                
 GND*                         : AC8       :        :                   :         : 8         :                
-output_sha256top[203]        : AC9       : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[89]         : AC10      : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[253]        : AC11      : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[121]        : AC12      : output : 3.3-V LVTTL       :         : 8         : N              
+iData[26]                    : AC9       : input  : 3.3-V LVTTL       :         : 8         : N              
+oData[8]                     : AC10      : output : 3.3-V LVTTL       :         : 8         : N              
+oData[15]                    : AC11      : output : 3.3-V LVTTL       :         : 8         : N              
+oData[22]                    : AC12      : output : 3.3-V LVTTL       :         : 8         : N              
 GND+                         : AC13      :        :                   :         : 8         :                
-output_sha256top[208]        : AC14      : output : 3.3-V LVTTL       :         : 7         : N              
-output_sha256top[154]        : AC15      : output : 3.3-V LVTTL       :         : 7         : N              
-output_sha256top[247]        : AC16      : output : 3.3-V LVTTL       :         : 7         : N              
-DATA_IN[11]                  : AC17      : input  : 3.3-V LVTTL       :         : 7         : N              
-DATA_IN[7]                   : AC18      : input  : 3.3-V LVTTL       :         : 7         : N              
+iData[24]                    : AC14      : input  : 3.3-V LVTTL       :         : 7         : N              
+iData[28]                    : AC15      : input  : 3.3-V LVTTL       :         : 7         : N              
+GND*                         : AC16      :        :                   :         : 7         :                
+GND*                         : AC17      :        :                   :         : 7         :                
+GND*                         : AC18      :        :                   :         : 7         :                
 GND*                         : AC19      :        :                   :         : 7         :                
 GND*                         : AC20      :        :                   :         : 7         :                
 GND*                         : AC21      :        :                   :         : 7         :                
@@ -179,14 +179,14 @@ GND*                         : AD6       :        :                   :         
 GND*                         : AD7       :        :                   :         : 8         :                
 GND*                         : AD8       :        :                   :         : 8         :                
 GND                          : AD9       : gnd    :                   :         :           :                
-output_sha256top[215]        : AD10      : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[31]         : AD11      : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[138]        : AD12      : output : 3.3-V LVTTL       :         : 8         : N              
+oData[1]                     : AD10      : output : 3.3-V LVTTL       :         : 8         : N              
+iData[17]                    : AD11      : input  : 3.3-V LVTTL       :         : 8         : N              
+iData[21]                    : AD12      : input  : 3.3-V LVTTL       :         : 8         : N              
 GND+                         : AD13      :        :                   :         : 8         :                
 GND                          : AD14      : gnd    :                   :         :           :                
-output_sha256top[176]        : AD15      : output : 3.3-V LVTTL       :         : 7         : N              
-output_sha256top[122]        : AD16      : output : 3.3-V LVTTL       :         : 7         : N              
-DATA_IN[16]                  : AD17      : input  : 3.3-V LVTTL       :         : 7         : N              
+iData[7]                     : AD15      : input  : 3.3-V LVTTL       :         : 7         : N              
+GND*                         : AD16      :        :                   :         : 7         :                
+GND*                         : AD17      :        :                   :         : 7         :                
 GND                          : AD18      : gnd    :                   :         :           :                
 GND*                         : AD19      :        :                   :         : 7         :                
 VCCIO7                       : AD20      : power  :                   : 3.3V    : 7         :                
@@ -201,18 +201,18 @@ GND*                         : AE2       :        :                   :         
 GND*                         : AE3       :        :                   :         : 1         :                
 GND*                         : AE4       :        :                   :         : 8         :                
 GND*                         : AE5       :        :                   :         : 8         :                
-GND*                         : AE6       :        :                   :         : 8         :                
-output_sha256top[55]         : AE7       : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[151]        : AE8       : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[119]        : AE9       : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[185]        : AE10      : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[127]        : AE11      : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[248]        : AE12      : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[26]         : AE13      : output : 3.3-V LVTTL       :         : 8         : N              
+oData[13]                    : AE6       : output : 3.3-V LVTTL       :         : 8         : N              
+oData[24]                    : AE7       : output : 3.3-V LVTTL       :         : 8         : N              
+iData[27]                    : AE8       : input  : 3.3-V LVTTL       :         : 8         : N              
+oData[4]                     : AE9       : output : 3.3-V LVTTL       :         : 8         : N              
+oData[17]                    : AE10      : output : 3.3-V LVTTL       :         : 8         : N              
+iData[4]                     : AE11      : input  : 3.3-V LVTTL       :         : 8         : N              
+iData[8]                     : AE12      : input  : 3.3-V LVTTL       :         : 8         : N              
+iData[30]                    : AE13      : input  : 3.3-V LVTTL       :         : 8         : N              
 GND+                         : AE14      :        :                   :         : 7         :                
-output_sha256top[110]        : AE15      : output : 3.3-V LVTTL       :         : 7         : N              
-output_sha256top[105]        : AE16      : output : 3.3-V LVTTL       :         : 7         : N              
-DATA_IN[1]                   : AE17      : input  : 3.3-V LVTTL       :         : 7         : N              
+iData[13]                    : AE15      : input  : 3.3-V LVTTL       :         : 7         : N              
+GND*                         : AE16      :        :                   :         : 7         :                
+GND*                         : AE17      :        :                   :         : 7         :                
 GND*                         : AE18      :        :                   :         : 7         :                
 GND*                         : AE19      :        :                   :         : 7         :                
 GND*                         : AE20      :        :                   :         : 7         :                
@@ -226,14 +226,14 @@ GND                          : AF2       : gnd    :                   :         
 VCCIO8                       : AF3       : power  :                   : 3.3V    : 8         :                
 GND*                         : AF4       :        :                   :         : 8         :                
 GND*                         : AF5       :        :                   :         : 8         :                
-GND*                         : AF6       :        :                   :         : 8         :                
-output_sha256top[23]         : AF7       : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[159]        : AF8       : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[246]        : AF9       : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[153]        : AF10      : output : 3.3-V LVTTL       :         : 8         : N              
+oData[28]                    : AF6       : output : 3.3-V LVTTL       :         : 8         : N              
+oData[18]                    : AF7       : output : 3.3-V LVTTL       :         : 8         : N              
+oData[14]                    : AF8       : output : 3.3-V LVTTL       :         : 8         : N              
+oData[5]                     : AF9       : output : 3.3-V LVTTL       :         : 8         : N              
+oData[23]                    : AF10      : output : 3.3-V LVTTL       :         : 8         : N              
 VCCIO8                       : AF11      : power  :                   : 3.3V    : 8         :                
 GND                          : AF12      : gnd    :                   :         :           :                
-output_sha256top[13]         : AF13      : output : 3.3-V LVTTL       :         : 8         : N              
+iData[2]                     : AF13      : input  : 3.3-V LVTTL       :         : 8         : N              
 GND+                         : AF14      :        :                   :         : 7         :                
 GND                          : AF15      : gnd    :                   :         :           :                
 VCCIO7                       : AF16      : power  :                   : 3.3V    : 7         :                
@@ -247,50 +247,50 @@ GND*                         : AF23      :        :                   :         
 VCCIO7                       : AF24      : power  :                   : 3.3V    : 7         :                
 GND                          : AF25      : gnd    :                   :         :           :                
 GND                          : B1        : gnd    :                   :         :           :                
-output_sha256top[88]         : B2        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[62]         : B3        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[200]        : B4        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[168]        : B5        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[30]         : B6        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[94]         : B7        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[35]         : B8        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[136]        : B9        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[44]         : B10       : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[173]        : B11       : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[160]        : B12       : output : 3.3-V LVTTL       :         : 3         : N              
+GND*                         : B2        :        :                   :         : 2         :                
+GND*                         : B3        :        :                   :         : 2         :                
+GND*                         : B4        :        :                   :         : 3         :                
+GND*                         : B5        :        :                   :         : 3         :                
+GND*                         : B6        :        :                   :         : 3         :                
+GND*                         : B7        :        :                   :         : 3         :                
+GND*                         : B8        :        :                   :         : 3         :                
+GND*                         : B9        :        :                   :         : 3         :                
+GND*                         : B10       :        :                   :         : 3         :                
+GND*                         : B11       :        :                   :         : 3         :                
+GND*                         : B12       :        :                   :         : 3         :                
 GND+                         : B13       :        :                   :         : 4         :                
-output_sha256top[60]         : B14       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[175]        : B15       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[102]        : B16       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[91]         : B17       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[189]        : B18       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[4]          : B19       : output : 3.3-V LVTTL       :         : 4         : N              
-DATA_IN[24]                  : B20       : input  : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[230]        : B21       : output : 3.3-V LVTTL       :         : 4         : N              
+GND*                         : B14       :        :                   :         : 4         :                
+GND*                         : B15       :        :                   :         : 4         :                
+GND*                         : B16       :        :                   :         : 4         :                
+GND*                         : B17       :        :                   :         : 4         :                
+GND*                         : B18       :        :                   :         : 4         :                
+GND*                         : B19       :        :                   :         : 4         :                
+GND*                         : B20       :        :                   :         : 4         :                
+GND*                         : B21       :        :                   :         : 4         :                
 GND*                         : B22       :        :                   :         : 4         :                
-output_sha256top[74]         : B23       : output : 3.3-V LVTTL       :         : 4         : N              
+GND*                         : B23       :        :                   :         : 4         :                
 GND*                         : B24       :        :                   :         : 5         :                
 GND*                         : B25       :        :                   :         : 5         :                
 GND                          : B26       : gnd    :                   :         :           :                
 VCCIO2                       : C1        : power  :                   : 3.3V    : 2         :                
-output_sha256top[133]        : C2        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[114]        : C3        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[108]        : C4        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[163]        : C5        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[198]        : C6        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[12]         : C7        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[37]         : C8        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[21]         : C9        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[167]        : C10       : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[235]        : C11       : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[92]         : C12       : output : 3.3-V LVTTL       :         : 3         : N              
+GND*                         : C2        :        :                   :         : 2         :                
+GND*                         : C3        :        :                   :         : 2         :                
+GND*                         : C4        :        :                   :         : 3         :                
+GND*                         : C5        :        :                   :         : 3         :                
+GND*                         : C6        :        :                   :         : 3         :                
+GND*                         : C7        :        :                   :         : 3         :                
+GND*                         : C8        :        :                   :         : 3         :                
+GND*                         : C9        :        :                   :         : 3         :                
+GND*                         : C10       :        :                   :         : 3         :                
+GND*                         : C11       :        :                   :         : 3         :                
+GND*                         : C12       :        :                   :         : 3         :                
 GND+                         : C13       :        :                   :         : 3         :                
 GND                          : C14       : gnd    :                   :         :           :                
-output_sha256top[68]         : C15       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[170]        : C16       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[65]         : C17       : output : 3.3-V LVTTL       :         : 4         : N              
+GND*                         : C15       :        :                   :         : 4         :                
+GND*                         : C16       :        :                   :         : 4         :                
+GND*                         : C17       :        :                   :         : 4         :                
 GND                          : C18       : gnd    :                   :         :           :                
-output_sha256top[161]        : C19       : output : 3.3-V LVTTL       :         : 4         : N              
+GND*                         : C19       :        :                   :         : 4         :                
 VCCIO4                       : C20       : power  :                   : 3.3V    : 4         :                
 GND*                         : C21       :        :                   :         : 4         :                
 GND*                         : C22       :        :                   :         : 4         :                
@@ -298,198 +298,198 @@ GND*                         : C23       :        :                   :         
 GND*                         : C24       :        :                   :         : 5         :                
 GND*                         : C25       :        :                   :         : 5         :                
 VCCIO5                       : C26       : power  :                   : 3.3V    : 5         :                
-output_sha256top[100]        : D1        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[199]        : D2        : output : 3.3-V LVTTL       :         : 2         : N              
+GND*                         : D1        :        :                   :         : 2         :                
+GND*                         : D2        :        :                   :         : 2         :                
 ~nCSO~ / RESERVED_INPUT_WITH_WEAK_PULLUP : D3        : input  : 3.3-V LVTTL       :         : 2         : N              
 GND                          : D4        : gnd    :                   :         :           :                
-output_sha256top[72]         : D5        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[71]         : D6        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[184]        : D7        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[53]         : D8        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[232]        : D9        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[201]        : D10       : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[222]        : D11       : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[210]        : D12       : output : 3.3-V LVTTL       :         : 3         : N              
+GND*                         : D5        :        :                   :         : 3         :                
+GND*                         : D6        :        :                   :         : 3         :                
+GND*                         : D7        :        :                   :         : 3         :                
+GND*                         : D8        :        :                   :         : 3         :                
+GND*                         : D9        :        :                   :         : 3         :                
+GND*                         : D10       :        :                   :         : 3         :                
+GND*                         : D11       :        :                   :         : 3         :                
+GND*                         : D12       :        :                   :         : 3         :                
 GND+                         : D13       :        :                   :         : 3         :                
-output_sha256top[77]         : D14       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[252]        : D15       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[220]        : D16       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[61]         : D17       : output : 3.3-V LVTTL       :         : 4         : N              
-DATA_IN[14]                  : D18       : input  : 3.3-V LVTTL       :         : 4         : N              
-DATA_IN[0]                   : D19       : input  : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[157]        : D20       : output : 3.3-V LVTTL       :         : 4         : N              
+GND*                         : D14       :        :                   :         : 4         :                
+GND*                         : D15       :        :                   :         : 4         :                
+GND*                         : D16       :        :                   :         : 4         :                
+GND*                         : D17       :        :                   :         : 4         :                
+GND*                         : D18       :        :                   :         : 4         :                
+GND*                         : D19       :        :                   :         : 4         :                
+GND*                         : D20       :        :                   :         : 4         :                
 GND*                         : D21       :        :                   :         : 4         :                
 VCCIO4                       : D22       : power  :                   : 3.3V    : 4         :                
 GND*                         : D23       :        :                   :         : 5         :                
 GND                          : D24       : gnd    :                   :         :           :                
 GND*                         : D25       :        :                   :         : 5         :                
-output_sha256top[225]        : D26       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[8]          : E1        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[7]          : E2        : output : 3.3-V LVTTL       :         : 2         : N              
+GND*                         : D26       :        :                   :         : 5         :                
+GND*                         : E1        :        :                   :         : 2         :                
+GND*                         : E2        :        :                   :         : 2         :                
 ~ASDO~ / RESERVED_INPUT_WITH_WEAK_PULLUP : E3        : input  : 3.3-V LVTTL       :         : 2         : N              
 GND_PLL3                     : E4        : gnd    :                   :         :           :                
-output_sha256top[155]        : E5        : output : 3.3-V LVTTL       :         : 2         : N              
+GND*                         : E5        :        :                   :         : 2         :                
 VCCIO3                       : E6        : power  :                   : 3.3V    : 3         :                
 GND                          : E7        : gnd    :                   :         :           :                
-output_sha256top[251]        : E8        : output : 3.3-V LVTTL       :         : 3         : N              
+GND*                         : E8        :        :                   :         : 3         :                
 VCCIO3                       : E9        : power  :                   : 3.3V    : 3         :                
-output_sha256top[5]          : E10       : output : 3.3-V LVTTL       :         : 3         : N              
+GND*                         : E10       :        :                   :         : 3         :                
 GND                          : E11       : gnd    :                   :         :           :                
-output_sha256top[3]          : E12       : output : 3.3-V LVTTL       :         : 3         : N              
+GND*                         : E12       :        :                   :         : 3         :                
 VCCIO3                       : E13       : power  :                   : 3.3V    : 3         :                
 VCCIO4                       : E14       : power  :                   : 3.3V    : 4         :                
-output_sha256top[59]         : E15       : output : 3.3-V LVTTL       :         : 4         : N              
+GND*                         : E15       :        :                   :         : 4         :                
 GND                          : E16       : gnd    :                   :         :           :                
 VCCIO4                       : E17       : power  :                   : 3.3V    : 4         :                
-output_sha256top[9]          : E18       : output : 3.3-V LVTTL       :         : 4         : N              
+GND*                         : E18       :        :                   :         : 4         :                
 GND                          : E19       : gnd    :                   :         :           :                
-output_sha256top[96]         : E20       : output : 3.3-V LVTTL       :         : 4         : N              
+GND*                         : E20       :        :                   :         : 4         :                
 GND_PLL2                     : E21       : gnd    :                   :         :           :                
 GND*                         : E22       :        :                   :         : 5         :                
 GND*                         : E23       :        :                   :         : 5         :                
 GND*                         : E24       :        :                   :         : 5         :                
 GND*                         : E25       :        :                   :         : 5         :                
 GND*                         : E26       :        :                   :         : 5         :                
-output_sha256top[99]         : F1        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[98]         : F2        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[41]         : F3        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[131]        : F4        : output : 3.3-V LVTTL       :         : 2         : N              
+GND*                         : F1        :        :                   :         : 2         :                
+GND*                         : F2        :        :                   :         : 2         :                
+GND*                         : F3        :        :                   :         : 2         :                
+GND*                         : F4        :        :                   :         : 2         :                
 VCCIO2                       : F5        : power  :                   : 3.3V    : 2         :                
-output_sha256top[242]        : F6        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[38]         : F7        : output : 3.3-V LVTTL       :         : 2         : N              
+GND*                         : F6        :        :                   :         : 2         :                
+GND*                         : F7        :        :                   :         : 2         :                
 GNDA_PLL3                    : F8        : gnd    :                   :         :           :                
-output_sha256top[165]        : F9        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[178]        : F10       : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[241]        : F11       : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[134]        : F12       : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[129]        : F13       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[132]        : F14       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[27]         : F15       : output : 3.3-V LVTTL       :         : 4         : N              
-DATA_IN[6]                   : F16       : input  : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[16]         : F17       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[238]        : F18       : output : 3.3-V LVTTL       :         : 4         : N              
+GND*                         : F9        :        :                   :         : 3         :                
+GND*                         : F10       :        :                   :         : 3         :                
+GND*                         : F11       :        :                   :         : 3         :                
+iData[15]                    : F12       : input  : 3.3-V LVTTL       :         : 3         : N              
+GND*                         : F13       :        :                   :         : 4         :                
+GND*                         : F14       :        :                   :         : 4         :                
+GND*                         : F15       :        :                   :         : 4         :                
+GND*                         : F16       :        :                   :         : 4         :                
+GND*                         : F17       :        :                   :         : 4         :                
+GND*                         : F18       :        :                   :         : 4         :                
 GNDA_PLL2                    : F19       : gnd    :                   :         :           :                
 GND*                         : F20       :        :                   :         : 5         :                
 GND*                         : F21       :        :                   :         : 5         :                
 VCCIO5                       : F22       : power  :                   : 3.3V    : 5         :                
-output_sha256top[64]         : F23       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[93]         : F24       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[188]        : F25       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[130]        : F26       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[245]        : G1        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[34]         : G2        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[113]        : G3        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[117]        : G4        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[76]         : G5        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[104]        : G6        : output : 3.3-V LVTTL       :         : 2         : N              
+GND*                         : F23       :        :                   :         : 5         :                
+GND*                         : F24       :        :                   :         : 5         :                
+GND*                         : F25       :        :                   :         : 5         :                
+GND*                         : F26       :        :                   :         : 5         :                
+GND*                         : G1        :        :                   :         : 2         :                
+GND*                         : G2        :        :                   :         : 2         :                
+GND*                         : G3        :        :                   :         : 2         :                
+GND*                         : G4        :        :                   :         : 2         :                
+GND*                         : G5        :        :                   :         : 2         :                
+GND*                         : G6        :        :                   :         : 2         :                
 GND_PLL3                     : G7        : gnd    :                   :         :           :                
 VCCA_PLL3                    : G8        : power  :                   : 1.2V    :           :                
-output_sha256top[24]         : G9        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[101]        : G10       : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[146]        : G11       : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[2]          : G12       : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[193]        : G13       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[14]         : G14       : output : 3.3-V LVTTL       :         : 4         : N              
-DATA_IN[8]                   : G15       : input  : 3.3-V LVTTL       :         : 4         : N              
-DATA_IN[4]                   : G16       : input  : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[36]         : G17       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[196]        : G18       : output : 3.3-V LVTTL       :         : 4         : N              
+GND*                         : G9        :        :                   :         : 3         :                
+GND*                         : G10       :        :                   :         : 3         :                
+GND*                         : G11       :        :                   :         : 3         :                
+GND*                         : G12       :        :                   :         : 3         :                
+GND*                         : G13       :        :                   :         : 4         :                
+GND*                         : G14       :        :                   :         : 4         :                
+GND*                         : G15       :        :                   :         : 4         :                
+GND*                         : G16       :        :                   :         : 4         :                
+GND*                         : G17       :        :                   :         : 4         :                
+GND*                         : G18       :        :                   :         : 4         :                
 VCCA_PLL2                    : G19       : power  :                   : 1.2V    :           :                
 GND_PLL2                     : G20       : gnd    :                   :         :           :                
 GND*                         : G21       :        :                   :         : 5         :                
 GND*                         : G22       :        :                   :         : 5         :                
-output_sha256top[164]        : G23       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[15]         : G24       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[111]        : G25       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[106]        : G26       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[48]         : H1        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[120]        : H2        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[149]        : H3        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[181]        : H4        : output : 3.3-V LVTTL       :         : 2         : N              
+GND*                         : G23       :        :                   :         : 5         :                
+GND*                         : G24       :        :                   :         : 5         :                
+GND*                         : G25       :        :                   :         : 5         :                
+GND*                         : G26       :        :                   :         : 5         :                
+GND*                         : H1        :        :                   :         : 2         :                
+GND*                         : H2        :        :                   :         : 2         :                
+GND*                         : H3        :        :                   :         : 2         :                
+GND*                         : H4        :        :                   :         : 2         :                
 GND                          : H5        : gnd    :                   :         :           :                
-output_sha256top[18]         : H6        : output : 3.3-V LVTTL       :         : 2         : N              
+GND*                         : H6        :        :                   :         : 2         :                
 VCCD_PLL3                    : H7        : power  :                   : 1.2V    :           :                
-output_sha256top[6]          : H8        : output : 3.3-V LVTTL       :         : 3         : N              
+GND*                         : H8        :        :                   :         : 3         :                
 VCCIO3                       : H9        : power  :                   : 3.3V    : 3         :                
-output_sha256top[219]        : H10       : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[49]         : H11       : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[82]         : H12       : output : 3.3-V LVTTL       :         : 3         : N              
+GND*                         : H10       :        :                   :         : 3         :                
+GND*                         : H11       :        :                   :         : 3         :                
+GND*                         : H12       :        :                   :         : 3         :                
 GND                          : H13       : gnd    :                   :         :           :                
 GND                          : H14       : gnd    :                   :         :           :                
-output_sha256top[156]        : H15       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[226]        : H16       : output : 3.3-V LVTTL       :         : 4         : N              
-DATA_VALID                   : H17       : input  : 3.3-V LVTTL       :         : 4         : N              
+GND*                         : H15       :        :                   :         : 4         :                
+GND*                         : H16       :        :                   :         : 4         :                
+GND*                         : H17       :        :                   :         : 4         :                
 VCCIO4                       : H18       : power  :                   : 3.3V    : 4         :                
-output_sha256top[32]         : H19       : output : 3.3-V LVTTL       :         : 5         : N              
+GND*                         : H19       :        :                   :         : 5         :                
 VCCD_PLL2                    : H20       : power  :                   : 1.2V    :           :                
 GND*                         : H21       :        :                   :         : 5         :                
 GND                          : H22       : gnd    :                   :         :           :                
-output_sha256top[10]         : H23       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[174]        : H24       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[0]          : H25       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[128]        : H26       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[50]         : J1        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[39]         : J2        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[187]        : J3        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[85]         : J4        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[229]        : J5        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[103]        : J6        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[213]        : J7        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[56]         : J8        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[197]        : J9        : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[70]         : J10       : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[66]         : J11       : output : 3.3-V LVTTL       :         : 3         : N              
+GND*                         : H23       :        :                   :         : 5         :                
+GND*                         : H24       :        :                   :         : 5         :                
+GND*                         : H25       :        :                   :         : 5         :                
+GND*                         : H26       :        :                   :         : 5         :                
+GND*                         : J1        :        :                   :         : 2         :                
+GND*                         : J2        :        :                   :         : 2         :                
+GND*                         : J3        :        :                   :         : 2         :                
+GND*                         : J4        :        :                   :         : 2         :                
+GND*                         : J5        :        :                   :         : 2         :                
+GND*                         : J6        :        :                   :         : 2         :                
+GND*                         : J7        :        :                   :         : 2         :                
+GND*                         : J8        :        :                   :         : 2         :                
+GND*                         : J9        :        :                   :         : 3         :                
+iData[18]                    : J10       : input  : 3.3-V LVTTL       :         : 3         : N              
+GND*                         : J11       :        :                   :         : 3         :                
 VCCIO3                       : J12       : power  :                   : 3.3V    : 3         :                
-output_sha256top[69]         : J13       : output : 3.3-V LVTTL       :         : 3         : N              
-output_sha256top[172]        : J14       : output : 3.3-V LVTTL       :         : 3         : N              
+GND*                         : J13       :        :                   :         : 3         :                
+GND*                         : J14       :        :                   :         : 3         :                
 VCCIO4                       : J15       : power  :                   : 3.3V    : 4         :                
-output_sha256top[42]         : J16       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[46]         : J17       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[109]        : J18       : output : 3.3-V LVTTL       :         : 4         : N              
+GND*                         : J16       :        :                   :         : 4         :                
+GND*                         : J17       :        :                   :         : 4         :                
+GND*                         : J18       :        :                   :         : 4         :                
 VCCIO5                       : J19       : power  :                   : 3.3V    : 5         :                
-done                         : J20       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[123]        : J21       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[228]        : J22       : output : 3.3-V LVTTL       :         : 5         : N              
-START                        : J23       : input  : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[192]        : J24       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[78]         : J25       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[144]        : J26       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[236]        : K1        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[140]        : K2        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[145]        : K3        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[112]        : K4        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[137]        : K5        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[107]        : K6        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[126]        : K7        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[231]        : K8        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[254]        : K9        : output : 3.3-V LVTTL       :         : 3         : N              
+GND*                         : J20       :        :                   :         : 5         :                
+GND*                         : J21       :        :                   :         : 5         :                
+GND*                         : J22       :        :                   :         : 5         :                
+GND*                         : J23       :        :                   :         : 5         :                
+GND*                         : J24       :        :                   :         : 5         :                
+GND*                         : J25       :        :                   :         : 5         :                
+GND*                         : J26       :        :                   :         : 5         :                
+GND*                         : K1        :        :                   :         : 2         :                
+GND*                         : K2        :        :                   :         : 2         :                
+GND*                         : K3        :        :                   :         : 2         :                
+GND*                         : K4        :        :                   :         : 2         :                
+GND*                         : K5        :        :                   :         : 2         :                
+GND*                         : K6        :        :                   :         : 2         :                
+GND*                         : K7        :        :                   :         : 2         :                
+GND*                         : K8        :        :                   :         : 2         :                
+GND*                         : K9        :        :                   :         : 3         :                
 VCCINT                       : K10       : power  :                   : 1.2V    :           :                
 VCCINT                       : K11       : power  :                   : 1.2V    :           :                
 VCCINT                       : K12       : power  :                   : 1.2V    :           :                
 VCCINT                       : K13       : power  :                   : 1.2V    :           :                
 VCCINT                       : K14       : power  :                   : 1.2V    :           :                
 VCCINT                       : K15       : power  :                   : 1.2V    :           :                
-output_sha256top[33]         : K16       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[194]        : K17       : output : 3.3-V LVTTL       :         : 4         : N              
-output_sha256top[207]        : K18       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[239]        : K19       : output : 3.3-V LVTTL       :         : 5         : N              
+GND*                         : K16       :        :                   :         : 4         :                
+GND*                         : K17       :        :                   :         : 4         :                
+GND*                         : K18       :        :                   :         : 5         :                
+GND*                         : K19       :        :                   :         : 5         :                
 GND                          : K20       : gnd    :                   :         :           :                
-DATA_IN[3]                   : K21       : input  : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[162]        : K22       : output : 3.3-V LVTTL       :         : 5         : N              
-DATA_IN[12]                  : K23       : input  : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[143]        : K24       : output : 3.3-V LVTTL       :         : 5         : N              
-DATA_IN[13]                  : K25       : input  : 3.3-V LVTTL       :         : 5         : N              
-DATA_IN[9]                   : K26       : input  : 3.3-V LVTTL       :         : 5         : N              
+GND*                         : K21       :        :                   :         : 5         :                
+GND*                         : K22       :        :                   :         : 5         :                
+GND*                         : K23       :        :                   :         : 5         :                
+GND*                         : K24       :        :                   :         : 5         :                
+GND*                         : K25       :        :                   :         : 5         :                
+GND*                         : K26       :        :                   :         : 5         :                
 VCCIO2                       : L1        : power  :                   : 3.3V    : 2         :                
-output_sha256top[75]         : L2        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[177]        : L3        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[204]        : L4        : output : 3.3-V LVTTL       :         : 2         : N              
+GND*                         : L2        :        :                   :         : 2         :                
+GND*                         : L3        :        :                   :         : 2         :                
+GND*                         : L4        :        :                   :         : 2         :                
 GND                          : L5        : gnd    :                   :         :           :                
-output_sha256top[51]         : L6        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[240]        : L7        : output : 3.3-V LVTTL       :         : 2         : N              
+GND*                         : L6        :        :                   :         : 2         :                
+GND*                         : L7        :        :                   :         : 2         :                
 TMS                          : L8        : input  :                   :         : 2         :                
-output_sha256top[83]         : L9        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[19]         : L10       : output : 3.3-V LVTTL       :         : 2         : N              
+GND*                         : L9        :        :                   :         : 2         :                
+GND*                         : L10       :        :                   :         : 2         :                
 VCCINT                       : L11       : power  :                   : 1.2V    :           :                
 GND                          : L12       : gnd    :                   :         :           :                
 GND                          : L13       : gnd    :                   :         :           :                
@@ -498,19 +498,19 @@ GND                          : L15       : gnd    :                   :         
 VCCINT                       : L16       : power  :                   : 1.2V    :           :                
 VCCINT                       : L17       : power  :                   : 1.2V    :           :                
 VCCINT                       : L18       : power  :                   : 1.2V    :           :                
-DATA_IN[26]                  : L19       : input  : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[216]        : L20       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[142]        : L21       : output : 3.3-V LVTTL       :         : 5         : N              
+GND*                         : L19       :        :                   :         : 5         :                
+GND*                         : L20       :        :                   :         : 5         :                
+GND*                         : L21       :        :                   :         : 5         :                
 GND                          : L22       : gnd    :                   :         :           :                
-output_sha256top[80]         : L23       : output : 3.3-V LVTTL       :         : 5         : N              
-DATA_IN[28]                  : L24       : input  : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[250]        : L25       : output : 3.3-V LVTTL       :         : 5         : N              
+GND*                         : L23       :        :                   :         : 5         :                
+GND*                         : L24       :        :                   :         : 5         :                
+GND*                         : L25       :        :                   :         : 5         :                
 VCCIO5                       : L26       : power  :                   : 3.3V    : 5         :                
 GND                          : M1        : gnd    :                   :         :           :                
-output_sha256top[147]        : M2        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[211]        : M3        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[190]        : M4        : output : 3.3-V LVTTL       :         : 2         : N              
-output_sha256top[52]         : M5        : output : 3.3-V LVTTL       :         : 2         : N              
+GND*                         : M2        :        :                   :         : 2         :                
+GND*                         : M3        :        :                   :         : 2         :                
+GND*                         : M4        :        :                   :         : 2         :                
+GND*                         : M5        :        :                   :         : 2         :                
 TCK                          : M6        : input  :                   :         : 2         :                
 TDO                          : M7        : output :                   :         : 2         :                
 TDI                          : M8        : input  :                   :         : 2         :                
@@ -524,13 +524,13 @@ GND                          : M15       : gnd    :                   :         
 VCCINT                       : M16       : power  :                   : 1.2V    :           :                
 VCCINT                       : M17       : power  :                   : 1.2V    :           :                
 VCCIO5                       : M18       : power  :                   : 3.3V    : 5         :                
-output_sha256top[237]        : M19       : output : 3.3-V LVTTL       :         : 5         : N              
-output_sha256top[202]        : M20       : output : 3.3-V LVTTL       :         : 5         : N              
-DATA_IN[15]                  : M21       : input  : 3.3-V LVTTL       :         : 5         : N              
-DATA_IN[19]                  : M22       : input  : 3.3-V LVTTL       :         : 5         : N              
-DATA_IN[18]                  : M23       : input  : 3.3-V LVTTL       :         : 5         : N              
-DATA_IN[31]                  : M24       : input  : 3.3-V LVTTL       :         : 5         : N              
-DATA_IN[30]                  : M25       : input  : 3.3-V LVTTL       :         : 5         : N              
+GND*                         : M19       :        :                   :         : 5         :                
+GND*                         : M20       :        :                   :         : 5         :                
+GND*                         : M21       :        :                   :         : 5         :                
+GND*                         : M22       :        :                   :         : 5         :                
+GND*                         : M23       :        :                   :         : 5         :                
+GND*                         : M24       :        :                   :         : 5         :                
+GND*                         : M25       :        :                   :         : 5         :                
 GND                          : M26       : gnd    :                   :         :           :                
 GND+                         : N1        :        :                   :         : 2         :                
 GND+                         : N2        :        :                   :         : 2         :                
@@ -540,7 +540,7 @@ VCCIO2                       : N5        : power  :                   : 3.3V    
 DCLK                         : N6        :        :                   :         : 2         :                
 nCONFIG                      : N7        :        :                   :         : 2         :                
 GND                          : N8        : gnd    :                   :         :           :                
-output_sha256top[20]         : N9        : output : 3.3-V LVTTL       :         : 2         : N              
+GND*                         : N9        :        :                   :         : 2         :                
 VCCINT                       : N10       : power  :                   : 1.2V    :           :                
 GND                          : N11       : gnd    :                   :         :           :                
 GND                          : N12       : gnd    :                   :         :           :                
@@ -549,24 +549,24 @@ GND                          : N14       : gnd    :                   :         
 GND                          : N15       : gnd    :                   :         :           :                
 GND                          : N16       : gnd    :                   :         :           :                
 VCCINT                       : N17       : power  :                   : 1.2V    :           :                
-DATA_IN[27]                  : N18       : input  : 3.3-V LVTTL       :         : 5         : N              
+GND*                         : N18       :        :                   :         : 5         :                
 GND                          : N19       : gnd    :                   :         :           :                
-output_sha256top[206]        : N20       : output : 3.3-V LVTTL       :         : 5         : N              
+GND*                         : N20       :        :                   :         : 5         :                
 NC                           : N21       :        :                   :         :           :                
 VCCIO5                       : N22       : power  :                   : 3.3V    : 5         :                
-DATA_IN[5]                   : N23       : input  : 3.3-V LVTTL       :         : 5         : N              
-DATA_IN[10]                  : N24       : input  : 3.3-V LVTTL       :         : 5         : N              
+GND*                         : N23       :        :                   :         : 5         :                
+GND*                         : N24       :        :                   :         : 5         :                
 GND+                         : N25       :        :                   :         : 5         :                
 GND+                         : N26       :        :                   :         : 5         :                
-RESET_N                      : P1        : input  : 3.3-V LVTTL       :         : 1         : N              
-CLK                          : P2        : input  : 3.3-V LVTTL       :         : 1         : N              
-output_sha256top[116]        : P3        : output : 3.3-V LVTTL       :         : 1         : N              
-output_sha256top[95]         : P4        : output : 3.3-V LVTTL       :         : 1         : N              
+iReset_n                     : P1        : input  : 3.3-V LVTTL       :         : 1         : N              
+iClk                         : P2        : input  : 3.3-V LVTTL       :         : 1         : N              
+GND*                         : P3        :        :                   :         : 1         :                
+iAddress[0]                  : P4        : input  : 3.3-V LVTTL       :         : 1         : N              
 VCCIO1                       : P5        : power  :                   : 3.3V    : 1         :                
-output_sha256top[249]        : P6        : output : 3.3-V LVTTL       :         : 1         : N              
-output_sha256top[118]        : P7        : output : 3.3-V LVTTL       :         : 1         : N              
+oData[0]                     : P6        : output : 3.3-V LVTTL       :         : 1         : N              
+iData[11]                    : P7        : input  : 3.3-V LVTTL       :         : 1         : N              
 GND                          : P8        : gnd    :                   :         :           :                
-output_sha256top[81]         : P9        : output : 3.3-V LVTTL       :         : 2         : N              
+GND*                         : P9        :        :                   :         : 2         :                
 VCCINT                       : P10       : power  :                   : 1.2V    :           :                
 GND                          : P11       : gnd    :                   :         :           :                
 GND                          : P12       : gnd    :                   :         :           :                
@@ -574,23 +574,23 @@ GND                          : P13       : gnd    :                   :         
 GND                          : P14       : gnd    :                   :         :           :                
 GND                          : P15       : gnd    :                   :         :           :                
 GND                          : P16       : gnd    :                   :         :           :                
-DATA_IN[21]                  : P17       : input  : 3.3-V LVTTL       :         : 6         : N              
-output_sha256top[97]         : P18       : output : 3.3-V LVTTL       :         : 5         : N              
+GND*                         : P17       :        :                   :         : 6         :                
+GND*                         : P18       :        :                   :         : 5         :                
 GND                          : P19       : gnd    :                   :         :           :                
 MSEL0                        : P20       :        :                   :         : 6         :                
 MSEL1                        : P21       :        :                   :         : 6         :                
 VCCIO6                       : P22       : power  :                   : 3.3V    : 6         :                
-DATA_IN[2]                   : P23       : input  : 3.3-V LVTTL       :         : 6         : N              
-DATA_IN[22]                  : P24       : input  : 3.3-V LVTTL       :         : 6         : N              
+GND*                         : P23       :        :                   :         : 6         :                
+GND*                         : P24       :        :                   :         : 6         :                
 GND+                         : P25       :        :                   :         : 6         :                
 GND+                         : P26       :        :                   :         : 6         :                
 GND                          : R1        : gnd    :                   :         :           :                
-output_sha256top[115]        : R2        : output : 3.3-V LVTTL       :         : 1         : N              
-output_sha256top[17]         : R3        : output : 3.3-V LVTTL       :         : 1         : N              
-output_sha256top[214]        : R4        : output : 3.3-V LVTTL       :         : 1         : N              
-output_sha256top[63]         : R5        : output : 3.3-V LVTTL       :         : 1         : N              
-output_sha256top[28]         : R6        : output : 3.3-V LVTTL       :         : 1         : N              
-output_sha256top[182]        : R7        : output : 3.3-V LVTTL       :         : 1         : N              
+GND*                         : R2        :        :                   :         : 1         :                
+GND*                         : R3        :        :                   :         : 1         :                
+iAddress[1]                  : R4        : input  : 3.3-V LVTTL       :         : 1         : N              
+GND*                         : R5        :        :                   :         : 1         :                
+iAddress[3]                  : R6        : input  : 3.3-V LVTTL       :         : 1         : N              
+iAddress[2]                  : R7        : input  : 3.3-V LVTTL       :         : 1         : N              
 GND*                         : R8        :        :                   :         : 1         :                
 VCCIO1                       : R9        : power  :                   : 3.3V    : 1         :                
 VCCINT                       : R10       : power  :                   : 1.2V    :           :                
@@ -603,23 +603,23 @@ VCCINT                       : R16       : power  :                   : 1.2V    
 GND*                         : R17       :        :                   :         : 6         :                
 VCCIO6                       : R18       : power  :                   : 3.3V    : 6         :                
 GND*                         : R19       :        :                   :         : 6         :                
-DATA_IN[17]                  : R20       : input  : 3.3-V LVTTL       :         : 6         : N              
+GND*                         : R20       :        :                   :         : 6         :                
 GND                          : R21       : gnd    :                   :         :           :                
 nSTATUS                      : R22       :        :                   :         : 6         :                
 CONF_DONE                    : R23       :        :                   :         : 6         :                
-output_sha256top[45]         : R24       : output : 3.3-V LVTTL       :         : 6         : N              
-DATA_IN[23]                  : R25       : input  : 3.3-V LVTTL       :         : 6         : N              
+GND*                         : R24       :        :                   :         : 6         :                
+GND*                         : R25       :        :                   :         : 6         :                
 GND                          : R26       : gnd    :                   :         :           :                
 VCCIO1                       : T1        : power  :                   : 3.3V    : 1         :                
-output_sha256top[217]        : T2        : output : 3.3-V LVTTL       :         : 1         : N              
-output_sha256top[25]         : T3        : output : 3.3-V LVTTL       :         : 1         : N              
-output_sha256top[244]        : T4        : output : 3.3-V LVTTL       :         : 1         : N              
+iData[9]                     : T2        : input  : 3.3-V LVTTL       :         : 1         : N              
+iData[23]                    : T3        : input  : 3.3-V LVTTL       :         : 1         : N              
+iAddress[4]                  : T4        : input  : 3.3-V LVTTL       :         : 1         : N              
 GND                          : T5        : gnd    :                   :         :           :                
-output_sha256top[212]        : T6        : output : 3.3-V LVTTL       :         : 1         : N              
-GND*                         : T7        :        :                   :         : 1         :                
+oData[21]                    : T6        : output : 3.3-V LVTTL       :         : 1         : N              
+oData[20]                    : T7        : output : 3.3-V LVTTL       :         : 1         : N              
 GND*                         : T8        :        :                   :         : 1         :                
-output_sha256top[180]        : T9        : output : 3.3-V LVTTL       :         : 1         : N              
-output_sha256top[43]         : T10       : output : 3.3-V LVTTL       :         : 1         : N              
+iData[10]                    : T9        : input  : 3.3-V LVTTL       :         : 1         : N              
+iData[14]                    : T10       : input  : 3.3-V LVTTL       :         : 1         : N              
 VCCINT                       : T11       : power  :                   : 1.2V    :           :                
 GND                          : T12       : gnd    :                   :         :           :                
 GND                          : T13       : gnd    :                   :         :           :                
@@ -631,23 +631,23 @@ GND*                         : T18       :        :                   :         
 GND*                         : T19       :        :                   :         : 6         :                
 GND*                         : T20       :        :                   :         : 6         :                
 GND*                         : T21       :        :                   :         : 6         :                
-DATA_IN[25]                  : T22       : input  : 3.3-V LVTTL       :         : 6         : N              
-output_sha256top[54]         : T23       : output : 3.3-V LVTTL       :         : 6         : N              
-DATA_IN[20]                  : T24       : input  : 3.3-V LVTTL       :         : 6         : N              
+GND*                         : T22       :        :                   :         : 6         :                
+GND*                         : T23       :        :                   :         : 6         :                
+GND*                         : T24       :        :                   :         : 6         :                
 GND*                         : T25       :        :                   :         : 6         :                
 VCCIO6                       : T26       : power  :                   : 3.3V    : 6         :                
-output_sha256top[191]        : U1        : output : 3.3-V LVTTL       :         : 1         : N              
-output_sha256top[84]         : U2        : output : 3.3-V LVTTL       :         : 1         : N              
-output_sha256top[11]         : U3        : output : 3.3-V LVTTL       :         : 1         : N              
-output_sha256top[255]        : U4        : output : 3.3-V LVTTL       :         : 1         : N              
+iChipselect_n                : U1        : input  : 3.3-V LVTTL       :         : 1         : N              
+iWrite_n                     : U2        : input  : 3.3-V LVTTL       :         : 1         : N              
+oData[31]                    : U3        : output : 3.3-V LVTTL       :         : 1         : N              
+oData[9]                     : U4        : output : 3.3-V LVTTL       :         : 1         : N              
 GND*                         : U5        :        :                   :         : 1         :                
-GND*                         : U6        :        :                   :         : 1         :                
-GND*                         : U7        :        :                   :         : 1         :                
+oData[30]                    : U6        : output : 3.3-V LVTTL       :         : 1         : N              
+oData[7]                     : U7        : output : 3.3-V LVTTL       :         : 1         : N              
 GND                          : U8        : gnd    :                   :         :           :                
-output_sha256top[148]        : U9        : output : 3.3-V LVTTL       :         : 1         : N              
-output_sha256top[243]        : U10       : output : 3.3-V LVTTL       :         : 1         : N              
+oData[3]                     : U9        : output : 3.3-V LVTTL       :         : 1         : N              
+iRead_n                      : U10       : input  : 3.3-V LVTTL       :         : 1         : N              
 VCCINT                       : U11       : power  :                   : 1.2V    :           :                
-output_sha256top[73]         : U12       : output : 3.3-V LVTTL       :         : 8         : N              
+iData[1]                     : U12       : input  : 3.3-V LVTTL       :         : 8         : N              
 VCCINT                       : U13       : power  :                   : 1.2V    :           :                
 VCCINT                       : U14       : power  :                   : 1.2V    :           :                
 VCCINT                       : U15       : power  :                   : 1.2V    :           :                
@@ -662,20 +662,20 @@ GND*                         : U23       :        :                   :         
 GND*                         : U24       :        :                   :         : 6         :                
 GND*                         : U25       :        :                   :         : 6         :                
 GND*                         : U26       :        :                   :         : 6         :                
-output_sha256top[223]        : V1        : output : 3.3-V LVTTL       :         : 1         : N              
-output_sha256top[183]        : V2        : output : 3.3-V LVTTL       :         : 1         : N              
-output_sha256top[57]         : V3        : output : 3.3-V LVTTL       :         : 1         : N              
-output_sha256top[87]         : V4        : output : 3.3-V LVTTL       :         : 1         : N              
+iData[25]                    : V1        : input  : 3.3-V LVTTL       :         : 1         : N              
+iData[12]                    : V2        : input  : 3.3-V LVTTL       :         : 1         : N              
+oData[27]                    : V3        : output : 3.3-V LVTTL       :         : 1         : N              
+oData[26]                    : V4        : output : 3.3-V LVTTL       :         : 1         : N              
 GND*                         : V5        :        :                   :         : 1         :                
 GND*                         : V6        :        :                   :         : 1         :                
 GND*                         : V7        :        :                   :         : 1         :                
 VCCIO1                       : V8        : power  :                   : 3.3V    : 1         :                
 GND*                         : V9        :        :                   :         : 8         :                
 GND*                         : V10       :        :                   :         : 8         :                
-output_sha256top[86]         : V11       : output : 3.3-V LVTTL       :         : 8         : N              
+iData[29]                    : V11       : input  : 3.3-V LVTTL       :         : 8         : N              
 VCCIO8                       : V12       : power  :                   : 3.3V    : 8         :                
-output_sha256top[205]        : V13       : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[224]        : V14       : output : 3.3-V LVTTL       :         : 8         : N              
+iData[31]                    : V13       : input  : 3.3-V LVTTL       :         : 8         : N              
+iData[6]                     : V14       : input  : 3.3-V LVTTL       :         : 8         : N              
 VCCIO7                       : V15       : power  :                   : 3.3V    : 7         :                
 VCCINT                       : V16       : power  :                   : 1.2V    :           :                
 GND*                         : V17       :        :                   :         : 7         :                
@@ -689,7 +689,7 @@ GND*                         : V24       :        :                   :         
 GND*                         : V25       :        :                   :         : 6         :                
 GND*                         : V26       :        :                   :         : 6         :                
 GND*                         : W1        :        :                   :         : 1         :                
-GND*                         : W2        :        :                   :         : 1         :                
+oData[25]                    : W2        : output : 3.3-V LVTTL       :         : 1         : N              
 GND*                         : W3        :        :                   :         : 1         :                
 GND*                         : W4        :        :                   :         : 1         :                
 GND                          : W5        : gnd    :                   :         :           :                
@@ -698,12 +698,12 @@ GND_PLL1                     : W7        : gnd    :                   :         
 GND*                         : W8        :        :                   :         : 8         :                
 VCCIO8                       : W9        : power  :                   : 3.3V    : 8         :                
 GND*                         : W10       :        :                   :         : 8         :                
-output_sha256top[171]        : W11       : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[179]        : W12       : output : 3.3-V LVTTL       :         : 8         : N              
+oData[19]                    : W11       : output : 3.3-V LVTTL       :         : 8         : N              
+oData[11]                    : W12       : output : 3.3-V LVTTL       :         : 8         : N              
 GND                          : W13       : gnd    :                   :         :           :                
 GND                          : W14       : gnd    :                   :         :           :                
-output_sha256top[58]         : W15       : output : 3.3-V LVTTL       :         : 7         : N              
-output_sha256top[218]        : W16       : output : 3.3-V LVTTL       :         : 7         : N              
+GND*                         : W15       :        :                   :         : 7         :                
+GND*                         : W16       :        :                   :         : 7         :                
 GND*                         : W17       :        :                   :         : 7         :                
 VCCIO7                       : W18       : power  :                   : 3.3V    : 7         :                
 GND*                         : W19       :        :                   :         : 7         :                
@@ -724,11 +724,11 @@ VCCD_PLL1                    : Y7        : power  :                   : 1.2V    
 GNDA_PLL1                    : Y8        : gnd    :                   :         :           :                
 GND                          : Y9        : gnd    :                   :         :           :                
 GND*                         : Y10       :        :                   :         : 8         :                
-output_sha256top[158]        : Y11       : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[150]        : Y12       : output : 3.3-V LVTTL       :         : 8         : N              
-output_sha256top[90]         : Y13       : output : 3.3-V LVTTL       :         : 7         : N              
-output_sha256top[234]        : Y14       : output : 3.3-V LVTTL       :         : 7         : N              
-output_sha256top[152]        : Y15       : output : 3.3-V LVTTL       :         : 7         : N              
+oData[6]                     : Y11       : output : 3.3-V LVTTL       :         : 8         : N              
+iData[19]                    : Y12       : input  : 3.3-V LVTTL       :         : 8         : N              
+iData[3]                     : Y13       : input  : 3.3-V LVTTL       :         : 7         : N              
+iData[5]                     : Y14       : input  : 3.3-V LVTTL       :         : 7         : N              
+iData[0]                     : Y15       : input  : 3.3-V LVTTL       :         : 7         : N              
 GND*                         : Y16       :        :                   :         : 7         :                
 GND                          : Y17       : gnd    :                   :         :           :                
 GND*                         : Y18       :        :                   :         : 7         :                

@@ -1,0 +1,88 @@
+module IP_wrapper (
+    // Avalon Bus Signals
+    input wire         iClk,               // Xung clock
+    input wire         iReset_n,           // Reset active-low
+    input wire         iChipselect_n,      // Tín hiệu chọn IP (active-low)
+    input wire         iWrite_n,           // Tín hiệu ghi (active-low)
+    input wire         iRead_n,            // Tín hiệu đọc (active-low)
+    input wire [4:0]   iAddress,           // Địa chỉ 5-bit
+    input wire [31:0]  iData,         // Dữ liệu từ Nios II
+    output reg [31:0]  oData,          // Dữ liệu trả về Nios II
+
+    // SHA-256 Core Interface
+    output reg         START,             // Khởi động module SHA-256
+    output wire [31:0] DATA_IN,           // Dữ liệu gửi đến SHA-256 top
+    output wire        DATA_VALID,        // Tín hiệu báo dữ liệu hợp lệ
+    input wire         done,              // Tín hiệu hoàn tất từ SHA-256
+    input wire [255:0] output_sha256top   // Kết quả hash 256-bit
+);
+
+    // Internal registers
+    reg [31:0] control_reg;           // Thanh ghi điều khiển
+    reg [31:0] data_in_reg;           // Thanh ghi dữ liệu đầu vào
+    reg [31:0] status_reg;            // Thanh ghi trạng thái
+    reg [31:0] hash_result [7:0];     // 8 thanh ghi cho kết quả hash
+
+    // Gán dữ liệu và tín hiệu DATA_VALID
+    assign DATA_IN = data_in_reg;
+    assign DATA_VALID = (iAddress == 5'h01) && (!iWrite_n) && (!iChipselect_n);
+
+    // Write logic
+    always @(posedge iClk or negedge iReset_n) begin
+        if (!iReset_n) begin
+            control_reg <= 32'b0;
+            data_in_reg <= 32'b0;
+            status_reg <= 32'b0;
+            for (int i = 0; i < 8; i = i + 1)
+                hash_result[i] <= 32'b0;
+            START <= 1'b0;
+        end else begin
+            if (!iChipselect_n && !iWrite_n) begin
+                case (iAddress)
+                    5'h00: begin // Thanh ghi điều khiển
+                        control_reg <= iData;
+                        START <= iData[0]; // Bit 0: start
+                    end
+                    5'h01: begin // Thanh ghi dữ liệu đầu vào
+                        data_in_reg <= iData;
+                    end
+                endcase
+            end
+
+            // Cập nhật trạng thái và kết quả khi done
+            if (done) begin
+                status_reg[0] <= 1'b1; // Set done bit
+                for (int i = 0; i < 8; i = i + 1)
+                    hash_result[i] <= output_sha256top[i*32 +: 32];
+            end else if (control_reg[0] == 1'b0) begin
+                status_reg[0] <= 1'b0; // Reset done bit khi start thấp
+            end
+        end
+    end
+
+    // Read logic
+    always @(posedge iClk or negedge iReset_n) begin
+        if (!iReset_n) begin
+            oData <= 32'b0;
+        end else if (!iChipselect_n && !iRead_n) begin
+            case (iAddress)
+                5'h00: oData <= control_reg;          // Đọc control_reg
+                5'h02: oData <= status_reg;           // Đọc trạng thái (done)
+                5'h03 to 5'h0A: oData <= hash_result[iAddress - 5'h03]; // Đọc kết quả hash
+                default: oData <= 32'b0;
+            endcase
+        end
+    end
+
+    // Khởi tạo và kết nối module SHA-256
+    sha256_optimizePowerArea sha256_core (
+        .iClk(iClk),
+        .iReset_n(iReset_n),
+        .START(START),
+        .DATA_VALID(DATA_VALID),
+        .DATA_IN(DATA_IN),
+        .done(done),
+        .output_sha256top(output_sha256top)
+    );
+
+endmodule

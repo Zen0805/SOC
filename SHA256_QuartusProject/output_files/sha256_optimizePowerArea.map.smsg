@@ -1,0 +1,1 @@
+Warning (10268): Verilog HDL information at IP_wrapper.v(31): always construct contains both blocking and non-blocking assignments

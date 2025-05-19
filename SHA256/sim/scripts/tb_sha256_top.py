@@ -123,7 +123,7 @@ def _rotate_right(num: int, shift: int, size: int = 32):
     """Rotate an integer right."""
     return (num >> shift) | (num << size - shift)
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     # 16 words đầu vào
     words = [
         0x00000010, 0x00000011, 0x00000012, 0x00000013,

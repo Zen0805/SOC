@@ -1,5 +1,5 @@
 Flow report for sha256_optimizePowerArea
-Sun May 18 18:58:31 2025
+Mon May 19 04:07:02 2025
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -40,18 +40,18 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Flow Summary                                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Flow Status                        ; Successful - Sun May 18 18:58:31 2025           ;
+; Flow Status                        ; Successful - Mon May 19 04:07:02 2025           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; sha256_optimizePowerArea                        ;
-; Top-level Entity Name              ; sha256_optimizePowerArea                        ;
+; Top-level Entity Name              ; IP_wrapper                                      ;
 ; Family                             ; Cyclone II                                      ;
 ; Device                             ; EP2C35F672C6                                    ;
 ; Timing Models                      ; Final                                           ;
-; Total logic elements               ; 3,380 / 33,216 ( 10 % )                         ;
-;     Total combinational functions  ; 3,156 / 33,216 ( 10 % )                         ;
-;     Dedicated logic registers      ; 1,291 / 33,216 ( 4 % )                          ;
-; Total registers                    ; 1291                                            ;
-; Total pins                         ; 293 / 475 ( 62 % )                              ;
+; Total logic elements               ; 3,602 / 33,216 ( 11 % )                         ;
+;     Total combinational functions  ; 3,337 / 33,216 ( 10 % )                         ;
+;     Dedicated logic registers      ; 1,389 / 33,216 ( 4 % )                          ;
+; Total registers                    ; 1389                                            ;
+; Total pins                         ; 74 / 475 ( 16 % )                               ;
 ; Total virtual pins                 ; 0                                               ;
 ; Total memory bits                  ; 0 / 483,840 ( 0 % )                             ;
 ; Embedded Multiplier 9-bit elements ; 0 / 70 ( 0 % )                                  ;
@@ -64,30 +64,31 @@ applicable agreement for further details.
 +-------------------+--------------------------+
 ; Option            ; Setting                  ;
 +-------------------+--------------------------+
-; Start date & time ; 05/18/2025 18:57:58      ;
+; Start date & time ; 05/19/2025 04:06:30      ;
 ; Main task         ; Compilation              ;
 ; Revision Name     ; sha256_optimizePowerArea ;
 +-------------------+--------------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                           ;
-+-------------------------------------+---------------------------------------+---------------+-------------+----------------+
-; Assignment Name                     ; Value                                 ; Default Value ; Entity Name ; Section Id     ;
-+-------------------------------------+---------------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 9619519298652.174756947822196         ; --            ; --          ; --             ;
-; EDA_GENERATE_FUNCTIONAL_NETLIST     ; On                                    ; --            ; --          ; eda_simulation ;
-; EDA_OUTPUT_DATA_FORMAT              ; Verilog Hdl                           ; --            ; --          ; eda_simulation ;
-; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (Verilog)             ; <None>        ; --          ; --             ;
-; MAX_CORE_JUNCTION_TEMP              ; 85                                    ; --            ; --          ; --             ;
-; MIN_CORE_JUNCTION_TEMP              ; 0                                     ; --            ; --          ; --             ;
-; PARTITION_COLOR                     ; 16764057                              ; --            ; --          ; Top            ;
-; PARTITION_FITTER_PRESERVATION_LEVEL ; PLACEMENT_AND_ROUTING                 ; --            ; --          ; Top            ;
-; PARTITION_NETLIST_TYPE              ; SOURCE                                ; --            ; --          ; Top            ;
-; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                   ; --            ; --          ; --             ;
-; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW ; --            ; --          ; --             ;
-; PROJECT_OUTPUT_DIRECTORY            ; output_files                          ; --            ; --          ; --             ;
-+-------------------------------------+---------------------------------------+---------------+-------------+----------------+
++---------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                      ;
++-------------------------------------+---------------------------------------+--------------------------+-------------+----------------+
+; Assignment Name                     ; Value                                 ; Default Value            ; Entity Name ; Section Id     ;
++-------------------------------------+---------------------------------------+--------------------------+-------------+----------------+
+; COMPILER_SIGNATURE_ID               ; 9619532411942.174760239016716         ; --                       ; --          ; --             ;
+; EDA_GENERATE_FUNCTIONAL_NETLIST     ; On                                    ; --                       ; --          ; eda_simulation ;
+; EDA_OUTPUT_DATA_FORMAT              ; Verilog Hdl                           ; --                       ; --          ; eda_simulation ;
+; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (Verilog)             ; <None>                   ; --          ; --             ;
+; MAX_CORE_JUNCTION_TEMP              ; 85                                    ; --                       ; --          ; --             ;
+; MIN_CORE_JUNCTION_TEMP              ; 0                                     ; --                       ; --          ; --             ;
+; PARTITION_COLOR                     ; 16764057                              ; --                       ; IP_wrapper  ; Top            ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; PLACEMENT_AND_ROUTING                 ; --                       ; IP_wrapper  ; Top            ;
+; PARTITION_NETLIST_TYPE              ; SOURCE                                ; --                       ; IP_wrapper  ; Top            ;
+; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                   ; --                       ; --          ; --             ;
+; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW ; --                       ; --          ; --             ;
+; PROJECT_OUTPUT_DIRECTORY            ; output_files                          ; --                       ; --          ; --             ;
+; TOP_LEVEL_ENTITY                    ; IP_wrapper                            ; sha256_optimizePowerArea ; --          ; --             ;
++-------------------------------------+---------------------------------------+--------------------------+-------------+----------------+
 
 
 +-------------------------------------------------------------------------------------------------------------------------------+
@@ -95,12 +96,12 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:10     ; 1.0                     ; 4610 MB             ; 00:00:10                           ;
-; Fitter                    ; 00:00:16     ; 1.0                     ; 4920 MB             ; 00:00:17                           ;
-; Assembler                 ; 00:00:01     ; 1.0                     ; 4569 MB             ; 00:00:01                           ;
-; TimeQuest Timing Analyzer ; 00:00:01     ; 1.0                     ; 4594 MB             ; 00:00:01                           ;
-; EDA Netlist Writer        ; 00:00:01     ; 1.0                     ; 4545 MB             ; 00:00:01                           ;
-; Total                     ; 00:00:29     ; --                      ; --                  ; 00:00:30                           ;
+; Analysis & Synthesis      ; 00:00:10     ; 1.0                     ; 4621 MB             ; 00:00:10                           ;
+; Fitter                    ; 00:00:16     ; 3.3                     ; 5693 MB             ; 00:00:30                           ;
+; Assembler                 ; 00:00:01     ; 1.0                     ; 4601 MB             ; 00:00:01                           ;
+; TimeQuest Timing Analyzer ; 00:00:01     ; 1.0                     ; 4679 MB             ; 00:00:01                           ;
+; EDA Netlist Writer        ; 00:00:00     ; 1.0                     ; 4561 MB             ; 00:00:01                           ;
+; Total                     ; 00:00:28     ; --                      ; --                  ; 00:00:43                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -109,11 +110,11 @@ applicable agreement for further details.
 +---------------------------+------------------+-----------+------------+----------------+
 ; Module Name               ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
 +---------------------------+------------------+-----------+------------+----------------+
-; Analysis & Synthesis      ; letun            ; Windows 7 ; 6.2        ; x86_64         ;
-; Fitter                    ; letun            ; Windows 7 ; 6.2        ; x86_64         ;
-; Assembler                 ; letun            ; Windows 7 ; 6.2        ; x86_64         ;
-; TimeQuest Timing Analyzer ; letun            ; Windows 7 ; 6.2        ; x86_64         ;
-; EDA Netlist Writer        ; letun            ; Windows 7 ; 6.2        ; x86_64         ;
+; Analysis & Synthesis      ; Yukaim           ; Windows 7 ; 6.2        ; x86_64         ;
+; Fitter                    ; Yukaim           ; Windows 7 ; 6.2        ; x86_64         ;
+; Assembler                 ; Yukaim           ; Windows 7 ; 6.2        ; x86_64         ;
+; TimeQuest Timing Analyzer ; Yukaim           ; Windows 7 ; 6.2        ; x86_64         ;
+; EDA Netlist Writer        ; Yukaim           ; Windows 7 ; 6.2        ; x86_64         ;
 +---------------------------+------------------+-----------+------------+----------------+
 
 
