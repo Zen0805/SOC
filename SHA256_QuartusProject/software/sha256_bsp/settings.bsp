@@ -2,10 +2,10 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>May 19, 2025 2:26:02 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1747639562928</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>May 20, 2025 11:13:20 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1747714400424</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>D:\CodeVS\SOC\SHA256_QuartusProject\software\sha256_bsp</BspGeneratedLocation>
-        <BspSettingsFile>settings.bsp</BspSettingsFile>
+        <BspSettingsFile>D:\CodeVS\SOC\SHA256_QuartusProject\software\sha256_bsp\settings.bsp</BspSettingsFile>
         <SopcDesignFile>D:\CodeVS\SOC\SHA256_QuartusProject\system.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
         <Cpu>nios2_qsys_0</Cpu>

@@ -23,7 +23,9 @@ module sha256_optimizePowerAreaVerilog(
 	DATA_VALID,
 	DATA_IN,
 	done,
-	output_sha256top
+	output_sha256top,
+	load_counter_ctrl,
+	state_ctrl
 );
 
 
@@ -34,6 +36,8 @@ input wire	DATA_VALID;
 input wire	[31:0] DATA_IN;
 output wire	done;
 output wire	[255:0] output_sha256top;
+output wire	[3:0]	 load_counter_ctrl;
+output wire state_ctrl;
 
 wire	Done_comp;
 wire	[255:0] Final_out;
@@ -47,7 +51,7 @@ wire	STN_to_sche;
 wire	write_enable_in;
 wire	[31:0] Wt_out_sche;
 wire	[31:0] Wt_to_comp;
-
+wire	reset_n_ctrl_to_sche;
 
 
 
@@ -60,7 +64,11 @@ message_scheduler	b2v_inst(
 	.message_word_addr(message_word_addr),
 	.message_word_in(message_word_in),
 	.round_t(round_t),
-	.Wt_out(Wt_out_sche));
+	.Wt_out(Wt_out_sche),
+	.reset_new_block(reset_n_ctrl_to_sche)
+	
+	
+	);
 
 
 message_compression	b2v_inst1(
@@ -93,7 +101,12 @@ controller	b2v_inst2(
 	.message_word_addr(message_word_addr),
 	.message_word_in(message_word_in),
 	.round_t(round_t),
-	.Wt_to_comp(Wt_to_comp));
+	.Wt_to_comp(Wt_to_comp),
+	.load_counter(load_counter_ctrl),
+	.state(state_ctrl),
+	.reset_n_sche_reg(reset_n_ctrl_to_sche),
+	
+	);
 
 assign	output_sha256top = output_final;
 

@@ -1,0 +1,122 @@
+#include <stdio.h>
+#include <stdint.h>
+#include "system.h"
+#include "io.h"
+
+
+//5'h00: oData <= control_reg;
+//5'h02: oData <= status_reg;
+//5'h03: oData <= hash_result_256[255:224];
+//5'h04: oData <= hash_result_256[223:192];
+//5'h05: oData <= hash_result_256[191:160];
+//5'h06: oData <= hash_result_256[159:128];
+//5'h07: oData <= hash_result_256[127:96];
+//5'h08: oData <= hash_result_256[95:64];
+//5'h09: oData <= hash_result_256[63:32];
+//5'h0A: oData <= hash_result_256[31:0];
+
+
+#define SHA_256_IP_0_BASE 0x11080
+
+
+#define SHA256_CONTROL_REG_OFFSET    (0x00 * 4)
+#define SHA256_DATA_IN_REG_OFFSET    (0x01 * 4)
+#define SHA256_STATUS_REG_OFFSET     (0x02 * 4)
+#define SHA256_HASH_OUT_0_OFFSET     (0x03 * 4)
+#define SHA256_HASH_OUT_1_OFFSET     (0x04 * 4)
+#define SHA256_HASH_OUT_2_OFFSET     (0x05 * 4)
+#define SHA256_HASH_OUT_3_OFFSET     (0x06 * 4)
+#define SHA256_HASH_OUT_4_OFFSET     (0x07 * 4)
+#define SHA256_HASH_OUT_5_OFFSET     (0x08 * 4)
+#define SHA256_HASH_OUT_6_OFFSET     (0x09 * 4)
+#define SHA256_HASH_OUT_7_OFFSET     (0x0A * 4)
+
+// Control Register Bits
+#define SHA256_CONTROL_START_BIT     (1 << 0)
+
+// Status Register Bits
+#define SHA256_STATUS_DONE_BIT       (1 << 0)
+
+// Helper function to print the 256-bit hash
+void print_sha256_hash(uint32_t hash_result[8]) {
+    int i; // C89: Declare loop variable at the start of the block
+    printf("SHA-256 Hash: ");
+    for (i = 0; i < 8; i++) {
+        printf("%08lx", (unsigned long)hash_result[i]);
+    }
+    printf("\n");
+}
+
+// Function to perform SHA-256 hashing on a single 512-bit block of data
+void calculate_sha256_hw(const uint32_t *data_block_ptr, uint32_t *hash_output_ptr) {
+    uint32_t status;
+    uint32_t control;
+    int i;
+    int poll_count; //pooling ket qua
+
+    printf("Reset SHA-256 IP\n");
+
+    IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET, 0x00000000);
+    //reset control_reg => bit done cung reset
+
+    status = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_STATUS_REG_OFFSET);
+    //doc thanh ghi status
+
+    printf("status_reg: 0x%08lx\n", (unsigned long)status);
+
+    printf("Ghi bit START vao control_reg...\n");
+    IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET, SHA256_CONTROL_START_BIT);
+
+    control = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_STATUS_REG_OFFSET);
+
+    printf("Ghi 16 word vao IP:\n");
+    for (i = 0; i < 16; i++) {
+        IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_DATA_IN_REG_OFFSET, data_block_ptr[i]);
+    }
+    printf("Data block written.\n");
+
+    printf("Polling for completion (DONE bit)...\n");
+    poll_count = 0; // Initialize before use
+    do {
+        status = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_STATUS_REG_OFFSET);
+        poll_count++;
+    } while (!(status & SHA256_STATUS_DONE_BIT));
+    printf("Hashing complete! (DONE bit set after %d polls). Status: 0x%08lx\n", poll_count, (unsigned long)status);
+
+    printf("Reading hash result:\n");
+    for (i = 0; i < 8; i++) { // 'i' can be reused as it was declared at the function scope
+        hash_output_ptr[i] = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_HASH_OUT_0_OFFSET + (i * 4));
+    }
+
+    printf("Clearing START bit in control register (also clears DONE status)...\n");
+    IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET, 0x00000000);
+    status = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_STATUS_REG_OFFSET);
+    printf("Final Status: 0x%08lx (DONE bit should be 0)\n", (unsigned long)status);
+}
+
+int main() {
+    const uint32_t input_block_abc[16] = {
+		0x00000010, 0x00000011, 0x00000012, 0x00000013,
+		0x00000014, 0x00000015, 0x00000016, 0x00000017,
+		0x00000018, 0x00000019, 0x0000001A, 0x0000001B,
+		0x0000001C, 0x0000001D, 0x0000001E, 0x0000001F
+    };
+    uint32_t calculated_hash[8]; // Moved up
+
+    const uint32_t input_block_empty[16] = {
+        0x80000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000
+    };
+
+    printf("Nios II SHA-256 Test\n");
+    printf("IP Base Address: 0x%08lx\n", (unsigned long)SHA_256_IP_0_BASE);
+
+    printf("\n--- Test 1: Hashing 00000010++  ---\n");
+    calculate_sha256_hw(input_block_abc, calculated_hash);
+    print_sha256_hash(calculated_hash);
+
+    printf("\nAll tests complete.\n");
+    return 0;
+}

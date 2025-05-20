@@ -10,9 +10,10 @@ entity IP_wrapper is
         iAddress        : in     vl_logic_vector(4 downto 0);
         iData           : in     vl_logic_vector(31 downto 0);
         oData           : out    vl_logic_vector(31 downto 0);
+        state_ctrl      : out    vl_logic;
+        START           : out    vl_logic;
         DATA_IN         : out    vl_logic_vector(31 downto 0);
-        DATA_VALID      : out    vl_logic;
-        IP_OUT          : out    vl_logic_vector(255 downto 0);
-        DONE            : out    vl_logic
+        load_counter    : out    vl_logic_vector(3 downto 0);
+        DATA_VALID      : out    vl_logic
     );
 end IP_wrapper;

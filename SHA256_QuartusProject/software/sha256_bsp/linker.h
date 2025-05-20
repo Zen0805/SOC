@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_qsys_0' in SOPC Builder design 'system'
  * SOPC Builder design path: D:/CodeVS/SOC/SHA256_QuartusProject/system.sopcinfo
  *
- * Generated: Mon May 19 14:01:48 ICT 2025
+ * Generated: Tue May 20 11:13:00 ICT 2025
  */
 
 /*
