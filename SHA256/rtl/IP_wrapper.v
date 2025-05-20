@@ -20,9 +20,9 @@ module IP_wrapper (
 );
 
     // Thanh ghi nội bộ
-    reg [31:0] control_reg;           // Thanh ghi điều khiển
+    reg [31:0] control_reg;           // Thanh ghi điều khiển: BIT0 START, 
     reg [31:0] data_in_reg;           // Thanh ghi dữ liệu đầu vào
-    reg [31:0] status_reg;            // Thanh ghi trạng thái
+    reg [31:0] status_reg;            // Thanh ghi trạng thái BITO DONE
 	 
     wire [255:0] hash_result_256;     // Thanh ghi 256 bit cho kết quả hash
 	 

@@ -17,14 +17,13 @@ r1
 Z8 !s90 -work|work|sha256_optimizePowerArea.vo|
 Z9 o-work work -O0
 Z10 n@i@p_wrapper
-!i10b 1
 Z11 !s100 Nc9<]RXE`L`ES4z@kUzgR0
-!s85 0
 Z12 !s108 1747597534.213000
 Z13 !s107 sha256_optimizePowerArea.vo|
+!i10b 1
+!s85 0
 !s101 -O0
 vIP_wrapper_vlg_check_tst
-!i10b 1
 Z14 !s100 j<A`UC<9BkYbe8f@]kb>_0
 Z15 IAZomCB]30kLWhbogoIkeL0
 Z16 Vi5fk1dJG2NhfiCV<:PnT^1
@@ -35,16 +34,16 @@ Z19 Fsha256_optimizePowerArea.vt
 L0 69
 R7
 r1
-!s85 0
 31
 Z20 !s108 1747597534.546000
 Z21 !s107 sha256_optimizePowerArea.vt|
 Z22 !s90 -work|work|sha256_optimizePowerArea.vt|
-!s101 -O0
 R9
 Z23 n@i@p_wrapper_vlg_check_tst
-vIP_wrapper_vlg_sample_tst
 !i10b 1
+!s85 0
+!s101 -O0
+vIP_wrapper_vlg_sample_tst
 Z24 !s100 8;S:N?5aTN4lofTZGm9lf0
 Z25 I:jT95EFh?ILbBmG@=]MDl0
 Z26 VLV1e7M^M;h9`em0ZSoC]g0
@@ -55,39 +54,40 @@ R19
 L0 29
 R7
 r1
-!s85 0
 31
 R20
 R21
 R22
-!s101 -O0
 R9
 Z27 n@i@p_wrapper_vlg_sample_tst
-vIP_wrapper_vlg_vec_tst
 !i10b 1
-!s100 U]N^G?m0:>X=2gd2:XnV=3
-IkcgomRI>^0i_JeE75]VOB2
-Z28 VNJTM1=_5Rn@6?cV5L]F1<0
+!s85 0
+!s101 -O0
+vIP_wrapper_vlg_vec_tst
+Z28 IkcgomRI>^0i_JeE75]VOB2
+Z29 VNJTM1=_5Rn@6?cV5L]F1<0
 R3
 R17
 R18
 R19
-Z29 L0 5975
+Z30 L0 5975
 R7
 r1
-!s85 0
 31
 R20
 R21
 R22
-!s101 -O0
 R9
-Z30 n@i@p_wrapper_vlg_vec_tst
+Z31 n@i@p_wrapper_vlg_vec_tst
+Z32 !s100 U]N^G?m0:>X=2gd2:XnV=3
+!i10b 1
+!s85 0
+!s101 -O0
 vsha256_optimizePowerArea
-Z31 IBNEZRVU@ViXkg>]9bOnQe3
-Z32 VABif4e:4Vbg:d[Y0fI8=G1
+Z33 IBNEZRVU@ViXkg>]9bOnQe3
+Z34 VABif4e:4Vbg:d[Y0fI8=G1
 R3
-Z33 w1747564125
+Z35 w1747564125
 R5
 R6
 L0 31
@@ -96,19 +96,19 @@ r1
 31
 R8
 R9
-Z34 nsha256_optimize@power@area
-Z35 !s100 Mz=kkNIRRPEhSf61?NSlH2
-Z36 !s108 1747564125.891000
+Z36 nsha256_optimize@power@area
+Z37 !s100 Mz=kkNIRRPEhSf61?NSlH2
+Z38 !s108 1747564125.891000
 R13
 !i10b 1
 !s85 0
 !s101 -O0
 vsha256_optimizePowerArea_vlg_sample_tst
-Z37 !s100 4;zLc=f5[cNLGQaYLKemG1
-Z38 I?_odTZcEE@0]C4>6QQ5Im2
-Z39 VQH7aY@ggn>@78HSehl92=3
+Z39 !s100 4;zLc=f5[cNLGQaYLKemG1
+Z40 I?_odTZcEE@0]C4>6QQ5Im2
+Z41 VQH7aY@ggn>@78HSehl92=3
 R3
-Z40 w1747564124
+Z42 w1747564124
 R18
 R19
 L0 29
@@ -117,17 +117,17 @@ r1
 31
 R22
 R9
-Z41 nsha256_optimize@power@area_vlg_sample_tst
-Z42 !s108 1747564126.194000
-Z43 !s107 sha256_optimizePowerArea.vt|
+Z43 nsha256_optimize@power@area_vlg_sample_tst
+Z44 !s108 1747564126.194000
+R21
 !i10b 1
 !s85 0
 !s101 -O0
 vsha256_optimizePowerAreaVerilog
-Z44 Iz:fWUlK_41mVdRdb7gBSP2
-Z45 Va856HTTQDP<_Q<eRG>aDl2
+Z45 Iz:fWUlK_41mVdRdb7gBSP2
+Z46 Va856HTTQDP<_Q<eRG>aDl2
 R3
-Z46 w1747594949
+Z47 w1747594949
 R5
 R6
 L0 31
@@ -136,70 +136,108 @@ r1
 31
 R8
 R9
-Z47 nsha256_optimize@power@area@verilog
-Z48 !s100 50Z_Y6cNf3_HV4V?eaA8e2
-Z49 !s108 1747594949.994000
+Z48 nsha256_optimize@power@area@verilog
+Z49 !s100 50Z_Y6cNf3_HV4V?eaA8e2
+Z50 !s108 1747594949.994000
 R13
 !i10b 1
 !s85 0
 !s101 -O0
 vsha256_optimizePowerAreaVerilog_vlg_check_tst
-Z50 ICF[1OVR<cBKD:^K@Gck1E0
-Z51 V3aVA1P]BOKBf8bOWf^^ek1
+Z51 ICF[1OVR<cBKD:^K@Gck1E0
+Z52 V3aVA1P]BOKBf8bOWf^^ek1
 R3
-Z52 w1747594948
+Z53 w1747594948
 R18
 R19
 L0 65
 R7
 r1
 31
-Z53 !s108 1747594950.312000
-R43
+Z54 !s108 1747594950.312000
+R21
 R22
 R9
-Z54 nsha256_optimize@power@area@verilog_vlg_check_tst
-Z55 !s100 lJCf8VLkMTThE1JM^B<ki1
+Z55 nsha256_optimize@power@area@verilog_vlg_check_tst
+Z56 !s100 lJCf8VLkMTThE1JM^B<ki1
 !i10b 1
 !s85 0
 !s101 -O0
 vsha256_optimizePowerAreaVerilog_vlg_sample_tst
-Z56 I7=XkTjII2>Bd]=BSc4DZd1
-Z57 VSoHCLN9E_6^dQbE?H]h^o2
+Z57 I7=XkTjII2>Bd]=BSc4DZd1
+Z58 VSoHCLN9E_6^dQbE?H]h^o2
 R3
-R52
+R53
 R18
 R19
 L0 29
 R7
 r1
 31
-R53
-R43
+R54
+R21
 R22
 R9
-Z58 nsha256_optimize@power@area@verilog_vlg_sample_tst
-Z59 !s100 BBP?6Ao9o6E`F@[2iEKbJ0
+Z59 nsha256_optimize@power@area@verilog_vlg_sample_tst
+Z60 !s100 BBP?6Ao9o6E`F@[2iEKbJ0
 !i10b 1
 !s85 0
 !s101 -O0
 vsha256_optimizePowerAreaVerilog_vlg_vec_tst
-Z60 IIX18h0Td]Zj=7BL^Q5KKN3
-Z61 V7TdS`RcZgE5Jj<kTh_RbI3
+Z61 IIX18h0Td]Zj=7BL^Q5KKN3
+Z62 V7TdS`RcZgE5Jj<kTh_RbI3
 R3
-R52
+R53
 R18
 R19
-Z62 L0 5033
+Z63 L0 5033
 R7
 r1
 31
-R53
-R43
+R54
+R21
 R22
 R9
-Z63 nsha256_optimize@power@area@verilog_vlg_vec_tst
-Z64 !s100 CzN`?2I75GH8foWJNPnPg1
+Z64 nsha256_optimize@power@area@verilog_vlg_vec_tst
+Z65 !s100 CzN`?2I75GH8foWJNPnPg1
 !i10b 1
 !s85 0
 !s101 -O0
+vtopmodule_nios2
+Z66 IYV:ImL:>Q=B6?EV8d7Qd52
+Z67 V=Jo59MbbjRaffJAA]lWCZ2
+R3
+Z68 w1747638021
+R5
+R6
+L0 31
+R7
+r1
+31
+R8
+R9
+!i10b 1
+Z69 !s100 SzFMIMl9RE6=;h6b2[gji0
+!s85 0
+Z70 !s108 1747638023.027000
+R13
+!s101 -O0
+vtopmodule_nios2_vlg_vec_tst
+!i10b 1
+!s100 UEL5MHW;a_IJYeG51e`^g1
+IGC]]_RaBE3hD[3`A03`_Y3
+V7dSYDQnk0c]^X4CkLD@<_0
+R3
+w1747638020
+R18
+R19
+L0 29
+R7
+r1
+!s85 0
+31
+!s108 1747638023.547000
+!s107 sha256_optimizePowerArea.vt|
+R22
+!s101 -O0
+R9
