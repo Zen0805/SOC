@@ -2,68 +2,12 @@
 TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
-Type  : Slow Model Setup 'iClk'
-Slack : -9.921
-TNS   : -7606.754
-
-Type  : Slow Model Setup 'sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|STN'
-Slack : -2.101
-TNS   : -11.420
-
-Type  : Slow Model Hold 'iClk'
-Slack : -2.548
-TNS   : -2.548
-
-Type  : Slow Model Hold 'sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|STN'
-Slack : 0.391
+Type  : Slow Model Minimum Pulse Width 'altera_reserved_tck'
+Slack : 97.778
 TNS   : 0.000
 
-Type  : Slow Model Recovery 'iClk'
-Slack : 0.843
+Type  : Fast Model Minimum Pulse Width 'altera_reserved_tck'
+Slack : 97.778
 TNS   : 0.000
-
-Type  : Slow Model Removal 'iClk'
-Slack : -0.573
-TNS   : -0.573
-
-Type  : Slow Model Minimum Pulse Width 'iClk'
-Slack : -1.380
-TNS   : -1866.380
-
-Type  : Slow Model Minimum Pulse Width 'sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|STN'
-Slack : -0.500
-TNS   : -6.000
-
-Type  : Fast Model Setup 'iClk'
-Slack : -4.052
-TNS   : -2800.164
-
-Type  : Fast Model Setup 'sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|STN'
-Slack : -0.417
-TNS   : -1.966
-
-Type  : Fast Model Hold 'iClk'
-Slack : -1.591
-TNS   : -1.591
-
-Type  : Fast Model Hold 'sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|STN'
-Slack : 0.215
-TNS   : 0.000
-
-Type  : Fast Model Recovery 'iClk'
-Slack : 0.721
-TNS   : 0.000
-
-Type  : Fast Model Removal 'iClk'
-Slack : -0.341
-TNS   : -0.341
-
-Type  : Fast Model Minimum Pulse Width 'iClk'
-Slack : -1.380
-TNS   : -1866.380
-
-Type  : Fast Model Minimum Pulse Width 'sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|STN'
-Slack : -0.500
-TNS   : -6.000
 
 ------------------------------------------------------------

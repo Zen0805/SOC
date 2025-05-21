@@ -27,7 +27,10 @@ module controller (
 	 output reg [3:0] load_counter,
 	 output reg state,
 	 
-	 output reg reset_n_sche_reg
+	 output reg reset_n_sche_reg,
+	 
+	 input wire iResetn_new_input_to_comp,
+	 output wire oResetn_new_input_to_comp
 );
 
     // Định nghĩa các trạng thái
@@ -82,11 +85,14 @@ module controller (
             loading_active <= 1'b0;
 				
 				reset_n_sche_reg <= 1'b1;
+				//oResetn_new_input_to_comp <= 1'b1;
         end else begin
             state <= next_state; // Cập nhật trạng thái từ next_state
 
             case (state)
                 IDLE: begin
+						  //if(!iResetn_new_input_to_comp) oResetn_new_input_to_comp <= 1'b0;
+							
                     if (start) begin
                         wrapper_data_request <= 1'b1; // Yêu cầu dữ liệu từ IP wrapper
                         load_counter <= 4'b0;
@@ -95,11 +101,13 @@ module controller (
                         loading_active <= 1'b1;     // Bắt đầu quá trình load data
 								write_enable_in <= 1'b1;            // Bật tín hiệu ghi
 								reset_n_sche_reg  <= 1'b0;		//reset thanh ghi cua sche
+								//oResetn_new_input_to_comp <= iResetn_new_input_to_comp;
                     end
                 end
                 PROCESSING: begin
-						  //Quản lí tắt reset thanh ghi của sche
+						  //Quản lí tắt reset thanh ghi của sche khi block moi va comp khi input moi
 						  reset_n_sche_reg <= 1'b1;
+						  //oResetn_new_input_to_comp <= 1'b1;
 					 
                     // Quản lý việc load data
 						  
@@ -135,5 +143,7 @@ module controller (
     assign round_t = round_counter;                  // Gán round_t từ round_counter
     assign message_word_in = (loading_active && wrapper_data_valid) ? wrapper_data : 32'b0; // Gán dữ liệu từ wrapper khi load
     assign message_word_addr = (loading_active) ? load_counter : 4'b0; // Gán địa chỉ từ load_counter khi load
+	 
+	 assign oResetn_new_input_to_comp = (state == IDLE && start) ? iResetn_new_input_to_comp : 1'b1;
 
 endmodule

@@ -7,19 +7,35 @@ module IP_wrapper (
     input wire         iRead_n,            // Tín hiệu đọc (active-low)
     input wire [4:0]   iAddress,           // Địa chỉ 5-bit
     input wire [31:0]  iData,              // Dữ liệu từ Nios II
-    output reg [31:0]  oData,                // Dữ liệu trả về Nios II
+    output reg [31:0]  oData                // Dữ liệu trả về Nios II
+	 
+	
 
+	 //________________________NHÓM LÊ TUẤN - HẢI VĂN - SHA256_________________________________//
+	 
+	 
     // ____________________________Debug_________________________________
-	 output wire state_ctrl,
-    output reg         START,              // Khởi động module SHA-256S
-    output reg [31:0] DATA_IN,            // Dữ liệu gửi đến SHA-256 top
-	output wire 	[3:0]	  load_counter,
-   output wire         DATA_VALID         // Tín hiệu báo dữ liệu hợp lệ
-	//output wire 	[255:0]	  hash_result_256
+	 //output wire reset_n_new_input_comp
+	 //output wire           state_ctrl,
+    //output reg            START,              // Khởi động module SHA-256S
+    //output reg     [31:0] DATA_IN,            // Dữ liệu gửi đến SHA-256 top
+	 //output wire 	[3:0]	 load_counter,
+    //output wire           DATA_VALID         // Tín hiệu báo dữ liệu hợp lệ
+	 //______________________________Debug_________________________________
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 //output wire 	[255:0]	  hash_result_256
 	 
     //output wire         DONE               // Tín hiệu hoàn tất từ SHA-256
     //input wire [255:0] output_sha256top    // Kết quả hash 256-bit
-	//______________________________Debug_________________________________
+	 //______________________________Debug_________________________________
 );
 
     // Thanh ghi nội bộ
@@ -29,22 +45,23 @@ module IP_wrapper (
 	 
     wire [255:0] hash_result_256;     // Thanh ghi 256 bit cho kết quả hash
 	 
-	 //reg START;		
-    //reg RESET_N;		              // Reset cho SHA-256						
-	 //reg [31:0] DATA_IN;              // Dữ liệu gửi đến SHA-256 top
-    //wire        DATA_VALID;           // Tín hiệu báo dữ liệu hợp lệ
-    //wire        reset_n;            // Reset cho SHA-256
-    reg         start_calc;          // Tín hiệu bắt đầu tính toán
-    //reg [3:0] load_counter;     // Đếm số từ đã load (0-15)
-	 reg test;
+	 
+	 reg         start_calc;          // Tín hiệu bắt đầu tính toán
+	 reg 			 START;						
+	 reg [31:0]  DATA_IN;              // Dữ liệu gửi đến SHA-256 top
+	 wire [3:0]  load_counter;     // Đếm số từ đã load (0-15)
+	 wire        DATA_VALID;           // Tín hiệu báo dữ liệu hợp lệ
+   
 	 
 	 wire DONE;
+	 
+	 wire reset_n_new_input_comp;
+	 
+	 
 
     // Gán tín hiệu 
-    //assign DATA_IN = data_in_reg;
-    //assign reset_n = (RESET_N & iReset_n); // Kết hợp reset từ bên ngoài và từ thanh ghi điều khiển
-
-    assign DATA_VALID = start_calc; 
+    assign DATA_VALID = start_calc;
+	 assign reset_n_new_input_comp = control_reg[4];
 	 //load_counter <= load_counter_ctrl;
 
 
@@ -57,81 +74,84 @@ module IP_wrapper (
             //hash_result_256 <= 256'b0;
             START <= 1'b0;
             start_calc <= 1'b0;
-				test <= 1'b0;
+				//test <= 1'b0;
         end else begin
             if (!iChipselect_n && !iWrite_n) begin
                 case (iAddress)
                     5'h00: begin // Thanh ghi điều khiển
+								//01 : Tín hiệu bắt đầu 1 input mới
+								//11 : Tín hiệu bắt đầu 1 block mới trong 1 input
                         control_reg <= iData;
-                        START <= iData[0]; // Bit 0: start
-                        //RESET_N <= iData[1]; // Bit 1: reset = 0 la tich cuc, 
-
-                        //Truyen 00 la reset, 11 la bat dau tinh toan
+                        //START <= iData[0]; // Bit 0: start ___Debug__
+                        
+                       
                     end
                     5'h01: begin // Thanh ghi dữ liệu đầu vào
-                        data_in_reg[511:480] <= iData;
-								START <= 1'b0;		//LƯU Ý CHỖ NÀY LÀ TẮT MỖI START THÔI CHỨ TRONG THANH GHI CONTROL REG THÌ GIÁ TRỊ VẪN LÀ 1
+                        if(control_reg[0]) data_in_reg[511:480] <= iData;
+								//START <= 1'b0;		//LƯU Ý CHỖ NÀY LÀ TẮT MỖI START THÔI CHỨ TRONG THANH GHI CONTROL REG THÌ GIÁ TRỊ VẪN LÀ 1
                     end
 
                     5'h02: begin // Thanh ghi dữ liệu đầu vào
-                        data_in_reg[479:448] <= iData;
+                        if(control_reg[0]) data_in_reg[479:448] <= iData;
                     end
 
                     5'h03: begin // Thanh ghi dữ liệu đầu vào
-                        data_in_reg[447:416] <= iData;
+                        if(control_reg[0]) data_in_reg[447:416] <= iData;
                     end
 
                     5'h04: begin // Thanh ghi dữ liệu đầu vào
-                        data_in_reg[415:384] <= iData;
+                        if(control_reg[0]) data_in_reg[415:384] <= iData;
                     end
 
                     5'h05: begin // Thanh ghi dữ liệu đầu vào
-                        data_in_reg[383:352] <= iData;
+                        if(control_reg[0]) data_in_reg[383:352] <= iData;
                     end
 
                     5'h06: begin // Thanh ghi dữ liệu đầu vào
-                        data_in_reg[351:320] <= iData;
+                        if(control_reg[0]) data_in_reg[351:320] <= iData;
                     end
 
                     5'h07: begin // Thanh ghi dữ liệu đầu vào
-                        data_in_reg[319:288] <= iData;
+                        if(control_reg[0]) data_in_reg[319:288] <= iData;
                     end
 
                     5'h08: begin // Thanh ghi dữ liệu đầu vào
-                        data_in_reg[287:256] <= iData;
+                        if(control_reg[0]) data_in_reg[287:256] <= iData;
                     end
 
                     5'h09: begin // Thanh ghi dữ liệu đầu vào
-                        data_in_reg[255:224] <= iData;
+                        if(control_reg[0]) data_in_reg[255:224] <= iData;
                     end
 
                     5'h0A: begin // Thanh ghi dữ liệu đầu vào
-                        data_in_reg[223:192] <= iData;
+                        if(control_reg[0]) data_in_reg[223:192] <= iData;
                     end
 
                     5'h0B: begin // Thanh ghi dữ liệu đầu vào
-                        data_in_reg[191:160] <= iData;
+                        if(control_reg[0]) data_in_reg[191:160] <= iData;
                     end
 
                     5'h0C: begin // Thanh ghi dữ liệu đầu vào
-                        data_in_reg[159:128] <= iData;
+                        if(control_reg[0]) data_in_reg[159:128] <= iData;
                     end
 
                     5'h0D: begin // Thanh ghi dữ liệu đầu vào
-                        data_in_reg[127:96] <= iData;
+                        if(control_reg[0]) data_in_reg[127:96] <= iData;
                     end
 
                     5'h0E: begin // Thanh ghi dữ liệu đầu vào
-                        data_in_reg[95:64] <= iData;
+                        if(control_reg[0]) data_in_reg[95:64] <= iData;
                     end
 
                     5'h0F: begin // Thanh ghi dữ liệu đầu vào
-                        data_in_reg[63:32] <= iData;
+                        if(control_reg[0]) data_in_reg[63:32] <= iData;
                     end
 
                     5'h10: begin // Thanh ghi dữ liệu đầu vào
-                        data_in_reg[31:0] <= iData;
-                        start_calc <= 1'b1; // Bắt đầu tính toán khi ghi xong dữ liệu
+								if(control_reg[0]) begin
+									data_in_reg[31:0] <= iData;
+									start_calc <= 1'b1; // Bắt đầu tính toán khi ghi xong dữ liệu4
+								end
                     end
 
                     default: begin
@@ -257,7 +277,8 @@ module IP_wrapper (
         .done(DONE),
         .output_sha256top(hash_result_256),
 		  .load_counter_ctrl(load_counter),
-		  .state_ctrl(state_ctrl)
+		  .state_ctrl(state_ctrl),
+		  .reset_n_new_input_comp_from_ip_wrapper(reset_n_new_input_comp)
     );
 
 endmodule

@@ -25,10 +25,12 @@ module sha256_optimizePowerAreaVerilog(
 	done,
 	output_sha256top,
 	load_counter_ctrl,
-	state_ctrl
+	state_ctrl,
+	reset_n_new_input_comp_from_ip_wrapper
 );
 
 
+input wire  reset_n_new_input_comp_from_ip_wrapper;
 input wire	CLK;
 input wire	RESET_N;
 input wire	START;
@@ -52,7 +54,7 @@ wire	write_enable_in;
 wire	[31:0] Wt_out_sche;
 wire	[31:0] Wt_to_comp;
 wire	reset_n_ctrl_to_sche;
-
+wire  Resetn_new_input_to_comp_from_ctrl;
 
 
 
@@ -79,7 +81,11 @@ message_compression	b2v_inst1(
 	
 	.done(Done_comp),
 	.STN(STN_comp),
-	.H_final_out(Final_out));
+	.H_final_out(Final_out),
+	.resetn_new_input(Resetn_new_input_to_comp_from_ctrl)
+	
+	
+	);
 
 
 controller	b2v_inst2(
@@ -105,6 +111,8 @@ controller	b2v_inst2(
 	.load_counter(load_counter_ctrl),
 	.state(state_ctrl),
 	.reset_n_sche_reg(reset_n_ctrl_to_sche),
+	.iResetn_new_input_to_comp(reset_n_new_input_comp_from_ip_wrapper),
+	.oResetn_new_input_to_comp(Resetn_new_input_to_comp_from_ctrl),
 	
 	);
 

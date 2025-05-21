@@ -2,7 +2,7 @@
 <?scdStore version="2"?>
 
 <scannerInfo id="org.eclipse.cdt.make.core.discoveredScannerInfo">
-<instance id="preference.org.eclipse.cdt.managedbuilder.core.configurationDataProvider.1086941197;preference.org.eclipse.cdt.managedbuilder.core.configurationDataProvider.1086941197.;cdt.managedbuild.tool.gnu.cpp.compiler.cygwin.base.1245386441;cdt.managedbuild.tool.gnu.cpp.compiler.input.cygwin.747312299">
+<instance id="preference.org.eclipse.cdt.managedbuilder.core.configurationDataProvider.1914425150;preference.org.eclipse.cdt.managedbuilder.core.configurationDataProvider.1914425150.;cdt.managedbuild.tool.gnu.cpp.compiler.cygwin.base.1099232595;cdt.managedbuild.tool.gnu.cpp.compiler.input.cygwin.2011198663">
 <collector id="org.eclipse.cdt.make.core.PerProjectSICollector">
 <includePath path="D:/CodeVS/SOC/SHA256_QuartusProject/software/sha256_bsp/HAL/inc"/>
 <includePath path="D:/CodeVS/SOC/SHA256_QuartusProject/software/sha256_bsp/"/>
@@ -232,7 +232,7 @@
 <definedSymbol symbol="ALT_SINGLE_THREADED=1"/>
 </collector>
 </instance>
-<instance id="preference.org.eclipse.cdt.managedbuilder.core.configurationDataProvider.1086941197;preference.org.eclipse.cdt.managedbuilder.core.configurationDataProvider.1086941197.;cdt.managedbuild.tool.gnu.c.compiler.cygwin.base.475710553;cdt.managedbuild.tool.gnu.c.compiler.input.cygwin.757887161">
+<instance id="preference.org.eclipse.cdt.managedbuilder.core.configurationDataProvider.1914425150;preference.org.eclipse.cdt.managedbuilder.core.configurationDataProvider.1914425150.;cdt.managedbuild.tool.gnu.c.compiler.cygwin.base.564656245;cdt.managedbuild.tool.gnu.c.compiler.input.cygwin.432047787">
 <collector id="org.eclipse.cdt.make.core.PerProjectSICollector">
 <includePath path="D:/CodeVS/SOC/SHA256_QuartusProject/software/sha256_bsp/HAL/inc"/>
 <includePath path="D:/CodeVS/SOC/SHA256_QuartusProject/software/sha256_bsp/"/>
