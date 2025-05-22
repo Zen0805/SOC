@@ -2,10 +2,10 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>May 21, 2025 1:48:47 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1747810127649</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>May 22, 2025 2:33:09 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1747855989137</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>D:\CodeVS\SOC\SHA256_QuartusProject\software\sha256_bsp</BspGeneratedLocation>
-        <BspSettingsFile>D:\CodeVS\SOC\SHA256_QuartusProject\software\sha256_bsp\settings.bsp</BspSettingsFile>
+        <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>D:\CodeVS\SOC\SHA256_QuartusProject\system.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
         <Cpu>nios2_qsys_0</Cpu>
@@ -863,16 +863,16 @@
                 <Group xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
         </Setting>
         <MemoryMap>
+                <slaveDescriptor>sha_256_ip_0</slaveDescriptor>
+                <addressRange>0x00000000 - 0x0000007F</addressRange>
+                <addressSpan>128</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>onchip_memory2_0</slaveDescriptor>
                 <addressRange>0x00008000 - 0x0000FFFF</addressRange>
                 <addressSpan>32768</addressSpan>
                 <attributes>memory</attributes>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>sha_256_ip_0</slaveDescriptor>
-                <addressRange>0x00011080 - 0x000110FF</addressRange>
-                <addressSpan>128</addressSpan>
-                <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>jtag_uart_0</slaveDescriptor>

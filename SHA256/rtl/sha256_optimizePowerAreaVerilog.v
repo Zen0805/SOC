@@ -25,7 +25,6 @@ module sha256_optimizePowerAreaVerilog(
 	done,
 	output_sha256top,
 	load_counter_ctrl,
-	state_ctrl,
 	reset_n_new_input_comp_from_ip_wrapper
 );
 
@@ -39,7 +38,6 @@ input wire	[31:0] DATA_IN;
 output wire	done;
 output wire	[255:0] output_sha256top;
 output wire	[3:0]	 load_counter_ctrl;
-output wire state_ctrl;
 
 wire	Done_comp;
 wire	[255:0] Final_out;
@@ -109,7 +107,6 @@ controller	b2v_inst2(
 	.round_t(round_t),
 	.Wt_to_comp(Wt_to_comp),
 	.load_counter(load_counter_ctrl),
-	.state(state_ctrl),
 	.reset_n_sche_reg(reset_n_ctrl_to_sche),
 	.iResetn_new_input_to_comp(reset_n_new_input_comp_from_ip_wrapper),
 	.oResetn_new_input_to_comp(Resetn_new_input_to_comp_from_ctrl),

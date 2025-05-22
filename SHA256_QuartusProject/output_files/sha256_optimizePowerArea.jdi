@@ -1,6 +1,6 @@
 <sld_project_info>
   <project>
-    <hash md5_digest_80b="3abb180d741337b94e92"/>
+    <hash md5_digest_80b="2a42d1a36f8644264d94"/>
   </project>
   <file_info>
     <file device="EP2C35F672C6" path="sha256_optimizePowerArea.sof" usercode="0xFFFFFFFF"/>
@@ -144,7 +144,7 @@
   <sld_infos>
     <sld_info hpath="system:Nios_system" name="Nios_system">
       <assignment_values>
-        <assignment_value text="QSYS_NAME system HAS_SOPCINFO 1 GENERATION_ID 1747809584"/>
+        <assignment_value text="QSYS_NAME system HAS_SOPCINFO 1 GENERATION_ID 1747845894"/>
       </assignment_values>
       <parameters/>
     </sld_info>

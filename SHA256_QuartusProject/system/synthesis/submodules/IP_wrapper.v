@@ -11,7 +11,7 @@ module IP_wrapper (
 	 
 	
 
-	 
+	 //________________________NHÓM LÊ TUẤN - HẢI VĂN - SHA256_________________________________//
 	 
 	 
     // ____________________________Debug_________________________________
@@ -22,14 +22,6 @@ module IP_wrapper (
 	 //output wire 	[3:0]	 load_counter,
     //output wire           DATA_VALID         // Tín hiệu báo dữ liệu hợp lệ
 	 //______________________________Debug_________________________________
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
 	 
 	 //output wire 	[255:0]	  hash_result_256
 	 
@@ -179,7 +171,7 @@ module IP_wrapper (
 
     always @(posedge iClk or negedge iReset_n) begin
 		  if(iClk) begin
-            if(DATA_VALID) begin //PHải là datavalid vì nếu là start_calc thì lỗi cycle chuyển dữ liệu
+            if(DATA_VALID) begin //Phải là datavalid vì nếu là start_calc thì lỗi cycle chuyển dữ liệu
                 
                 case (load_counter)
                     4'b0000: begin
@@ -235,8 +227,6 @@ module IP_wrapper (
                         // Không làm gì cả
                     end
                 endcase
-					 //load_counter <= load_counter + 1; // Tăng bộ đếm load
-					 
             end
 			end
     end
@@ -277,7 +267,6 @@ module IP_wrapper (
         .done(DONE),
         .output_sha256top(hash_result_256),
 		  .load_counter_ctrl(load_counter),
-		  .state_ctrl(state_ctrl),
 		  .reset_n_new_input_comp_from_ip_wrapper(reset_n_new_input_comp)
     );
 

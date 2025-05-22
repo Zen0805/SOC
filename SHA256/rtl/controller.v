@@ -1,65 +1,60 @@
 module controller (
-    input clk,                  // Clock hệ thống
-    input reset_n,              // Reset active-low
-    input start,                // Tín hiệu start từ NIOS II
-    input [31:0] wrapper_data,  // Dữ liệu từ IP wrapper
-    input wrapper_data_valid,   // Tín hiệu báo dữ liệu từ wrapper hợp lệ
-    output reg wrapper_data_request, // Tín hiệu yêu cầu dữ liệu từ wrapper
-    // Tín hiệu đến module sche
-    output wire [31:0] message_word_in,  // Dữ liệu đầu vào cho sche
-    output wire [3:0] message_word_addr, // Địa chỉ từ 0-15
-    output reg write_enable_in,          // Tín hiệu ghi cho sche
-    output reg start_to_sche,            // Tín hiệu start cho sche
-    output wire [5:0] round_t,           // Round từ 0-63
-    output wire STN_to_sche,             // STN từ comp qua sche
-    input [31:0] Wt_from_sche,           // Nhận Wt từ sche
-    // Tín hiệu đến module comp
-    output reg [31:0] Wt_to_comp,        // Truyền Wt sang comp
-    //output reg start_to_comp,
+    input clk,                  
+    input reset_n,              
+    input start,                
+    input [31:0] wrapper_data,  
+    input wrapper_data_valid,   
 	 
+    // Tín hiệu đến module sche
+    output wire [31:0] message_word_in,  
+    output wire [3:0] message_word_addr, 
+    output reg write_enable_in,      
+    output wire [5:0] round_t,           
+    output wire STN_to_sche,             
+    input [31:0] Wt_from_sche,           
+	 output reg reset_n_sche_reg,
+	 
+    // Tín hiệu đến module comp
+    output reg [31:0] Wt_to_comp,       
 	 output wire start_to_comp,
 	 output done,
 	 output [255:0] hash_output,
 	 
-    input STN_from_comp,                 // Nhận STN từ comp
+    input STN_from_comp,                 
     input done_from_comp,  
-	 input [255:0]  hash_final_from_comp, // Tín hiệu hoàn thành từ comp
+	 input [255:0]  hash_final_from_comp, 
 	 output reg [3:0] load_counter,
-	 output reg state,
 	 
-	 output reg reset_n_sche_reg,
 	 
+	 //Reset thanh ghi comp
 	 input wire iResetn_new_input_to_comp,
 	 output wire oResetn_new_input_to_comp
 );
 
-    // Định nghĩa các trạng thái
+    
     localparam IDLE = 1'b0;
     localparam PROCESSING = 1'b1;
 
-    //reg state;                  // Trạng thái hiện tại
-    reg next_state;             // Trạng thái tiếp theo
-    //reg [3:0] load_counter;     // Đếm số từ đã load (0-15)
-    reg [5:0] round_counter;    // Đếm round (0-63)
-    reg loading_active;         // Cờ báo hiệu quá trình load data đang diễn ra
+	 reg state;
+    reg next_state;             
+    reg [5:0] round_counter;    
+    reg loading_active;         
 	 
-	 //reg reset_sche_reg;
-
-    // Khối always duy nhất để gán next_state (logic tổ hợp)
     always @(*) begin
         case (state)
-            IDLE: next_state = start ? PROCESSING : IDLE; // Chuyển sang PROCESSING khi nhận start
-            PROCESSING: next_state = (done_from_comp) ? IDLE : PROCESSING; // Quay về IDLE khi hoàn thành, sua thanh == 63
+            IDLE: next_state = start ? PROCESSING : IDLE; 						// Chuyển sang PROCESSING khi nhận start
+            PROCESSING: next_state = (done_from_comp) ? IDLE : PROCESSING; // Quay về IDLE khi done
             default: next_state = IDLE;
         endcase
     end
 
+	 //Logic tăng round
 	 always @(posedge STN_from_comp or negedge reset_n) begin
         if (!reset_n) begin
             round_counter <= 6'b0; // Reset round_counter khi nhận STN
         end else begin
 		  
-            if (round_counter < 63) begin //CAI NAY CUNG THANH 63
+            if (round_counter < 63) begin 
                 round_counter <= round_counter + 1; // Tăng round_counter khi nhận STN
             end
 				
@@ -72,42 +67,32 @@ module controller (
     end
 	 
 	 
-    // Khối always để cập nhật trạng thái và các tín hiệu khác (logic tuần tự)
+	 //Logic điều khiển
     always @(posedge clk or negedge reset_n) begin
         if (!reset_n) begin
             state <= IDLE;
             load_counter <= 4'b0;
-            wrapper_data_request <= 1'b0;
             write_enable_in <= 1'b0;
-            //start_to_sche <= 1'b0;
-            //start_to_comp <= 1'b0;
             Wt_to_comp <= 32'b0;
             loading_active <= 1'b0;
 				
 				reset_n_sche_reg <= 1'b1;
-				//oResetn_new_input_to_comp <= 1'b1;
         end else begin
-            state <= next_state; // Cập nhật trạng thái từ next_state
+            state <= next_state; 
 
             case (state)
                 IDLE: begin
-						  //if(!iResetn_new_input_to_comp) oResetn_new_input_to_comp <= 1'b0;
-							
-                    if (start) begin
-                        wrapper_data_request <= 1'b1; // Yêu cầu dữ liệu từ IP wrapper
-                        load_counter <= 4'b0;
-                        start_to_sche <= 1'b1;      // Bật tín hiệu start cho sche
-                        //start_to_comp <= 1'b1;      // Bật tín hiệu start cho comp
-                        loading_active <= 1'b1;     // Bắt đầu quá trình load data
-								write_enable_in <= 1'b1;            // Bật tín hiệu ghi
-								reset_n_sche_reg  <= 1'b0;		//reset thanh ghi cua sche
-								//oResetn_new_input_to_comp <= iResetn_new_input_to_comp;
+						  
+                    if (start) begin 
+                        load_counter <= 4'b0;    
+                        loading_active <= 1'b1;       
+								write_enable_in <= 1'b1;      
+								reset_n_sche_reg  <= 1'b0;		
                     end
                 end
                 PROCESSING: begin
-						  //Quản lí tắt reset thanh ghi của sche khi block moi va comp khi input moi
+						  //Quản lí tắt reset thanh ghi của sche khi block moi va comp khi input mới
 						  reset_n_sche_reg <= 1'b1;
-						  //oResetn_new_input_to_comp <= 1'b1;
 					 
                     // Quản lý việc load data
 						  
@@ -116,34 +101,31 @@ module controller (
                         
                         if (load_counter == 15) begin
                             loading_active <= 1'b0;     // Kết thúc load data
-                            wrapper_data_request <= 1'b0; // Tắt yêu cầu dữ liệu
                             write_enable_in <= 1'b0;    // Tắt tín hiệu ghi
                         end
                     end
 
-                    // Quản lý quá trình tính toán
+                    // Truyền dữ liệu
                     if (round_counter < 64) begin
-                        Wt_to_comp <= Wt_from_sche; // Truyền Wt từ sche sang comp (bao gồm cả round_t < 16)
+                        Wt_to_comp <= Wt_from_sche;
               
-                    end else if (done_from_comp) begin
-                        start_to_sche <= 1'b0;      // Tắt start cho sche
-                        //start_to_comp <= 1'b0;      // Tắt start cho comp
-                    end
+                    end 
                 end
             endcase
         end
     end
 
-    // Logic tổ hợp cho các tín hiệu wire
+    
 	 assign start_to_comp = start;
-	 //assign load_count_out = load_counter;
 	 assign hash_output = hash_final_from_comp;
 	 assign done = done_from_comp;
     assign STN_to_sche = STN_from_comp;              // Truyền STN từ comp đến sche trực tiếp
-    assign round_t = round_counter;                  // Gán round_t từ round_counter
-    assign message_word_in = (loading_active && wrapper_data_valid) ? wrapper_data : 32'b0; // Gán dữ liệu từ wrapper khi load
-    assign message_word_addr = (loading_active) ? load_counter : 4'b0; // Gán địa chỉ từ load_counter khi load
+    assign round_t = round_counter;                  
+    assign message_word_in = (loading_active && wrapper_data_valid) ? wrapper_data : 32'b0; 
+    assign message_word_addr = (loading_active) ? load_counter : 4'b0; 
 	 
+	 //Logic reset thanh ghi H của comp
 	 assign oResetn_new_input_to_comp = (state == IDLE && start) ? iResetn_new_input_to_comp : 1'b1;
+	 
 
 endmodule

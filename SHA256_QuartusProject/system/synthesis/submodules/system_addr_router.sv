@@ -136,9 +136,9 @@ module system_addr_router
     // Figure out the number of bits to mask off for each slave span
     // during address decoding
     // -------------------------------------------------------
-    localparam PAD0 = log2ceil(64'h10000 - 64'h8000); 
-    localparam PAD1 = log2ceil(64'h11000 - 64'h10800); 
-    localparam PAD2 = log2ceil(64'h11100 - 64'h11080); 
+    localparam PAD0 = log2ceil(64'h80 - 64'h0); 
+    localparam PAD1 = log2ceil(64'h10000 - 64'h8000); 
+    localparam PAD2 = log2ceil(64'h11000 - 64'h10800); 
     localparam PAD3 = log2ceil(64'h11110 - 64'h11108); 
     // -------------------------------------------------------
     // Work out which address bits are significant based on the
@@ -188,22 +188,22 @@ module system_addr_router
         // Sets the channel and destination ID based on the address
         // --------------------------------------------------
 
+    // ( 0x0 .. 0x80 )
+    if ( {address[RG:PAD0],{PAD0{1'b0}}} == 17'h0   ) begin
+            src_channel = 4'b1000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 3;
+    end
+
     // ( 0x8000 .. 0x10000 )
-    if ( {address[RG:PAD0],{PAD0{1'b0}}} == 17'h8000   ) begin
+    if ( {address[RG:PAD1],{PAD1{1'b0}}} == 17'h8000   ) begin
             src_channel = 4'b0100;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 2;
     end
 
     // ( 0x10800 .. 0x11000 )
-    if ( {address[RG:PAD1],{PAD1{1'b0}}} == 17'h10800   ) begin
+    if ( {address[RG:PAD2],{PAD2{1'b0}}} == 17'h10800   ) begin
             src_channel = 4'b0001;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 1;
-    end
-
-    // ( 0x11080 .. 0x11100 )
-    if ( {address[RG:PAD2],{PAD2{1'b0}}} == 17'h11080   ) begin
-            src_channel = 4'b1000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 3;
     end
 
     // ( 0x11108 .. 0x11110 )

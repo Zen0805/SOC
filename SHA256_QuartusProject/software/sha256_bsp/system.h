@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_qsys_0' in SOPC Builder design 'system'
  * SOPC Builder design path: D:/CodeVS/SOC/SHA256_QuartusProject/system.sopcinfo
  *
- * Generated: Wed May 21 13:48:06 ICT 2025
+ * Generated: Thu May 22 02:33:10 ICT 2025
  */
 
 /*
@@ -228,7 +228,7 @@
  */
 
 #define ALT_MODULE_CLASS_sha_256_ip_0 sha_256_ip
-#define SHA_256_IP_0_BASE 0x11080
+#define SHA_256_IP_0_BASE 0x0
 #define SHA_256_IP_0_IRQ -1
 #define SHA_256_IP_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SHA_256_IP_0_NAME "/dev/sha_256_ip_0"

@@ -1,5 +1,5 @@
 TimeQuest Timing Analyzer report for sha256_optimizePowerArea
-Wed May 21 13:42:29 2025
+Thu May 22 23:21:44 2025
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -89,8 +89,8 @@ applicable agreement for further details.
 +---------------------------------------------------------+--------+--------------------------+
 ; SDC File Path                                           ; Status ; Read at                  ;
 +---------------------------------------------------------+--------+--------------------------+
-; system/synthesis/submodules/altera_reset_controller.sdc ; OK     ; Wed May 21 13:42:28 2025 ;
-; system/synthesis/submodules/system_nios2_qsys_0.sdc     ; OK     ; Wed May 21 13:42:28 2025 ;
+; system/synthesis/submodules/altera_reset_controller.sdc ; OK     ; Thu May 22 23:21:43 2025 ;
+; system/synthesis/submodules/system_nios2_qsys_0.sdc     ; OK     ; Thu May 22 23:21:43 2025 ;
 +---------------------------------------------------------+--------+--------------------------+
 
 
@@ -255,7 +255,7 @@ No dedicated SERDES Receiver circuitry present in device or used in design
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit TimeQuest Timing Analyzer
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Wed May 21 13:42:26 2025
+    Info: Processing started: Thu May 22 23:21:42 2025
 Info: Command: quartus_sta sha256_optimizePowerArea -c sha256_optimizePowerArea
 Info: qsta_default_script.tcl version: #1
 Info (11104): Parallel Compilation has detected 16 hyper-threaded processors. However, the extra hyper-threaded processors will not be used by default. Parallel Compilation will use 12 of the 12 physical processors detected instead.
@@ -326,9 +326,9 @@ Info (332001): The selected device family is not supported by the report_metasta
 Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus II 64-Bit TimeQuest Timing Analyzer was successful. 0 errors, 5 warnings
-    Info: Peak virtual memory: 4675 megabytes
-    Info: Processing ended: Wed May 21 13:42:28 2025
+    Info: Peak virtual memory: 4668 megabytes
+    Info: Processing ended: Thu May 22 23:21:44 2025
     Info: Elapsed time: 00:00:02
-    Info: Total CPU time (on all processors): 00:00:02
+    Info: Total CPU time (on all processors): 00:00:01
 
 

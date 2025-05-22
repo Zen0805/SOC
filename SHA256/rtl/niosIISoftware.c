@@ -3,214 +3,150 @@
 #include "system.h"
 #include "io.h"
 
-// Define the base address of your IP (assuming it's in system.h)
-// Make sure SHA_256_IP_0_BASE is correctly defined in system.h or elsewhere.
 
-// Register offsets
 #define SHA256_CONTROL_REG_OFFSET    (0x00 * 4)
-#define SHA256_DATA_IN_REG_OFFSET    (0x01 * 4) // Used for writing and attempting to read back input
-#define SHA256_STATUS_REG_OFFSET     (0x02 * 4)
-#define SHA256_HASH_OUT_0_OFFSET     (0x03 * 4)
-#define SHA256_HASH_OUT_1_OFFSET     (0x04 * 4)
-#define SHA256_HASH_OUT_2_OFFSET     (0x05 * 4)
-#define SHA256_HASH_OUT_3_OFFSET     (0x06 * 4)
-#define SHA256_HASH_OUT_4_OFFSET     (0x07 * 4)
-#define SHA256_HASH_OUT_5_OFFSET     (0x08 * 4)
-#define SHA256_HASH_OUT_6_OFFSET     (0x09 * 4)
-#define SHA256_HASH_OUT_7_OFFSET     (0x0A * 4)
-
-// Control Register Bits
-#define SHA256_CONTROL_START_BIT     (1 << 0)
-
-// Status Register Bits
-#define SHA256_STATUS_DONE_BIT       (1 << 0)
-
-void print_sha256_hash(uint32_t hash_result[8]) {
-    int i;
-    printf("SHA-256 Hash: ");
-    for (i = 0; i < 8; i++) {
-        printf("%08lx", (unsigned long)hash_result[i]);
-    }
-    printf("\n");
-}
-
-void calculate_sha256_hw(const uint32_t *data_block_ptr, uint32_t *hash_output_ptr) {
-    uint32_t status;
-    uint32_t control;
-    uint32_t word_data;
-
-    int i;
-    int poll_count;
-
-    // 1. reset the control and the status reg
-    printf("Reset SHA-256 IP\n");
-    IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET, 0x00000000);
-    //reset control_reg => bit done cung reset
-
-    // 2. read the status value
-    status = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_STATUS_REG_OFFSET);
-    //doc thanh ghi status
-    printf("status_reg: 0x%08lx\n", (unsigned long)status);
-
-    // 3. init the control reg and print out its value
-    printf("Ghi bit START vao control_reg...\n");
-    IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET, SHA256_CONTROL_START_BIT);
-
-    control = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET);
-    printf("control_reg: 0x%08lx\n", (unsigned long)control);
+#define SHA256_DATA_IN_REG_OFFSET    (0x01 * 4)
+#define SHA256_STATUS_REG_OFFSET     (0x1A * 4)
+#define SHA256_HASH_OUT_0_OFFSET     (0x12 * 4)
 
 
-
-
-    // 4. write the 16 words
-    printf("Ghi 16 word vao IP:\n");
-    for (i = 0; i < 16; i++) {
-        IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_DATA_IN_REG_OFFSET, data_block_ptr[i]);
-    }
-
-    printf("Ghi xong.\n");
-
-
-
-
-
-
-    // 5. read 16 words to see if correctly inserted
-    //    NOTE: This reads from SHA256_DATA_IN_REG_OFFSET.
-    //    If IP_wrapper.v is updated to allow reading data_in_reg at address 0x01,
-    //    this will read the LAST WRITTEN WORD 16 times.
-    //    If IP_wrapper.v is NOT updated, this will read an undefined/default value (likely 0).
-
-    // 6. pool for done
-    printf("Polling ket qua.\n"); // Your comment
-    poll_count = 0;
-    do {
-        status = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_STATUS_REG_OFFSET);
-        poll_count++;
-    } while (!(status & SHA256_STATUS_DONE_BIT));
-    printf("Hashing complete! (DONE bit set after %d polls). Status: 0x%08lx\n", poll_count, (unsigned long)status); // Your print
-
-    // 7. read the hash output
-    printf("Reading hash result:\n"); // Your comment
-    for (i = 0; i < 8; i++) {
-        hash_output_ptr[i] = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_HASH_OUT_0_OFFSET + (i * 4));
-        printf("Dia chi doc: 0x%08lx\n", (unsigned long)(SHA256_HASH_OUT_0_OFFSET + (i * 4)));
-
-    }
-
-    // 8. clear start
-    printf("Clearing START bit in control register (also clears DONE status)...\n"); // Your comment
-    IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET, 0x00000000);
-    status = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_STATUS_REG_OFFSET);
-    printf("Final Status: 0x%08lx (DONE bit should be 0)\n", (unsigned long)status); // Your print
-}
+#define SHA256_CONTROL_START_BIT     0x00000001
 
 int main() {
-    const uint32_t input_block_abc[16] = {
-        0x00000010, 0x00000011, 0x00000012, 0x00000013,
-        0x00000014, 0x00000015, 0x00000016, 0x00000017,
-        0x00000018, 0x00000019, 0x0000001A, 0x0000001B,
-        0x0000001C, 0x0000001D, 0x0000001E, 0x0000001F
+
+    const uint32_t input_block_1[16] = {
+        0x61646277, // 0x01
+        0x70696662, // 0x02
+        0x61776670, // 0x03
+        0x69616662, // 0x04
+        0x7366736B, // 0x05
+        0x61666A62, // 0x06
+        0x77666961, // 0x07
+        0x6A776276, // 0x08
+        0x66617078, // 0x09
+        0x62616677, // 0x0A
+        0x66616A69, // 0x0B
+        0x62667769, // 0x0C
+        0x66626161, // 0x0D
+        0x6469776A, // 0x0E
+        0x6277696F, // 0x0F
+        0x66627561  // 0x10
     };
+
+
+    const uint32_t input_block_2[16] = {
+        
+        0x73706f69, 0x67626167, 0x69707767, 0x62617767,
+        0x61800000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000288
+
+    };
+
+
+
+    uint32_t status, control;
+
     uint32_t calculated_hash[8];
 
     printf("Nios II SHA-256 Test\n");
     printf("IP Base Address: 0x%08lx\n", (unsigned long)SHA_256_IP_0_BASE);
 
-    printf("\n--- Test 1: Hashing 00000010++  ---\n");
-    //calculate_sha256_hw(input_block_abc, calculated_hash);
-    //print_sha256_hash(calculated_hash);
-    
-    
-    uint32_t status;
-    uint32_t control;
-    //uint32_t word_data;
-
-    int i;
-    int poll_count;
-
-    // 1. reset the control and the status reg
-    printf("Reset SHA-256 IP\n");
     IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET, 0x00000000);
-    //reset control_reg => bit done cung reset
-
-    // 2. read the status value
-    status = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_STATUS_REG_OFFSET);
-    //doc thanh ghi status
-    printf("status_reg: 0x%08lx\n", (unsigned long)status);
-
-    // 3. init the control reg and print out its value
-    printf("Ghi bit START vao control_reg...\n");
-    IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET, SHA256_CONTROL_START_BIT);
-
     control = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET);
-    printf("control_reg: 0x%08lx\n", (unsigned long)control);
+    printf("control luc moi bat he thong: 0x%08lx\n", (unsigned long)control);
 
-    
-    
+    //START IP
+    IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET, 0x00000001);
 
-
-
-    // 4. write the 16 words
-    printf("Ghi 16 word vao IP:\n");
-    for (i = 0; i < 16; i++) {
-        IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_DATA_IN_REG_OFFSET, input_block_abc[i]);
-    }
-
-    printf("Ghi xong.\n");
-
-
-
-    while(1){
-    	status = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_STATUS_REG_OFFSET);
-    	printf("status_reg: 0x%08lx\n", (unsigned long)status);
-    	
-    	for (i = 0; i < 8; i++) {
-			calculated_hash[i] = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_HASH_OUT_0_OFFSET + (i * 4));
-			printf("Dia chi doc: 0x%08lx\n", (unsigned long)(SHA256_HASH_OUT_0_OFFSET + (i * 4)));
-
-            //printf calculated_hash
-            printf("%08lx", (unsigned long)calculated_hash[i]);
-		}
-    	
-    	
-    	poll_count++;
-
-        //printf pollcounter
-        printf("Poll count: %d\n", poll_count);
-    }
-
-
-    // 5. read 16 words to see if correctly inserted
-    //    NOTE: This reads from SHA256_DATA_IN_REG_OFFSET.
-    //    If IP_wrapper.v is updated to allow reading data_in_reg at address 0x01,
-    //    this will read the LAST WRITTEN WORD 16 times.
-    //    If IP_wrapper.v is NOT updated, this will read an undefined/default value (likely 0).
-
-    // 6. pool for done
-    printf("Polling ket qua.\n"); // Your comment
-    poll_count = 0;
-    do {
-        status = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_STATUS_REG_OFFSET);
-        poll_count++;
-    } while (!(status & SHA256_STATUS_DONE_BIT));
-    printf("Hashing complete! (DONE bit set after %d polls). Status: 0x%08lx\n", poll_count, (unsigned long)status); // Your print
-
-    // 7. read the hash output
-    printf("Reading hash result:\n"); // Your comment
-    for (i = 0; i < 8; i++) {
-        calculated_hash[i] = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_HASH_OUT_0_OFFSET + (i * 4));
-        printf("Dia chi doc: 0x%08lx\n", (unsigned long)(SHA256_HASH_OUT_0_OFFSET + (i * 4)));
-
-    }
-
-    // 8. clear start
-    printf("Clearing START bit in control register (also clears DONE status)...\n"); // Your comment
-    IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET, 0x00000000);
+    //doc 2 thanh ghi control, status
+    control = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET);
     status = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_STATUS_REG_OFFSET);
-    printf("Final Status: 0x%08lx (DONE bit should be 0)\n", (unsigned long)status); // Your print
-    
 
-    printf("\nAll tests complete.\n");
+    printf("\n--- Block 1 ---\n");
+
+    //doc ket qua neu status la done
+    printf("control sau khi duoc start: 0x%08lx\n", (unsigned long)control);
+    printf("status:  0x%08lx\n", (unsigned long)status);
+
+    //nap 16 word
+    int i = 0;
+    for (i = 0; i < 16; i++) {
+          IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_DATA_IN_REG_OFFSET + (i * 4), input_block_1[i]);
+      }
+    printf("Nap xong 16 word block 1.\n");
+
+    while (1) {
+    	status = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_STATUS_REG_OFFSET);
+    	if (status == 0x00000001) {
+    		printf("IP da tinh xong, DONE = 1\n");
+    		break;
+    	}
+    }
+
+    IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET, 0x00000010);
+    control = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET);
+
+    printf("control: 0x%08lx\n", (unsigned long)control);
+
+    //print ket qua
+
+    i = 0;
+    for (i = 0; i < 8; i++) {
+		calculated_hash[i] = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_HASH_OUT_0_OFFSET + (i * 4));
+	}
+
+    printf("Ket qua hash: ");
+
+	for (i = 0; i < 8; i++) {
+		printf("%08lx", (unsigned long)calculated_hash[i]);
+	}
+	printf("\n");
+
+
+
+     //Bat dau block 2
+     printf("\n--- Block 2 ---\n");
+
+     IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET, 0x00000011);
+
+     control = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET);
+
+     printf("control block tiep theo: 0x%08lx\n", (unsigned long)control);  //sau nay sua thanh neu la input thi sua text lai
+
+     i = 0;
+     for (i = 0; i < 16; i++) {
+           IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_DATA_IN_REG_OFFSET + (i * 4), input_block_2[i]);
+       }
+     printf("Nap xong 16 word block 2.\n");
+
+
+
+     while (1) {
+     	status = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_STATUS_REG_OFFSET);
+     	if (status == 0x00000001) {
+     		printf("IP da tinh xong, DONE = 1\n");
+     		break;
+     	}
+     }
+
+
+     control = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET);
+
+     printf("control: 0x%08lx\n", (unsigned long)control);
+
+
+
+     i = 0;
+     for (i = 0; i < 8; i++) {
+	 	calculated_hash[i] = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_HASH_OUT_0_OFFSET + (i * 4));
+	 }
+
+     printf("Ket qua hash: ");
+
+	 for (i = 0; i < 8; i++) {
+	 	printf("%08lx", (unsigned long)calculated_hash[i]);
+	 }
+	 printf("\n");
     return 0;
 }

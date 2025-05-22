@@ -4,7 +4,6 @@ module message_compression (
     input wire          start,
     input wire  [31:0]  Wt_in,
     output wire [255:0] H_final_out,
-    output reg          busy,
     output reg          done,
     output reg          STN, // Start new, tín hiệu này gửi qua sche qua ctrl là trung gian, báo hiệu bắt đầu tính toán 1 word mới của scheduler
                              // Bật lên ở STEP3, tắt ở STEP4,5,6,7  tuỳ duyên 
@@ -14,8 +13,7 @@ module message_compression (
 
     localparam S_IDLE         = 4'd0;
     localparam S_INIT_LOAD    = 4'd1;
-    //localparam S_ROUND_START  = 4'd2;
-	 localparam S_IDLE_new  = 4'd2;
+	 localparam S_IDLE_new     = 4'd2;
     localparam S_ROUND_STEP1  = 4'd3;
     localparam S_ROUND_STEP2  = 4'd4;
     localparam S_ROUND_STEP3  = 4'd5;
@@ -28,7 +26,7 @@ module message_compression (
     localparam S_FINAL_ADD    = 4'd12;
     localparam S_DONE         = 4'd13;
 
-    //reg [31:0] Wt_saved; // Lưu Wt_in đđể dùng trong step4 mà không sợ bị ghi đè
+
     reg [3:0]  state, next_state;
     reg [31:0] reg_a, reg_b, reg_c, reg_d, reg_e, reg_f, reg_g, reg_h;
     reg [31:0] H_reg [7:0];
@@ -160,7 +158,6 @@ module message_compression (
             T1_reg <= 32'b0;
             d_new_reg <= 32'b0;
             a_new_calc <= 32'b0;
-            busy <= 1'b0;
             done <= 1'b0;
 				STN <= 1'b0; //alo alo
         end else begin
@@ -179,13 +176,11 @@ module message_compression (
                         H_reg[6] <= 32'h1f83d9ab;
                         H_reg[7] <= 32'h5be0cd19;
                         step_counter <= 4'd0;
-                        busy <= 1'b1;
                     end
                 end
 					 
 					 S_IDLE_new: begin
 					     step_counter <= 4'd0;
-                        busy <= 1'b1;
                 end
 
                 S_INIT_LOAD: begin
@@ -194,15 +189,11 @@ module message_compression (
                     round_counter <= 6'd0;
                 end 
 
-                // S_ROUND_START: begin
-                //     // No updates
-                // end
-
                 S_ROUND_STEP1: h_temp <= adder_sum_out;
                 S_ROUND_STEP2: h_temp <= adder_sum_out;
                 S_ROUND_STEP3: begin
                     h_temp <= adder_sum_out;
-                    STN <= 1'b1; // Bật STN lên để báo scheduler bắt đầu tính toán
+                    STN <= 1'b1; // Bật STN lên để báo scheduler bắt đầu tính toán cái mới
                 end
                 S_ROUND_STEP4: T1_reg <= adder_sum_out;
                 S_ROUND_STEP5: d_new_reg <= adder_sum_out;
@@ -229,7 +220,6 @@ module message_compression (
                 end
 
                 S_DONE: begin
-                    busy <= 1'b0;
                     done <= 1'b1;
                 end
             endcase
@@ -241,12 +231,6 @@ module message_compression (
         case (state)
             S_IDLE: if (start) next_state = S_INIT_LOAD;
 				S_IDLE_new: begin 
-						//if(!resetn_new_input) begin
-						//	next_state = S_IDLE;
-						//end else if(start) begin
-						//	next_state = S_INIT_LOAD;
-						//end
-						
 						if (start && resetn_new_input) begin 
 							next_state = S_INIT_LOAD;
 						end else if (!resetn_new_input && start) begin
@@ -254,7 +238,6 @@ module message_compression (
 						end
 				end
             S_INIT_LOAD: next_state = S_ROUND_STEP1;
-            //S_ROUND_START: next_state = S_ROUND_STEP1;
             S_ROUND_STEP1: next_state = S_ROUND_STEP2;
             S_ROUND_STEP2: next_state = S_ROUND_STEP3;
             S_ROUND_STEP3: next_state = S_ROUND_STEP4;

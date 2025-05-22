@@ -67,7 +67,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </table>
   <table class="blueBar">
    <tr>
-    <td class="l">2025.05.21.13:39:44</td>
+    <td class="l">2025.05.21.23:44:54</td>
     <td class="r">Datasheet</td>
    </tr>
   </table>
@@ -167,8 +167,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
    </tr>
    <tr>
     <td class="slaveb">avalon_slave_0&#160;</td>
-    <td class="addr"><span style="color:#989898">0x</span>00011080</td>
-    <td class="addr"><span style="color:#989898">0x</span>00011080</td>
+    <td class="addr"><span style="color:#989898">0x</span>00000000</td>
+    <td class="addr"><span style="color:#989898">0x</span>00000000</td>
    </tr>
   </table>
   <a name="module_clk_0"> </a>
@@ -569,22 +569,22 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
-      <td class="from">instruction_master&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;avalon_slave_0</td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
       <td class="from">jtag_debug_module_reset&#160;&#160;</td>
      </tr>
      <tr>
       <td></td>
       <td></td>
       <td class="to">&#160;&#160;reset_sink</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">instruction_master&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;avalon_slave_0</td>
      </tr>
     </table>
    </div>
@@ -1033,11 +1033,11 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">instSlaveMapParam</td>
-        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='onchip_memory2_0.s1' start='0x8000' end='0x10000' /&gt;&lt;slave name='nios2_qsys_0.jtag_debug_module' start='0x10800' end='0x11000' /&gt;&lt;slave name='sha_256_ip_0.avalon_slave_0' start='0x11080' end='0x11100' /&gt;&lt;slave name='jtag_uart_0.avalon_jtag_slave' start='0x11108' end='0x11110' /&gt;&lt;/address-map&gt;</td>
+        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='sha_256_ip_0.avalon_slave_0' start='0x0' end='0x80' /&gt;&lt;slave name='onchip_memory2_0.s1' start='0x8000' end='0x10000' /&gt;&lt;slave name='nios2_qsys_0.jtag_debug_module' start='0x10800' end='0x11000' /&gt;&lt;slave name='jtag_uart_0.avalon_jtag_slave' start='0x11108' end='0x11110' /&gt;&lt;/address-map&gt;</td>
        </tr>
        <tr>
         <td class="parametername">dataSlaveMapParam</td>
-        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='onchip_memory2_0.s1' start='0x8000' end='0x10000' /&gt;&lt;slave name='nios2_qsys_0.jtag_debug_module' start='0x10800' end='0x11000' /&gt;&lt;slave name='sha_256_ip_0.avalon_slave_0' start='0x11080' end='0x11100' /&gt;&lt;slave name='jtag_uart_0.avalon_jtag_slave' start='0x11108' end='0x11110' /&gt;&lt;/address-map&gt;</td>
+        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='sha_256_ip_0.avalon_slave_0' start='0x0' end='0x80' /&gt;&lt;slave name='onchip_memory2_0.s1' start='0x8000' end='0x10000' /&gt;&lt;slave name='nios2_qsys_0.jtag_debug_module' start='0x10800' end='0x11000' /&gt;&lt;slave name='jtag_uart_0.avalon_jtag_slave' start='0x11108' end='0x11110' /&gt;&lt;/address-map&gt;</td>
        </tr>
        <tr>
         <td class="parametername">clockFrequency</td>
@@ -1376,17 +1376,17 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="neighbor" rowspan="4">
        <a href="#module_clk_0">clk_0</a>
       </td>
-      <td class="from">clk&#160;&#160;</td>
+      <td class="from">clk_reset&#160;&#160;</td>
       <td class="main" rowspan="11">sha_256_ip_0</td>
      </tr>
      <tr>
-      <td class="to">&#160;&#160;clock_sink</td>
-     </tr>
-     <tr>
-      <td class="from">clk_reset&#160;&#160;</td>
-     </tr>
-     <tr>
       <td class="to">&#160;&#160;reset_sink</td>
+     </tr>
+     <tr>
+      <td class="from">clk&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock_sink</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -1401,16 +1401,16 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="to">&#160;&#160;avalon_slave_0</td>
      </tr>
      <tr>
-      <td class="from">instruction_master&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;avalon_slave_0</td>
-     </tr>
-     <tr>
       <td class="from">jtag_debug_module_reset&#160;&#160;</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;reset_sink</td>
+     </tr>
+     <tr>
+      <td class="from">instruction_master&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;avalon_slave_0</td>
      </tr>
     </table>
    </div>
@@ -1421,6 +1421,10 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <td class="parametersbox">
       <h2>Parameters</h2>
       <table>
+       <tr>
+        <td class="parametername">AUTO_CLOCK_SINK_CLOCK_RATE</td>
+        <td class="parametervalue">50000000</td>
+       </tr>
        <tr>
         <td class="parametername">deviceFamily</td>
         <td class="parametervalue">UNKNOWN</td>
@@ -1442,8 +1446,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </div>
   <table class="blueBar">
    <tr>
-    <td class="l">generation took 0.02 seconds</td>
-    <td class="r">rendering took 0.05 seconds</td>
+    <td class="l">generation took 0.01 seconds</td>
+    <td class="r">rendering took 0.02 seconds</td>
    </tr>
   </table>
  </body>

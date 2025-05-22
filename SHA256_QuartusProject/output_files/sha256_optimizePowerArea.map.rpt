@@ -1,5 +1,5 @@
 Analysis & Synthesis report for sha256_optimizePowerArea
-Wed May 21 13:42:01 2025
+Thu May 22 23:21:24 2025
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -123,27 +123,24 @@ Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edit
 115. Port Connectivity Checks: "system:Nios_system|altera_merlin_slave_translator:nios2_qsys_0_jtag_debug_module_translator"
 116. Port Connectivity Checks: "system:Nios_system|altera_merlin_master_translator:nios2_qsys_0_data_master_translator"
 117. Port Connectivity Checks: "system:Nios_system|altera_merlin_master_translator:nios2_qsys_0_instruction_master_translator"
-118. Port Connectivity Checks: "system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|controller:b2v_inst2"
-119. Port Connectivity Checks: "system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1"
-120. Port Connectivity Checks: "system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core"
-121. Port Connectivity Checks: "system:Nios_system|system_jtag_uart_0:jtag_uart_0|alt_jtag_atlantic:system_jtag_uart_0_alt_jtag_atlantic"
-122. Port Connectivity Checks: "system:Nios_system|system_jtag_uart_0:jtag_uart_0"
-123. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_jtag_debug_module_wrapper:the_system_nios2_qsys_0_jtag_debug_module_wrapper|sld_virtual_jtag_basic:system_nios2_qsys_0_jtag_debug_module_phy"
-124. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_jtag_debug_module_wrapper:the_system_nios2_qsys_0_jtag_debug_module_wrapper|system_nios2_qsys_0_jtag_debug_module_sysclk:the_system_nios2_qsys_0_jtag_debug_module_sysclk|altera_std_synchronizer:the_altera_std_synchronizer4"
-125. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_jtag_debug_module_wrapper:the_system_nios2_qsys_0_jtag_debug_module_wrapper|system_nios2_qsys_0_jtag_debug_module_sysclk:the_system_nios2_qsys_0_jtag_debug_module_sysclk|altera_std_synchronizer:the_altera_std_synchronizer3"
-126. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_oci_pib:the_system_nios2_qsys_0_nios2_oci_pib"
-127. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_oci_fifo:the_system_nios2_qsys_0_nios2_oci_fifo|system_nios2_qsys_0_nios2_oci_fifowp_inc:system_nios2_qsys_0_nios2_oci_fifowp_inc_fifowp"
-128. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_oci_dtrace:the_system_nios2_qsys_0_nios2_oci_dtrace|system_nios2_qsys_0_nios2_oci_td_mode:system_nios2_qsys_0_nios2_oci_trc_ctrl_td_mode"
-129. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_oci_itrace:the_system_nios2_qsys_0_nios2_oci_itrace"
-130. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_oci_dbrk:the_system_nios2_qsys_0_nios2_oci_dbrk"
-131. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_oci_xbrk:the_system_nios2_qsys_0_nios2_oci_xbrk"
-132. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_oci_debug:the_system_nios2_qsys_0_nios2_oci_debug"
-133. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci"
-134. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_test_bench:the_system_nios2_qsys_0_test_bench"
-135. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0"
-136. Elapsed Time Per Partition
-137. Analysis & Synthesis Messages
-138. Analysis & Synthesis Suppressed Messages
+118. Port Connectivity Checks: "system:Nios_system|system_jtag_uart_0:jtag_uart_0|alt_jtag_atlantic:system_jtag_uart_0_alt_jtag_atlantic"
+119. Port Connectivity Checks: "system:Nios_system|system_jtag_uart_0:jtag_uart_0"
+120. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_jtag_debug_module_wrapper:the_system_nios2_qsys_0_jtag_debug_module_wrapper|sld_virtual_jtag_basic:system_nios2_qsys_0_jtag_debug_module_phy"
+121. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_jtag_debug_module_wrapper:the_system_nios2_qsys_0_jtag_debug_module_wrapper|system_nios2_qsys_0_jtag_debug_module_sysclk:the_system_nios2_qsys_0_jtag_debug_module_sysclk|altera_std_synchronizer:the_altera_std_synchronizer4"
+122. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_jtag_debug_module_wrapper:the_system_nios2_qsys_0_jtag_debug_module_wrapper|system_nios2_qsys_0_jtag_debug_module_sysclk:the_system_nios2_qsys_0_jtag_debug_module_sysclk|altera_std_synchronizer:the_altera_std_synchronizer3"
+123. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_oci_pib:the_system_nios2_qsys_0_nios2_oci_pib"
+124. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_oci_fifo:the_system_nios2_qsys_0_nios2_oci_fifo|system_nios2_qsys_0_nios2_oci_fifowp_inc:system_nios2_qsys_0_nios2_oci_fifowp_inc_fifowp"
+125. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_oci_dtrace:the_system_nios2_qsys_0_nios2_oci_dtrace|system_nios2_qsys_0_nios2_oci_td_mode:system_nios2_qsys_0_nios2_oci_trc_ctrl_td_mode"
+126. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_oci_itrace:the_system_nios2_qsys_0_nios2_oci_itrace"
+127. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_oci_dbrk:the_system_nios2_qsys_0_nios2_oci_dbrk"
+128. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_oci_xbrk:the_system_nios2_qsys_0_nios2_oci_xbrk"
+129. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_oci_debug:the_system_nios2_qsys_0_nios2_oci_debug"
+130. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci"
+131. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_test_bench:the_system_nios2_qsys_0_test_bench"
+132. Port Connectivity Checks: "system:Nios_system|system_nios2_qsys_0:nios2_qsys_0"
+133. Elapsed Time Per Partition
+134. Analysis & Synthesis Messages
+135. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -169,13 +166,13 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed May 21 13:42:01 2025           ;
+; Analysis & Synthesis Status        ; Successful - Thu May 22 23:21:24 2025           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; sha256_optimizePowerArea                        ;
 ; Top-level Entity Name              ; topmodule_nios2                                 ;
 ; Family                             ; Cyclone II                                      ;
-; Total logic elements               ; 6,472                                           ;
-;     Total combinational functions  ; 5,423                                           ;
+; Total logic elements               ; 6,466                                           ;
+;     Total combinational functions  ; 5,417                                           ;
 ;     Dedicated logic registers      ; 2,803                                           ;
 ; Total registers                    ; 2803                                            ;
 ; Total pins                         ; 2                                               ;
@@ -373,16 +370,16 @@ applicable agreement for further details.
 +---------------------------------------------+----------+
 ; Resource                                    ; Usage    ;
 +---------------------------------------------+----------+
-; Estimated Total logic elements              ; 6,472    ;
+; Estimated Total logic elements              ; 6,466    ;
 ;                                             ;          ;
-; Total combinational functions               ; 5423     ;
+; Total combinational functions               ; 5417     ;
 ; Logic element usage by number of LUT inputs ;          ;
-;     -- 4 input functions                    ; 3226     ;
-;     -- 3 input functions                    ; 1739     ;
-;     -- <=2 input functions                  ; 458      ;
+;     -- 4 input functions                    ; 3221     ;
+;     -- 3 input functions                    ; 1743     ;
+;     -- <=2 input functions                  ; 453      ;
 ;                                             ;          ;
 ; Logic elements by mode                      ;          ;
-;     -- normal mode                          ; 5211     ;
+;     -- normal mode                          ; 5205     ;
 ;     -- arithmetic mode                      ; 212      ;
 ;                                             ;          ;
 ; Total registers                             ; 2803     ;
@@ -394,7 +391,7 @@ applicable agreement for further details.
 ; Embedded Multiplier 9-bit elements          ; 0        ;
 ; Maximum fan-out node                        ; CLOCK_50 ;
 ; Maximum fan-out                             ; 2791     ;
-; Total fan-out                               ; 32392    ;
+; Total fan-out                               ; 32374    ;
 ; Average fan-out                             ; 3.85     ;
 +---------------------------------------------+----------+
 
@@ -404,26 +401,26 @@ applicable agreement for further details.
 +-----------------------------------------------------------------------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
 ; Compilation Hierarchy Node                                                                                      ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                                                                                                                                                                                                                                                                     ; Library Name ;
 +-----------------------------------------------------------------------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
-; |topmodule_nios2                                                                                                ; 5423 (1)          ; 2803 (0)     ; 273408      ; 0            ; 0       ; 0         ; 2    ; 0            ; |topmodule_nios2                                                                                                                                                                                                                                                                                                                                                                        ; work         ;
-;    |sld_hub:auto_hub|                                                                                           ; 161 (1)           ; 97 (0)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|sld_hub:auto_hub                                                                                                                                                                                                                                                                                                                                                       ; work         ;
-;       |sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|                                                            ; 160 (119)         ; 97 (69)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst                                                                                                                                                                                                                                                                                                          ; work         ;
+; |topmodule_nios2                                                                                                ; 5417 (1)          ; 2803 (0)     ; 273408      ; 0            ; 0       ; 0         ; 2    ; 0            ; |topmodule_nios2                                                                                                                                                                                                                                                                                                                                                                        ; work         ;
+;    |sld_hub:auto_hub|                                                                                           ; 160 (1)           ; 97 (0)       ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|sld_hub:auto_hub                                                                                                                                                                                                                                                                                                                                                       ; work         ;
+;       |sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|                                                            ; 159 (118)         ; 97 (69)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst                                                                                                                                                                                                                                                                                                          ; work         ;
 ;          |sld_rom_sr:hub_info_reg|                                                                              ; 24 (24)           ; 9 (9)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg                                                                                                                                                                                                                                                                                  ; work         ;
 ;          |sld_shadow_jsm:shadow_jsm|                                                                            ; 17 (17)           ; 19 (19)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm                                                                                                                                                                                                                                                                                ; work         ;
-;    |system:Nios_system|                                                                                         ; 5261 (0)          ; 2706 (0)     ; 273408      ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system                                                                                                                                                                                                                                                                                                                                                     ; system       ;
-;       |IP_wrapper:sha_256_ip_0|                                                                                 ; 3770 (557)        ; 1870 (578)   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0                                                                                                                                                                                                                                                                                                                             ; system       ;
-;          |sha256_optimizePowerAreaVerilog:sha256_core|                                                          ; 3213 (0)          ; 1292 (0)     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core                                                                                                                                                                                                                                                                                 ; work         ;
+;    |system:Nios_system|                                                                                         ; 5256 (0)          ; 2706 (0)     ; 273408      ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system                                                                                                                                                                                                                                                                                                                                                     ; system       ;
+;       |IP_wrapper:sha_256_ip_0|                                                                                 ; 3764 (557)        ; 1870 (578)   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0                                                                                                                                                                                                                                                                                                                             ; system       ;
+;          |sha256_optimizePowerAreaVerilog:sha256_core|                                                          ; 3207 (0)          ; 1292 (0)     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core                                                                                                                                                                                                                                                                                 ; work         ;
 ;             |controller:b2v_inst2|                                                                              ; 85 (85)           ; 45 (45)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|controller:b2v_inst2                                                                                                                                                                                                                                                            ; work         ;
-;             |message_compression:b2v_inst1|                                                                     ; 1344 (1268)       ; 665 (665)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1                                                                                                                                                                                                                                                   ; work         ;
+;             |message_compression:b2v_inst1|                                                                     ; 1338 (1265)       ; 665 (665)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1                                                                                                                                                                                                                                                   ; work         ;
 ;                |adder_32bit:u_adder|                                                                            ; 32 (32)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|adder_32bit:u_adder                                                                                                                                                                                                                               ; work         ;
 ;                |maj_func:u_maj|                                                                                 ; 32 (32)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|maj_func:u_maj                                                                                                                                                                                                                                    ; work         ;
-;                |sigma0_func_compression:u_sigma0|                                                               ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|sigma0_func_compression:u_sigma0                                                                                                                                                                                                                  ; work         ;
-;                |sigma1_func_compression:u_sigma1|                                                               ; 4 (4)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|sigma1_func_compression:u_sigma1                                                                                                                                                                                                                  ; work         ;
-;             |message_scheduler:b2v_inst|                                                                        ; 1784 (1691)       ; 582 (582)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst                                                                                                                                                                                                                                                      ; work         ;
+;                |sigma0_func_compression:u_sigma0|                                                               ; 6 (6)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|sigma0_func_compression:u_sigma0                                                                                                                                                                                                                  ; work         ;
+;                |sigma1_func_compression:u_sigma1|                                                               ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|sigma1_func_compression:u_sigma1                                                                                                                                                                                                                  ; work         ;
+;             |message_scheduler:b2v_inst|                                                                        ; 1784 (1692)       ; 582 (582)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst                                                                                                                                                                                                                                                      ; work         ;
 ;                |adder_32bit:u_adder|                                                                            ; 32 (32)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst|adder_32bit:u_adder                                                                                                                                                                                                                                  ; work         ;
 ;                |sigma0_func_schedule:u_sigma0|                                                                  ; 29 (29)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst|sigma0_func_schedule:u_sigma0                                                                                                                                                                                                                        ; work         ;
-;                |sigma1_func_schedule:u_sigma1|                                                                  ; 32 (32)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst|sigma1_func_schedule:u_sigma1                                                                                                                                                                                                                        ; work         ;
+;                |sigma1_func_schedule:u_sigma1|                                                                  ; 31 (31)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst|sigma1_func_schedule:u_sigma1                                                                                                                                                                                                                        ; work         ;
 ;       |altera_avalon_sc_fifo:jtag_uart_0_avalon_jtag_slave_translator_avalon_universal_slave_0_agent_rsp_fifo|  ; 7 (7)             ; 6 (6)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|altera_avalon_sc_fifo:jtag_uart_0_avalon_jtag_slave_translator_avalon_universal_slave_0_agent_rsp_fifo                                                                                                                                                                                                                                              ; system       ;
-;       |altera_avalon_sc_fifo:nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo| ; 9 (9)             ; 6 (6)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|altera_avalon_sc_fifo:nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo                                                                                                                                                                                                                                             ; system       ;
+;       |altera_avalon_sc_fifo:nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo| ; 8 (8)             ; 6 (6)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|altera_avalon_sc_fifo:nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo                                                                                                                                                                                                                                             ; system       ;
 ;       |altera_avalon_sc_fifo:onchip_memory2_0_s1_translator_avalon_universal_slave_0_agent_rsp_fifo|            ; 7 (7)             ; 6 (6)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|altera_avalon_sc_fifo:onchip_memory2_0_s1_translator_avalon_universal_slave_0_agent_rsp_fifo                                                                                                                                                                                                                                                        ; system       ;
 ;       |altera_avalon_sc_fifo:sha_256_ip_0_avalon_slave_0_translator_avalon_universal_slave_0_agent_rsp_fifo|    ; 7 (7)             ; 6 (6)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|altera_avalon_sc_fifo:sha_256_ip_0_avalon_slave_0_translator_avalon_universal_slave_0_agent_rsp_fifo                                                                                                                                                                                                                                                ; system       ;
 ;       |altera_merlin_master_agent:nios2_qsys_0_data_master_translator_avalon_universal_master_0_agent|          ; 0 (0)             ; 1 (1)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|altera_merlin_master_agent:nios2_qsys_0_data_master_translator_avalon_universal_master_0_agent                                                                                                                                                                                                                                                      ; system       ;
@@ -436,17 +433,16 @@ applicable agreement for further details.
 ;       |altera_merlin_slave_translator:jtag_uart_0_avalon_jtag_slave_translator|                                 ; 9 (9)             ; 23 (23)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|altera_merlin_slave_translator:jtag_uart_0_avalon_jtag_slave_translator                                                                                                                                                                                                                                                                             ; system       ;
 ;       |altera_merlin_slave_translator:nios2_qsys_0_jtag_debug_module_translator|                                ; 1 (1)             ; 33 (33)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|altera_merlin_slave_translator:nios2_qsys_0_jtag_debug_module_translator                                                                                                                                                                                                                                                                            ; system       ;
 ;       |altera_merlin_slave_translator:onchip_memory2_0_s1_translator|                                           ; 1 (1)             ; 1 (1)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|altera_merlin_slave_translator:onchip_memory2_0_s1_translator                                                                                                                                                                                                                                                                                       ; system       ;
-;       |altera_merlin_slave_translator:sha_256_ip_0_avalon_slave_0_translator|                                   ; 8 (8)             ; 35 (35)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|altera_merlin_slave_translator:sha_256_ip_0_avalon_slave_0_translator                                                                                                                                                                                                                                                                               ; system       ;
+;       |altera_merlin_slave_translator:sha_256_ip_0_avalon_slave_0_translator|                                   ; 7 (7)             ; 35 (35)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|altera_merlin_slave_translator:sha_256_ip_0_avalon_slave_0_translator                                                                                                                                                                                                                                                                               ; system       ;
 ;       |altera_reset_controller:rst_controller|                                                                  ; 2 (2)             ; 9 (6)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|altera_reset_controller:rst_controller                                                                                                                                                                                                                                                                                                              ; system       ;
 ;          |altera_reset_synchronizer:alt_rst_sync_uq1|                                                           ; 0 (0)             ; 3 (3)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|altera_reset_controller:rst_controller|altera_reset_synchronizer:alt_rst_sync_uq1                                                                                                                                                                                                                                                                   ; system       ;
-;       |system_addr_router:addr_router_001|                                                                      ; 9 (9)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|system_addr_router:addr_router_001                                                                                                                                                                                                                                                                                                                  ; system       ;
-;       |system_addr_router:addr_router|                                                                          ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|system_addr_router:addr_router                                                                                                                                                                                                                                                                                                                      ; system       ;
+;       |system_addr_router:addr_router_001|                                                                      ; 11 (11)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|system_addr_router:addr_router_001                                                                                                                                                                                                                                                                                                                  ; system       ;
+;       |system_addr_router:addr_router|                                                                          ; 11 (11)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|system_addr_router:addr_router                                                                                                                                                                                                                                                                                                                      ; system       ;
 ;       |system_cmd_xbar_demux:cmd_xbar_demux_001|                                                                ; 10 (10)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|system_cmd_xbar_demux:cmd_xbar_demux_001                                                                                                                                                                                                                                                                                                            ; system       ;
-;       |system_cmd_xbar_demux:cmd_xbar_demux|                                                                    ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|system_cmd_xbar_demux:cmd_xbar_demux                                                                                                                                                                                                                                                                                                                ; system       ;
 ;       |system_cmd_xbar_mux:cmd_xbar_mux_001|                                                                    ; 20 (16)           ; 5 (3)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|system_cmd_xbar_mux:cmd_xbar_mux_001                                                                                                                                                                                                                                                                                                                ; system       ;
 ;          |altera_merlin_arbitrator:arb|                                                                         ; 4 (4)             ; 2 (2)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|system_cmd_xbar_mux:cmd_xbar_mux_001|altera_merlin_arbitrator:arb                                                                                                                                                                                                                                                                                   ; system       ;
-;       |system_cmd_xbar_mux:cmd_xbar_mux_002|                                                                    ; 58 (53)           ; 5 (3)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|system_cmd_xbar_mux:cmd_xbar_mux_002                                                                                                                                                                                                                                                                                                                ; system       ;
-;          |altera_merlin_arbitrator:arb|                                                                         ; 5 (5)             ; 2 (2)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|system_cmd_xbar_mux:cmd_xbar_mux_002|altera_merlin_arbitrator:arb                                                                                                                                                                                                                                                                                   ; system       ;
+;       |system_cmd_xbar_mux:cmd_xbar_mux_002|                                                                    ; 58 (54)           ; 5 (3)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|system_cmd_xbar_mux:cmd_xbar_mux_002                                                                                                                                                                                                                                                                                                                ; system       ;
+;          |altera_merlin_arbitrator:arb|                                                                         ; 4 (4)             ; 2 (2)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|system_cmd_xbar_mux:cmd_xbar_mux_002|altera_merlin_arbitrator:arb                                                                                                                                                                                                                                                                                   ; system       ;
 ;       |system_cmd_xbar_mux:cmd_xbar_mux_003|                                                                    ; 47 (43)           ; 5 (3)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|system_cmd_xbar_mux:cmd_xbar_mux_003                                                                                                                                                                                                                                                                                                                ; system       ;
 ;          |altera_merlin_arbitrator:arb|                                                                         ; 4 (4)             ; 2 (2)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|system_cmd_xbar_mux:cmd_xbar_mux_003|altera_merlin_arbitrator:arb                                                                                                                                                                                                                                                                                   ; system       ;
 ;       |system_cmd_xbar_mux:cmd_xbar_mux|                                                                        ; 55 (51)           ; 5 (3)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |topmodule_nios2|system:Nios_system|system_cmd_xbar_mux:cmd_xbar_mux                                                                                                                                                                                                                                                                                                                    ; system       ;
@@ -801,17 +797,17 @@ Note: All latches listed above may not be present at the end of synthesis due to
 ; system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_avalon_reg:the_system_nios2_qsys_0_nios2_avalon_reg|oci_ienable[23]                                                                                                      ; Merged with system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_avalon_reg:the_system_nios2_qsys_0_nios2_avalon_reg|oci_ienable[24]                                                                                                      ;
 ; system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_avalon_reg:the_system_nios2_qsys_0_nios2_avalon_reg|oci_ienable[24]                                                                                                      ; Merged with system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_avalon_reg:the_system_nios2_qsys_0_nios2_avalon_reg|oci_ienable[19]                                                                                                      ;
 ; system:Nios_system|altera_avalon_sc_fifo:sha_256_ip_0_avalon_slave_0_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][60]                                                                                                                                                                                     ; Merged with system:Nios_system|altera_avalon_sc_fifo:sha_256_ip_0_avalon_slave_0_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][75]                                                                                                                                                                                     ;
-; system:Nios_system|altera_avalon_sc_fifo:sha_256_ip_0_avalon_slave_0_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][59]                                                                                                                                                                                     ; Merged with system:Nios_system|altera_avalon_sc_fifo:sha_256_ip_0_avalon_slave_0_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][75]                                                                                                                                                                                     ;
 ; system:Nios_system|altera_avalon_sc_fifo:sha_256_ip_0_avalon_slave_0_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][53]                                                                                                                                                                                     ; Merged with system:Nios_system|altera_avalon_sc_fifo:sha_256_ip_0_avalon_slave_0_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][75]                                                                                                                                                                                     ;
-; system:Nios_system|altera_avalon_sc_fifo:onchip_memory2_0_s1_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][60]                                                                                                                                                                                             ; Merged with system:Nios_system|altera_avalon_sc_fifo:onchip_memory2_0_s1_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][75]                                                                                                                                                                                             ;
-; system:Nios_system|altera_avalon_sc_fifo:onchip_memory2_0_s1_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][53]                                                                                                                                                                                             ; Merged with system:Nios_system|altera_avalon_sc_fifo:onchip_memory2_0_s1_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][75]                                                                                                                                                                                             ;
+; system:Nios_system|altera_avalon_sc_fifo:sha_256_ip_0_avalon_slave_0_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][59]                                                                                                                                                                                     ; Merged with system:Nios_system|altera_avalon_sc_fifo:sha_256_ip_0_avalon_slave_0_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][75]                                                                                                                                                                                     ;
 ; system:Nios_system|altera_avalon_sc_fifo:onchip_memory2_0_s1_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][59]                                                                                                                                                                                             ; Merged with system:Nios_system|altera_avalon_sc_fifo:onchip_memory2_0_s1_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][75]                                                                                                                                                                                             ;
+; system:Nios_system|altera_avalon_sc_fifo:onchip_memory2_0_s1_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][53]                                                                                                                                                                                             ; Merged with system:Nios_system|altera_avalon_sc_fifo:onchip_memory2_0_s1_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][75]                                                                                                                                                                                             ;
+; system:Nios_system|altera_avalon_sc_fifo:onchip_memory2_0_s1_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][60]                                                                                                                                                                                             ; Merged with system:Nios_system|altera_avalon_sc_fifo:onchip_memory2_0_s1_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][75]                                                                                                                                                                                             ;
 ; system:Nios_system|altera_avalon_sc_fifo:jtag_uart_0_avalon_jtag_slave_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][59]                                                                                                                                                                                   ; Merged with system:Nios_system|altera_avalon_sc_fifo:jtag_uart_0_avalon_jtag_slave_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][75]                                                                                                                                                                                   ;
 ; system:Nios_system|altera_avalon_sc_fifo:jtag_uart_0_avalon_jtag_slave_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][53]                                                                                                                                                                                   ; Merged with system:Nios_system|altera_avalon_sc_fifo:jtag_uart_0_avalon_jtag_slave_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][75]                                                                                                                                                                                   ;
 ; system:Nios_system|altera_avalon_sc_fifo:jtag_uart_0_avalon_jtag_slave_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][60]                                                                                                                                                                                   ; Merged with system:Nios_system|altera_avalon_sc_fifo:jtag_uart_0_avalon_jtag_slave_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][75]                                                                                                                                                                                   ;
 ; system:Nios_system|altera_avalon_sc_fifo:nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][60]                                                                                                                                                                                  ; Merged with system:Nios_system|altera_avalon_sc_fifo:nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][75]                                                                                                                                                                                  ;
-; system:Nios_system|altera_avalon_sc_fifo:nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][59]                                                                                                                                                                                  ; Merged with system:Nios_system|altera_avalon_sc_fifo:nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][75]                                                                                                                                                                                  ;
 ; system:Nios_system|altera_avalon_sc_fifo:nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][53]                                                                                                                                                                                  ; Merged with system:Nios_system|altera_avalon_sc_fifo:nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][75]                                                                                                                                                                                  ;
+; system:Nios_system|altera_avalon_sc_fifo:nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][59]                                                                                                                                                                                  ; Merged with system:Nios_system|altera_avalon_sc_fifo:nios2_qsys_0_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[1][75]                                                                                                                                                                                  ;
 ; system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|controller:b2v_inst2|loading_active                                                                                                                                                                                             ; Merged with system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|controller:b2v_inst2|write_enable_in                                                                                                                                                                                            ;
 ; system:Nios_system|altera_avalon_sc_fifo:sha_256_ip_0_avalon_slave_0_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[0][59]                                                                                                                                                                                     ; Merged with system:Nios_system|altera_avalon_sc_fifo:sha_256_ip_0_avalon_slave_0_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[0][53]                                                                                                                                                                                     ;
 ; system:Nios_system|altera_avalon_sc_fifo:sha_256_ip_0_avalon_slave_0_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[0][60]                                                                                                                                                                                     ; Merged with system:Nios_system|altera_avalon_sc_fifo:sha_256_ip_0_avalon_slave_0_translator_avalon_universal_slave_0_agent_rsp_fifo|mem[0][53]                                                                                                                                                                                     ;
@@ -1000,10 +996,10 @@ Note: All latches listed above may not be present at the end of synthesis due to
 ; system:Nios_system|system_jtag_uart_0:jtag_uart_0|alt_jtag_atlantic:system_jtag_uart_0_alt_jtag_atlantic|rst2                                                                                                    ; 3       ;
 ; system:Nios_system|altera_reset_controller:rst_controller|r_sync_rst_chain[1]                                                                                                                                    ; 2       ;
 ; system:Nios_system|altera_reset_controller:rst_controller|r_sync_rst_dly                                                                                                                                         ; 4       ;
-; system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|i_read                                                                                                                                                       ; 6       ;
-; system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|F_pc[13]                                                                                                                                                     ; 2       ;
-; system:Nios_system|altera_merlin_master_agent:nios2_qsys_0_data_master_translator_avalon_universal_master_0_agent|hold_waitrequest                                                                               ; 14      ;
-; system:Nios_system|system_jtag_uart_0:jtag_uart_0|av_waitrequest                                                                                                                                                 ; 5       ;
+; system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|i_read                                                                                                                                                       ; 8       ;
+; system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|F_pc[13]                                                                                                                                                     ; 4       ;
+; system:Nios_system|altera_merlin_master_agent:nios2_qsys_0_data_master_translator_avalon_universal_master_0_agent|hold_waitrequest                                                                               ; 12      ;
+; system:Nios_system|system_jtag_uart_0:jtag_uart_0|av_waitrequest                                                                                                                                                 ; 4       ;
 ; system:Nios_system|altera_reset_controller:rst_controller|altera_reset_synchronizer_int_chain[2]                                                                                                                 ; 1       ;
 ; system:Nios_system|system_cmd_xbar_mux:cmd_xbar_mux|altera_merlin_arbitrator:arb|top_priority_reg[0]                                                                                                             ; 2       ;
 ; system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|system_nios2_qsys_0_nios2_avalon_reg:the_system_nios2_qsys_0_nios2_avalon_reg|oci_ienable[0] ; 2       ;
@@ -1039,7 +1035,7 @@ Note: All latches listed above may not be present at the end of synthesis due to
 ; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |topmodule_nios2|system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|E_shift_rot_result[12]                                                                                                                                                                                                                                         ;
 ; 3:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; Yes        ; |topmodule_nios2|system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|system_nios2_qsys_0_nios2_oci:the_system_nios2_qsys_0_nios2_oci|readdata[2]                                                                                                                                                                                    ;
 ; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |topmodule_nios2|system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|D_iw[5]                                                                                                                                                                                                                                                        ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; Yes        ; |topmodule_nios2|system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|d_byteenable[0]                                                                                                                                                                                                                                                ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; Yes        ; |topmodule_nios2|system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|d_byteenable[1]                                                                                                                                                                                                                                                ;
 ; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|controller:b2v_inst2|round_counter[5]                                                                                                                                                                                       ;
 ; 3:1                ; 256 bits  ; 512 LEs       ; 256 LEs              ; 256 LEs                ; Yes        ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|reg_a[31]                                                                                                                                                                                     ;
 ; 4:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|controller:b2v_inst2|load_counter[1]                                                                                                                                                                                        ;
@@ -1086,31 +1082,21 @@ Note: All latches listed above may not be present at the end of synthesis due to
 ; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst|W_memory[2][1]                                                                                                                                                                                   ;
 ; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst|W_memory[1][8]                                                                                                                                                                                   ;
 ; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst|W_memory[0][16]                                                                                                                                                                                  ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; No         ; |topmodule_nios2|system:Nios_system|system_addr_router:addr_router|src_channel[2]                                                                                                                                                                                                                                                   ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; No         ; |topmodule_nios2|system:Nios_system|system_addr_router:addr_router_001|src_channel[2]                                                                                                                                                                                                                                               ;
-; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |topmodule_nios2|system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|E_logic_result[6]                                                                                                                                                                                                                                              ;
-; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst|adder_in_a[11]                                                                                                                                                                                   ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |topmodule_nios2|system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|E_logic_result[18]                                                                                                                                                                                                                                             ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst|adder_in_a[1]                                                                                                                                                                                    ;
 ; 8:1                ; 32 bits   ; 160 LEs       ; 160 LEs              ; 0 LEs                  ; No         ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst|Mux152                                                                                                                                                                                           ;
 ; 8:1                ; 32 bits   ; 160 LEs       ; 160 LEs              ; 0 LEs                  ; No         ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst|Mux119                                                                                                                                                                                           ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |topmodule_nios2|system:Nios_system|system_addr_router:addr_router|src_channel[3]                                                                                                                                                                                                                                                   ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |topmodule_nios2|system:Nios_system|system_addr_router:addr_router_001|src_channel[2]                                                                                                                                                                                                                                               ;
 ; 4:1                ; 31 bits   ; 62 LEs        ; 62 LEs               ; 0 LEs                  ; No         ; |topmodule_nios2|system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|W_rf_wr_data[17]                                                                                                                                                                                                                                               ;
 ; 8:1                ; 32 bits   ; 160 LEs       ; 160 LEs              ; 0 LEs                  ; No         ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst|Mux34                                                                                                                                                                                            ;
 ; 4:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; No         ; |topmodule_nios2|system:Nios_system|system_nios2_qsys_0:nios2_qsys_0|D_dst_regnum[2]                                                                                                                                                                                                                                                ;
 ; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst|calc_cycle                                                                                                                                                                                       ;
 ; 16:1               ; 32 bits   ; 320 LEs       ; 320 LEs              ; 0 LEs                  ; No         ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|Mux12                                                                                                                                                                                                                                                                   ;
 ; 11:1               ; 32 bits   ; 224 LEs       ; 192 LEs              ; 32 LEs                 ; No         ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst|adder_in_b[8]                                                                                                                                                                                    ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 8 LEs                ; 2 LEs                  ; No         ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|Selector524                                                                                                                                                                                   ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 8 LEs                ; 2 LEs                  ; No         ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|Selector523                                                                                                                                                                                   ;
 ; 16:1               ; 32 bits   ; 320 LEs       ; 256 LEs              ; 64 LEs                 ; No         ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|adder_in_a[5]                                                                                                                                                                                 ;
 ; 33:1               ; 2 bits    ; 44 LEs        ; 32 LEs               ; 12 LEs                 ; No         ; |topmodule_nios2|system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|adder_in_b[21]                                                                                                                                                                                ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |topmodule_nios2|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|hub_minor_ver_reg[1]                                                                                                                                                                                                                                 ;
-; 4:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |topmodule_nios2|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[0]                                                                                                                                                                                                                                    ;
-; 6:1                ; 5 bits    ; 20 LEs        ; 5 LEs                ; 15 LEs                 ; Yes        ; |topmodule_nios2|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irf_reg[2][0]                                                                                                                                                                                                                                        ;
-; 6:1                ; 5 bits    ; 20 LEs        ; 5 LEs                ; 15 LEs                 ; Yes        ; |topmodule_nios2|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irf_reg[1][0]                                                                                                                                                                                                                                        ;
-; 5:1                ; 5 bits    ; 15 LEs        ; 5 LEs                ; 10 LEs                 ; Yes        ; |topmodule_nios2|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[4]                                                                                                                                                                                                              ;
-; 6:1                ; 5 bits    ; 20 LEs        ; 5 LEs                ; 15 LEs                 ; Yes        ; |topmodule_nios2|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|shadow_irf_reg[2][1]                                                                                                                                                                                                                                 ;
-; 6:1                ; 5 bits    ; 20 LEs        ; 5 LEs                ; 15 LEs                 ; Yes        ; |topmodule_nios2|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|shadow_irf_reg[1][3]                                                                                                                                                                                                                                 ;
-; 8:1                ; 5 bits    ; 25 LEs        ; 10 LEs               ; 15 LEs                 ; Yes        ; |topmodule_nios2|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irsr_reg[3]                                                                                                                                                                                                                                          ;
-; 34:1               ; 4 bits    ; 88 LEs        ; 60 LEs               ; 28 LEs                 ; Yes        ; |topmodule_nios2|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg[1]                                                                                                                                                                                                                                   ;
-; 28:1               ; 4 bits    ; 72 LEs        ; 48 LEs               ; 24 LEs                 ; Yes        ; |topmodule_nios2|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|WORD_SR[0]                                                                                                                                                                                                                   ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
@@ -3078,34 +3064,6 @@ Note: In order to hide this table in the UI and the text report file, please set
 +--------------------------+--------+----------+----------------------------------------------------------------------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|controller:b2v_inst2"             ;
-+----------------------+--------+----------+----------------------------------------------------------------------------------------------------------+
-; Port                 ; Type   ; Severity ; Details                                                                                                  ;
-+----------------------+--------+----------+----------------------------------------------------------------------------------------------------------+
-; wrapper_data_request ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
-; start_to_sche        ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
-+----------------------+--------+----------+----------------------------------------------------------------------------------------------------------+
-
-
-+--------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1" ;
-+------+--------+----------+-----------------------------------------------------------------------------------------------------------------------+
-; Port ; Type   ; Severity ; Details                                                                                                               ;
-+------+--------+----------+-----------------------------------------------------------------------------------------------------------------------+
-; busy ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.              ;
-+------+--------+----------+-----------------------------------------------------------------------------------------------------------------------+
-
-
-+----------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core"   ;
-+------------+--------+----------+-------------------------------------------------------------------------------------+
-; Port       ; Type   ; Severity ; Details                                                                             ;
-+------------+--------+----------+-------------------------------------------------------------------------------------+
-; state_ctrl ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-+------------+--------+----------+-------------------------------------------------------------------------------------+
-
-
 +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ; Port Connectivity Checks: "system:Nios_system|system_jtag_uart_0:jtag_uart_0|alt_jtag_atlantic:system_jtag_uart_0_alt_jtag_atlantic"                                              ;
 +----------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
@@ -3279,14 +3237,13 @@ Note: In order to hide this table in the UI and the text report file, please set
 +--------------+--------+----------+----------------------------------------------+
 
 
-+---------------------------------+
-; Elapsed Time Per Partition      ;
-+------------------+--------------+
-; Partition Name   ; Elapsed Time ;
-+------------------+--------------+
-; Top              ; 00:00:22     ;
-; sld_hub:auto_hub ; 00:00:00     ;
-+------------------+--------------+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:20     ;
++----------------+--------------+
 
 
 +-------------------------------+
@@ -3295,7 +3252,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Wed May 21 13:41:31 2025
+    Info: Processing started: Thu May 22 23:21:00 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off sha256_optimizePowerArea -c sha256_optimizePowerArea
 Info (11104): Parallel Compilation has detected 16 hyper-threaded processors. However, the extra hyper-threaded processors will not be used by default. Parallel Compilation will use 12 of the 12 physical processors detected instead.
 Info (12021): Found 1 design units, including 1 entities, in source file system/synthesis/system.v
@@ -3377,7 +3334,7 @@ Info (12021): Found 1 design units, including 1 entities, in source file system/
     Info (12023): Found entity 1: system_nios2_qsys_0_test_bench
 Info (12021): Found 1 design units, including 1 entities, in source file system/synthesis/submodules/system_onchip_memory2_0.v
     Info (12023): Found entity 1: system_onchip_memory2_0
-Warning (10275): Verilog HDL Module Instantiation warning at sha256_optimizePowerAreaVerilog.v(117): ignored dangling comma in List of Port Connections
+Warning (10275): Verilog HDL Module Instantiation warning at sha256_optimizePowerAreaVerilog.v(114): ignored dangling comma in List of Port Connections
 Info (12021): Found 1 design units, including 1 entities, in source file /codevs/soc/sha256/rtl/sha256_optimizepowerareaverilog.v
     Info (12023): Found entity 1: sha256_optimizePowerAreaVerilog
 Info (12021): Found 1 design units, including 1 entities, in source file /codevs/soc/sha256/rtl/ip_wrapper.v
@@ -3407,24 +3364,6 @@ Info (12021): Found 1 design units, including 1 entities, in source file /codevs
 Warning (10275): Verilog HDL Module Instantiation warning at topmodule_nios2.v(10): ignored dangling comma in List of Port Connections
 Info (12021): Found 1 design units, including 1 entities, in source file /codevs/soc/sha256/rtl/topmodule_nios2.v
     Info (12023): Found entity 1: topmodule_nios2
-Warning (10236): Verilog HDL Implicit Net warning at IP_wrapper.v(280): created implicit net for "state_ctrl"
-Warning (10236): Verilog HDL Implicit Net warning at IP_wrapper.v(280): created implicit net for "state_ctrl"
-Warning (10236): Verilog HDL Implicit Net warning at message_scheduler.v(227): created implicit net for "StnSaved_out"
-Warning (10236): Verilog HDL Implicit Net warning at message_scheduler.v(228): created implicit net for "CALC_CYCLE_OUT"
-Warning (10236): Verilog HDL Implicit Net warning at message_scheduler.v(229): created implicit net for "CALC_ACTIVE_OUT"
-Warning (10236): Verilog HDL Implicit Net warning at message_scheduler.v(230): created implicit net for "PREV_WT_OUT"
-Warning (10236): Verilog HDL Implicit Net warning at message_scheduler.v(231): created implicit net for "WA_OUT"
-Warning (10236): Verilog HDL Implicit Net warning at message_scheduler.v(232): created implicit net for "ADD_IN_A_OUT"
-Warning (10236): Verilog HDL Implicit Net warning at message_scheduler.v(233): created implicit net for "ADD_IN_B_OUT"
-Warning (10236): Verilog HDL Implicit Net warning at message_scheduler.v(234): created implicit net for "ADD_SUM_OUT"
-Warning (10236): Verilog HDL Implicit Net warning at message_scheduler.v(237): created implicit net for "addr_t_minus_16_out"
-Warning (10236): Verilog HDL Implicit Net warning at message_scheduler.v(238): created implicit net for "addr_t_minus_15_out"
-Warning (10236): Verilog HDL Implicit Net warning at message_scheduler.v(239): created implicit net for "addr_t_minus_7_out"
-Warning (10236): Verilog HDL Implicit Net warning at message_scheduler.v(240): created implicit net for "addr_t_minus_2_out"
-Warning (10236): Verilog HDL Implicit Net warning at message_scheduler.v(243): created implicit net for "mem_out_t_minus_16_out"
-Warning (10236): Verilog HDL Implicit Net warning at message_scheduler.v(244): created implicit net for "mem_out_t_minus_15_out"
-Warning (10236): Verilog HDL Implicit Net warning at message_scheduler.v(245): created implicit net for "mem_out_t_minus_7_out"
-Warning (10236): Verilog HDL Implicit Net warning at message_scheduler.v(246): created implicit net for "mem_out_t_minus_2_out"
 Warning (10037): Verilog HDL or VHDL warning at system_nios2_qsys_0.v(1567): conditional expression evaluates to a constant
 Warning (10037): Verilog HDL or VHDL warning at system_nios2_qsys_0.v(1569): conditional expression evaluates to a constant
 Warning (10037): Verilog HDL or VHDL warning at system_nios2_qsys_0.v(1725): conditional expression evaluates to a constant
@@ -3598,120 +3537,90 @@ Info (12133): Instantiated megafunction "system:Nios_system|system_jtag_uart_0:j
     Info (12134): Parameter "LOG2_TXFIFO_DEPTH" = "6"
     Info (12134): Parameter "SLD_AUTO_INSTANCE_INDEX" = "YES"
 Info (12128): Elaborating entity "IP_wrapper" for hierarchy "system:Nios_system|IP_wrapper:sha_256_ip_0"
-Warning (10036): Verilog HDL or VHDL warning at IP_wrapper.v(50): object "START" assigned a value but never read
-Warning (10240): Verilog HDL Always Construct warning at IP_wrapper.v(69): inferring latch(es) for variable "status_reg", which holds its previous value in one or more paths through the always construct
-Warning (10240): Verilog HDL Always Construct warning at IP_wrapper.v(180): inferring latch(es) for variable "DATA_IN", which holds its previous value in one or more paths through the always construct
-Info (10041): Inferred latch for "DATA_IN[0]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[1]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[2]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[3]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[4]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[5]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[6]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[7]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[8]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[9]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[10]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[11]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[12]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[13]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[14]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[15]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[16]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[17]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[18]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[19]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[20]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[21]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[22]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[23]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[24]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[25]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[26]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[27]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[28]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[29]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[30]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "DATA_IN[31]" at IP_wrapper.v(180)
-Info (10041): Inferred latch for "status_reg[1]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[2]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[3]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[4]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[5]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[6]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[7]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[8]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[9]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[10]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[11]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[12]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[13]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[14]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[15]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[16]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[17]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[18]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[19]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[20]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[21]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[22]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[23]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[24]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[25]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[26]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[27]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[28]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[29]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[30]" at IP_wrapper.v(69)
-Info (10041): Inferred latch for "status_reg[31]" at IP_wrapper.v(69)
+Warning (10036): Verilog HDL or VHDL warning at IP_wrapper.v(42): object "START" assigned a value but never read
+Warning (10240): Verilog HDL Always Construct warning at IP_wrapper.v(61): inferring latch(es) for variable "status_reg", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at IP_wrapper.v(172): inferring latch(es) for variable "DATA_IN", which holds its previous value in one or more paths through the always construct
+Info (10041): Inferred latch for "DATA_IN[0]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[1]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[2]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[3]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[4]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[5]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[6]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[7]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[8]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[9]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[10]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[11]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[12]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[13]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[14]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[15]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[16]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[17]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[18]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[19]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[20]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[21]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[22]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[23]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[24]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[25]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[26]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[27]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[28]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[29]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[30]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "DATA_IN[31]" at IP_wrapper.v(172)
+Info (10041): Inferred latch for "status_reg[1]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[2]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[3]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[4]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[5]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[6]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[7]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[8]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[9]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[10]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[11]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[12]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[13]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[14]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[15]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[16]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[17]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[18]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[19]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[20]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[21]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[22]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[23]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[24]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[25]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[26]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[27]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[28]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[29]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[30]" at IP_wrapper.v(61)
+Info (10041): Inferred latch for "status_reg[31]" at IP_wrapper.v(61)
 Info (12128): Elaborating entity "sha256_optimizePowerAreaVerilog" for hierarchy "system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core"
 Info (12128): Elaborating entity "message_scheduler" for hierarchy "system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst"
-Warning (10036): Verilog HDL or VHDL warning at message_scheduler.v(227): object "StnSaved_out" assigned a value but never read
-Warning (10036): Verilog HDL or VHDL warning at message_scheduler.v(228): object "CALC_CYCLE_OUT" assigned a value but never read
-Warning (10036): Verilog HDL or VHDL warning at message_scheduler.v(229): object "CALC_ACTIVE_OUT" assigned a value but never read
-Warning (10036): Verilog HDL or VHDL warning at message_scheduler.v(230): object "PREV_WT_OUT" assigned a value but never read
-Warning (10036): Verilog HDL or VHDL warning at message_scheduler.v(231): object "WA_OUT" assigned a value but never read
-Warning (10036): Verilog HDL or VHDL warning at message_scheduler.v(232): object "ADD_IN_A_OUT" assigned a value but never read
-Warning (10036): Verilog HDL or VHDL warning at message_scheduler.v(233): object "ADD_IN_B_OUT" assigned a value but never read
-Warning (10036): Verilog HDL or VHDL warning at message_scheduler.v(234): object "ADD_SUM_OUT" assigned a value but never read
-Warning (10036): Verilog HDL or VHDL warning at message_scheduler.v(237): object "addr_t_minus_16_out" assigned a value but never read
-Warning (10036): Verilog HDL or VHDL warning at message_scheduler.v(238): object "addr_t_minus_15_out" assigned a value but never read
-Warning (10036): Verilog HDL or VHDL warning at message_scheduler.v(239): object "addr_t_minus_7_out" assigned a value but never read
-Warning (10036): Verilog HDL or VHDL warning at message_scheduler.v(240): object "addr_t_minus_2_out" assigned a value but never read
-Warning (10036): Verilog HDL or VHDL warning at message_scheduler.v(243): object "mem_out_t_minus_16_out" assigned a value but never read
-Warning (10036): Verilog HDL or VHDL warning at message_scheduler.v(244): object "mem_out_t_minus_15_out" assigned a value but never read
-Warning (10036): Verilog HDL or VHDL warning at message_scheduler.v(245): object "mem_out_t_minus_7_out" assigned a value but never read
-Warning (10036): Verilog HDL or VHDL warning at message_scheduler.v(246): object "mem_out_t_minus_2_out" assigned a value but never read
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(69): truncated value with size 6 to match size of target (4)
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(70): truncated value with size 6 to match size of target (4)
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(71): truncated value with size 6 to match size of target (4)
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(228): truncated value with size 2 to match size of target (1)
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(230): truncated value with size 32 to match size of target (1)
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(231): truncated value with size 4 to match size of target (1)
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(232): truncated value with size 32 to match size of target (1)
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(233): truncated value with size 32 to match size of target (1)
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(234): truncated value with size 32 to match size of target (1)
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(237): truncated value with size 4 to match size of target (1)
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(238): truncated value with size 4 to match size of target (1)
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(239): truncated value with size 4 to match size of target (1)
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(240): truncated value with size 4 to match size of target (1)
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(243): truncated value with size 32 to match size of target (1)
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(244): truncated value with size 32 to match size of target (1)
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(245): truncated value with size 32 to match size of target (1)
-Warning (10230): Verilog HDL assignment warning at message_scheduler.v(246): truncated value with size 32 to match size of target (1)
+Warning (10230): Verilog HDL assignment warning at message_scheduler.v(72): truncated value with size 6 to match size of target (4)
+Warning (10230): Verilog HDL assignment warning at message_scheduler.v(73): truncated value with size 6 to match size of target (4)
+Warning (10230): Verilog HDL assignment warning at message_scheduler.v(74): truncated value with size 6 to match size of target (4)
 Info (12128): Elaborating entity "sigma0_func_schedule" for hierarchy "system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst|sigma0_func_schedule:u_sigma0"
 Info (12128): Elaborating entity "sigma1_func_schedule" for hierarchy "system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst|sigma1_func_schedule:u_sigma1"
 Info (12128): Elaborating entity "adder_32bit" for hierarchy "system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_scheduler:b2v_inst|adder_32bit:u_adder"
 Info (12128): Elaborating entity "message_compression" for hierarchy "system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1"
-Warning (10230): Verilog HDL assignment warning at message_compression.v(218): truncated value with size 32 to match size of target (6)
-Warning (10230): Verilog HDL assignment warning at message_compression.v(227): truncated value with size 32 to match size of target (4)
+Warning (10230): Verilog HDL assignment warning at message_compression.v(209): truncated value with size 32 to match size of target (6)
+Warning (10230): Verilog HDL assignment warning at message_compression.v(218): truncated value with size 32 to match size of target (4)
 Info (12128): Elaborating entity "ch_func" for hierarchy "system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|ch_func:u_ch"
 Info (12128): Elaborating entity "maj_func" for hierarchy "system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|maj_func:u_maj"
 Info (12128): Elaborating entity "sigma0_func_compression" for hierarchy "system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|sigma0_func_compression:u_sigma0"
 Info (12128): Elaborating entity "sigma1_func_compression" for hierarchy "system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|message_compression:b2v_inst1|sigma1_func_compression:u_sigma1"
 Info (12128): Elaborating entity "controller" for hierarchy "system:Nios_system|IP_wrapper:sha_256_ip_0|sha256_optimizePowerAreaVerilog:sha256_core|controller:b2v_inst2"
-Warning (10230): Verilog HDL assignment warning at controller.v(63): truncated value with size 32 to match size of target (6)
-Warning (10230): Verilog HDL assignment warning at controller.v(115): truncated value with size 32 to match size of target (4)
+Warning (10230): Verilog HDL assignment warning at controller.v(58): truncated value with size 32 to match size of target (6)
+Warning (10230): Verilog HDL assignment warning at controller.v(100): truncated value with size 32 to match size of target (4)
 Info (12128): Elaborating entity "altera_merlin_master_translator" for hierarchy "system:Nios_system|altera_merlin_master_translator:nios2_qsys_0_instruction_master_translator"
 Info (12128): Elaborating entity "altera_merlin_master_translator" for hierarchy "system:Nios_system|altera_merlin_master_translator:nios2_qsys_0_data_master_translator"
 Info (12128): Elaborating entity "altera_merlin_slave_translator" for hierarchy "system:Nios_system|altera_merlin_slave_translator:nios2_qsys_0_jtag_debug_module_translator"
@@ -3738,27 +3647,23 @@ Info (12128): Elaborating entity "system_rsp_xbar_mux" for hierarchy "system:Nio
 Info (12128): Elaborating entity "altera_merlin_arbitrator" for hierarchy "system:Nios_system|system_rsp_xbar_mux:rsp_xbar_mux|altera_merlin_arbitrator:arb"
 Info (12128): Elaborating entity "altera_merlin_arb_adder" for hierarchy "system:Nios_system|system_rsp_xbar_mux:rsp_xbar_mux|altera_merlin_arbitrator:arb|altera_merlin_arb_adder:adder"
 Info (12128): Elaborating entity "system_irq_mapper" for hierarchy "system:Nios_system|system_irq_mapper:irq_mapper"
-Warning (12241): 6 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Warning (12241): 4 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Info (13000): Registers with preset signals will power-up high
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
 Info (17049): 14 registers lost all their fanouts during netlist optimizations.
-Info (13000): Registers with preset signals will power-up high
-Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
-Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "sld_hub:auto_hub|receive[0][0]" is stuck at GND
 Info (144001): Generated suppressed messages file D:/CodeVS/SOC/SHA256_QuartusProject/output_files/sha256_optimizePowerArea.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 6905 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 6899 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 5 input pins
     Info (21059): Implemented 1 output pins
-    Info (21061): Implemented 6722 logic cells
+    Info (21061): Implemented 6716 logic cells
     Info (21064): Implemented 176 RAM segments
-Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 67 warnings
-    Info: Peak virtual memory: 4724 megabytes
-    Info: Processing ended: Wed May 21 13:42:01 2025
-    Info: Elapsed time: 00:00:30
-    Info: Total CPU time (on all processors): 00:00:29
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 17 warnings
+    Info: Peak virtual memory: 4733 megabytes
+    Info: Processing ended: Thu May 22 23:21:24 2025
+    Info: Elapsed time: 00:00:24
+    Info: Total CPU time (on all processors): 00:00:24
 
 
 +------------------------------------------+

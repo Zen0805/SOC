@@ -2,153 +2,155 @@
 #include <stdint.h>
 #include "system.h"
 #include "io.h"
+#include "input.h"
 
-
-#define SHA256_CONTROL_REG_OFFSET    (0x00 * 4)
-#define SHA256_DATA_IN_REG_OFFSET    (0x01 * 4)
-#define SHA256_STATUS_REG_OFFSET     (0x1A * 4)
-#define SHA256_HASH_OUT_0_OFFSET     (0x12 * 4)
-
-
-#define SHA256_CONTROL_START_BIT     0x00000001
-
-int main() {
-
-    
-
-    const uint32_t input_block_1[16] = {
-        0x61646277, // 0x01
-        0x70696662, // 0x02
-        0x61776670, // 0x03
-        0x69616662, // 0x04
-        0x7366736B, // 0x05
-        0x61666A62, // 0x06
-        0x77666961, // 0x07
-        0x6A776276, // 0x08
-        0x66617078, // 0x09
-        0x62616677, // 0x0A
-        0x66616A69, // 0x0B
-        0x62667769, // 0x0C
-        0x66626161, // 0x0D
-        0x6469776A, // 0x0E
-        0x6277696F, // 0x0F
-        0x66627561  // 0x10
-    };
-
-
-    const uint32_t input_block_2[16] = {
-        
-        0x73706f69, 0x67626167, 0x69707767, 0x62617767,
-        0x61800000, 0x00000000, 0x00000000, 0x00000000,
-        0x00000000, 0x00000000, 0x00000000, 0x00000000,
-        0x00000000, 0x00000000, 0x00000000, 0x00000288
-
-    };
+#define SHA256_CONTROL_REG_OFFSET (0x00 * 4)
+#define SHA256_DATA_IN_REG_OFFSET (0x01 * 4)
+#define SHA256_STATUS_REG_OFFSET (0x1A * 4)
+#define SHA256_HASH_OUT_0_OFFSET (0x12 * 4)
 
 
 
-    uint32_t status, control;
+uint32_t status, control;
+uint32_t calculated_hash[8];
 
-    uint32_t calculated_hash[8];
-
-    printf("Nios II SHA-256 Test\n");
-    printf("IP Base Address: 0x%08lx\n", (unsigned long)SHA_256_IP_0_BASE);
-
+void reset_control_reg()
+{
+    // Reset control register
     IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET, 0x00000000);
     control = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET);
-    printf("control luc moi bat he thong: 0x%08lx\n", (unsigned long)control);
+    printf("Control_reg khi vua bat he thong: 0x%08lx\n", (unsigned long)control);
+}
 
-    //START IP
-    IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET, 0x00000001);
-
-    //doc 2 thanh ghi control, status
+void start_hashing_printf(const uint32_t *block){
+        // Doc control, status
     control = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET);
     status = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_STATUS_REG_OFFSET);
 
-    printf("\n--- Block 1 ---\n");
+    printf("control: 0x%08lx\n", (unsigned long)control);
+    printf("status: 0x%08lx\n", (unsigned long)status);
 
-    //doc ket qua neu status la done
-    printf("control sau khi duoc start: 0x%08lx\n", (unsigned long)control);
-    printf("status:  0x%08lx\n", (unsigned long)status);
-
-    //nap 16 word
+    // Load 16 word
     int i = 0;
-    for (i = 0; i < 16; i++) {
-          IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_DATA_IN_REG_OFFSET + (i * 4), input_block_1[i]);
-      }
-    printf("Nap xong 16 word block 1.\n");
+    for (i = 0; i < 16; i++)
+    {
+        IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_DATA_IN_REG_OFFSET + (i * 4), block[i]);
+    }
+    printf("Nap xong 16 word.\n");
 
-    while (1) {
-    	status = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_STATUS_REG_OFFSET);
-    	if (status == 0x00000001) {
-    		printf("IP da tinh xong, DONE = 1\n");
-    		break;
-    	}
+    while (1)
+    {
+        status = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_STATUS_REG_OFFSET);
+        if (status == 0x00000001)
+        {
+            printf("IP da tinh xong, DONE = 1\n");
+            break;
+        }
     }
 
+    // Cap nhat thanh ghi control truoc khi in ket qua, chuan bi nap de chay input moi hoac block moi
     IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET, 0x00000010);
     control = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET);
-
     printf("control: 0x%08lx\n", (unsigned long)control);
 
-    //print ket qua
-
+    // Print ket qua
     i = 0;
-    for (i = 0; i < 8; i++) {
-		calculated_hash[i] = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_HASH_OUT_0_OFFSET + (i * 4));
-	}
+    for (i = 0; i < 8; i++)
+    {
+        calculated_hash[i] = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_HASH_OUT_0_OFFSET + (i * 4));
+    }
 
     printf("Ket qua hash: ");
+    i = 0;
+    for (i = 0; i < 8; i++)
+    {
+        printf("%08lx", (unsigned long)calculated_hash[i]);
+    }
+    printf("\n");
+}
 
-	for (i = 0; i < 8; i++) {
-		printf("%08lx", (unsigned long)calculated_hash[i]);
-	}
-	printf("\n");
+void start_new_block(const uint32_t *block, int input_num, int block_num)
+{
+    if(block_num == 1){
+        printf("\n---------------------------------New Input: %d---------------------------------\n", input_num);
 
+        printf("\n--- Block 1 ---\n");
+        // Start IP + Reset output register
+        // 01 : Start new input
+        IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET, 0x00000001);
+        start_hashing_printf(block);
+    }
+    else{
+        printf("\n--- Block %d ---\n", block_num);
+        // Start IP + Not reset output register
+        IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET, 0x00000011);
+        start_hashing_printf(block);
+    }
 
+}
 
-     //Bat dau block 2
-     printf("\n--- Block 2 ---\n");
+int main()
+{
 
-     IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET, 0x00000011);
+    printf("Nios II SHA-256 Test\n");
+	printf("IP Base Address: 0x%08lx\n", (unsigned long)SHA_256_IP_0_BASE);
 
-     control = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET);
+    reset_control_reg();
 
-     printf("control block tiep theo: 0x%08lx\n", (unsigned long)control);  //sau nay sua thanh neu la input thi sua text lai
+    int a = 0;
+    for (a = 0; a < NUM_INPUTS; a++){
+        switch (a + 1)
+        {
+        case 1:
+            // Input 1: 1 block
+            start_new_block(input1_blocks1, 1, 1);
+            break;
 
-     i = 0;
-     for (i = 0; i < 16; i++) {
-           IOWR_32DIRECT(SHA_256_IP_0_BASE, SHA256_DATA_IN_REG_OFFSET + (i * 4), input_block_2[i]);
-       }
-     printf("Nap xong 16 word block 2.\n");
-
-
-
-     while (1) {
-     	status = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_STATUS_REG_OFFSET);
-     	if (status == 0x00000001) {
-     		printf("IP da tinh xong, DONE = 1\n");
-     		break;
-     	}
-     }
-
-
-     control = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_CONTROL_REG_OFFSET);
-
-     printf("control: 0x%08lx\n", (unsigned long)control);
-
-
-
-     i = 0;
-     for (i = 0; i < 8; i++) {
-	 	calculated_hash[i] = IORD_32DIRECT(SHA_256_IP_0_BASE, SHA256_HASH_OUT_0_OFFSET + (i * 4));
-	 }
-
-     printf("Ket qua hash: ");
-
-	 for (i = 0; i < 8; i++) {
-	 	printf("%08lx", (unsigned long)calculated_hash[i]);
-	 }
-	 printf("\n");
+        case 2:
+            // Input 2: 2 blocks
+            start_new_block(input2_blocks1, 2, 1);
+            start_new_block(input2_blocks2, 2, 2);
+            break;
+        case 3:
+            // Input 3: 2 blocks
+            start_new_block(input3_blocks1, 3, 1);
+            start_new_block(input3_blocks2, 3, 2);
+            break;
+        case 4:
+            // Input 4: 1 block
+            start_new_block(input4_blocks1, 4, 1);
+            break;
+        case 5:
+            // Input 5: 1 block
+            start_new_block(input5_blocks1, 5, 1);
+            break;
+        case 6:
+            // Input 6: 2 blocks
+            start_new_block(input6_blocks1, 6, 1);
+            start_new_block(input6_blocks2, 6, 2);
+            break;
+        case 7:
+            // Input 7: 1 block
+            start_new_block(input7_blocks1, 7, 1);
+            break;
+        case 8:
+            // Input 8: 1 block
+            start_new_block(input8_blocks1, 8, 1);
+            break;
+        case 9:
+            // Input 9: 3 blocks
+            start_new_block(input9_blocks1, 9, 1);
+            start_new_block(input9_blocks2, 9, 2);
+            start_new_block(input9_blocks3, 9, 3);
+            break;
+        case 10:
+            // Input 10: 1 block
+            start_new_block(input10_blocks1, 10, 1);
+            break;
+        
+        default:
+            break;
+        }
+    }
     return 0;
 }
